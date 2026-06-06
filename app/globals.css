@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 44 38% 97%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --primary: 219 80% 21%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 43 89% 39%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 18% 95%;
+    --muted-foreground: 215 16% 39%;
+    --accent: 220 48% 96%;
+    --accent-foreground: 219 80% 21%;
+    --border: 214 20% 86%;
+    --input: 214 20% 86%;
+    --ring: 154 78% 22%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.font-display {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+@layer components {
+  .prose-school {
+    @apply max-w-none text-foreground;
+  }
+
+  .prose-school h2 {
+    @apply mt-10 text-2xl font-bold tracking-tight;
+  }
+
+  .prose-school h3 {
+    @apply mt-8 text-xl font-semibold;
+  }
+
+  .prose-school p {
+    @apply mt-4 leading-7 text-muted-foreground;
+  }
+
+  .prose-school ul {
+    @apply mt-4 list-disc space-y-2 pl-6 text-muted-foreground;
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "albums": [
+    {
+      "title": "Campus Views",
+      "slug": "campus-views",
+      "description": "Selected views of classrooms, walkways and school grounds.",
+      "coverImage": "/images/campus.svg",
+      "photos": [
+        { "src": "/images/campus.svg", "alt": "ANSECO campus view" },
+        { "src": "/images/classroom.svg", "alt": "Classroom block placeholder" },
+        { "src": "/images/library.svg", "alt": "Library study area placeholder" }
+      ]
+    },
+    {
+      "title": "Student Life",
+      "slug": "student-life",
+      "description": "Study, clubs and daily student activities.",
+      "coverImage": "/images/students.svg",
+      "photos": [
+        { "src": "/images/students.svg", "alt": "Students on campus placeholder" },
+        { "src": "/images/classroom.svg", "alt": "Students in class placeholder" },
+        { "src": "/images/library.svg", "alt": "Students studying placeholder" }
+      ]
+    },
+    {
+      "title": "Sports",
+      "slug": "sports",
+      "description": "Inter-house games, training and sports day moments.",
+      "coverImage": "/images/sports.svg",
+      "photos": [
+        { "src": "/images/sports.svg", "alt": "Sports field placeholder" },
+        { "src": "/images/inter-house.svg", "alt": "Inter-house activities placeholder" },
+        { "src": "/images/students.svg", "alt": "Student supporters placeholder" }
+      ]
+    },
+    {
+      "title": "Cultural Activities",
+      "slug": "cultural-activities",
+      "description": "Cultural day, performances and student creativity.",
+      "coverImage": "/images/cultural-day.svg",
+      "photos": [
+        { "src": "/images/cultural-day.svg", "alt": "Cultural day placeholder" },
+        { "src": "/images/students.svg", "alt": "Student gathering placeholder" },
+        { "src": "/images/campus.svg", "alt": "Assembly area placeholder" }
+      ]
+    }
+  ]
+}

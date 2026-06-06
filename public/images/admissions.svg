@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Admissions placeholder">
+  <rect width="1200" height="800" fill="#f6f7f8"/>
+  <rect x="180" y="150" width="840" height="500" rx="18" fill="#ffffff" stroke="#165f3d" stroke-width="8"/>
+  <path d="M330 390l120 120 300-310" fill="none" stroke="#2f7d57" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="260" y="585" width="620" height="45" fill="#f2c94c"/>
+  <text x="600" y="735" text-anchor="middle" font-family="Arial" font-size="44" font-weight="700" fill="#165f3d">Admissions</text>
+</svg>

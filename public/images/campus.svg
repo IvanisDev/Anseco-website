@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="ANSECO campus placeholder">
+  <rect width="1200" height="800" fill="#e8f3ed"/>
+  <rect x="0" y="560" width="1200" height="240" fill="#2f7d57"/>
+  <rect x="170" y="310" width="860" height="260" fill="#f8fafc" stroke="#1f5139" stroke-width="8"/>
+  <rect x="240" y="390" width="90" height="90" fill="#dbeafe"/>
+  <rect x="400" y="390" width="90" height="90" fill="#dbeafe"/>
+  <rect x="560" y="390" width="90" height="90" fill="#dbeafe"/>
+  <rect x="720" y="390" width="90" height="90" fill="#dbeafe"/>
+  <rect x="880" y="390" width="90" height="90" fill="#dbeafe"/>
+  <polygon points="120,320 600,160 1080,320" fill="#f2c94c" stroke="#1f5139" stroke-width="8"/>
+  <text x="600" y="675" text-anchor="middle" font-family="Arial" font-size="54" font-weight="700" fill="#ffffff">ANLO SENIOR HIGH SCHOOL</text>
+</svg>

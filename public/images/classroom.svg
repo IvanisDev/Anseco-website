@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Classroom placeholder">
+  <rect width="1200" height="800" fill="#f6f7f8"/>
+  <rect x="120" y="120" width="960" height="460" fill="#ffffff" stroke="#334155" stroke-width="8"/>
+  <rect x="190" y="180" width="450" height="230" fill="#165f3d"/>
+  <rect x="720" y="180" width="210" height="180" fill="#dbeafe"/>
+  <rect x="220" y="620" width="760" height="42" fill="#8b5e34"/>
+  <circle cx="315" cy="545" r="45" fill="#f2c94c"/>
+  <circle cx="600" cy="545" r="45" fill="#f2c94c"/>
+  <circle cx="885" cy="545" r="45" fill="#f2c94c"/>
+  <text x="600" y="750" text-anchor="middle" font-family="Arial" font-size="44" font-weight="700" fill="#165f3d">Classroom</text>
+</svg>

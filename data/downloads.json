@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "title": "Admissions Prospectus",
+      "filePath": "/downloads/prospectus.pdf",
+      "category": "Admissions",
+      "updatedAt": "2026-05-15"
+    },
+    {
+      "title": "Academic Calendar",
+      "filePath": "/downloads/academic-calendar.pdf",
+      "category": "Calendar",
+      "updatedAt": "2026-05-20"
+    },
+    {
+      "title": "Reporting Checklist",
+      "filePath": "/downloads/reporting-checklist.pdf",
+      "category": "Admissions",
+      "updatedAt": "2026-05-18"
+    }
+  ]
+}
