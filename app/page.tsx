@@ -36,7 +36,7 @@ export default function HomePage() {
   return (
     <div className="bg-[#F8F7F3]">
       <section className="relative flex min-h-[88vh] items-center overflow-hidden bg-[#061a43] text-white">
-        <Image src="/images/ama-anseco.png" alt="ANSECO campus statue and school grounds" fill priority className="object-cover opacity-70" />
+        <Image src="/images/optimized/ama-anseco.jpg" alt="ANSECO campus statue and school grounds" fill priority sizes="100vw" className="object-cover opacity-70" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#061a43] via-[#0D2E6B]/80 to-[#0D2E6B]/25" />
         <div className="relative z-10 mx-auto w-full max-w-[1500px] px-5 py-24 sm:px-8 lg:px-12">
           <div className="max-w-5xl">

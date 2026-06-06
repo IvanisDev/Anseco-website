@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 const sports = ["Football", "Athletics", "Table Tennis", "Volleyball", "Basketball", "Swimming"];
-const clubs = ["Science & Maths Club", "Debating & Public Speaking", "Environmental Club", "Red Cross Society", "Drama & Arts Club", "Press Club", "Christian Fellowship", "Student Leadership"];
+const clubs = ["Science & Maths Club", "Debating & Public Speaking", "Environmental Club", "Red Cross Society", "Drama & Arts Club", "Press Club", "Christian Fellowship", "Student Leadership", "Cadet Club"];
 const houses = [
   ["Nkrumah House", "Red", "#DC2626"],
   ["Awooner-Williams House", "Blue", "#1D4ED8"],

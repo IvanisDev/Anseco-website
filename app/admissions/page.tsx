@@ -37,6 +37,31 @@ export default function AdmissionsPage() {
   return (
     <div className="bg-[#F8F7F3]">
       <PageHeader title="Admissions Guide" eyebrow="Joining ANSECO" description="Step-by-step guidance for new students and parents. Prepare early, download the checklist and contact the school when you need help." />
+      <section id="admission-overview" className="bg-white py-16">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <h2 className="mb-8 text-4xl font-black tracking-tight text-[#1A1A2E] sm:text-5xl">Admission Overview</h2>
+          <div className="space-y-7 text-lg leading-9 text-[#3F3F46]">
+            <p>
+              Anlo Senior High School is a respected senior high school in Anloga with a strong tradition of academic discipline, character formation and service. Admission into ANSECO is guided by Ghana Education Service procedures and the Computerized School Selection and Placement System, with the school supporting placed students and parents through reporting, registration and orientation.
+            </p>
+            <p>
+              <strong className="font-black text-[#2F2F35]">Eligibility:</strong> To be eligible for admission, applicants must have completed Junior High School and must satisfy the requirements of the national placement process. Students placed at ANSECO are expected to report with the required documents, personal items and parent or guardian information listed in the school reporting checklist.
+            </p>
+            <p>
+              <strong className="font-black text-[#2F2F35]">Computerized School Selection and Placement System (CSSPS):</strong> Senior high school admission in Ghana is normally coordinated through CSSPS. The system places qualified students into schools and programmes based on national placement guidelines, student choices, available vacancies and examination performance.
+            </p>
+            <p>
+              <strong className="font-black text-[#2F2F35]">Placement and Programme Selection:</strong> Students admitted to ANSECO join one of the school&apos;s academic pathways, including General Arts, General Science, Business, Agricultural Science, Home Economics and Visual Arts. Programme placement should be reviewed carefully by parents and students before reporting, especially where specific subject combinations are required.
+            </p>
+            <p>
+              <strong className="font-black text-[#2F2F35]">Merit and Readiness:</strong> ANSECO welcomes students who are prepared to learn, live responsibly and contribute positively to the school community. The admissions process is designed to help new students begin senior high school with the right documents, expectations and support.
+            </p>
+            <p>
+              We look forward to welcoming new students and families to ANSECO. Parents are encouraged to read the full admissions guide below, download the reporting checklist and contact the school office early if they need clarification before reporting day.
+            </p>
+          </div>
+        </div>
+      </section>
       <section id="how-to-apply" className="py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10 text-center">

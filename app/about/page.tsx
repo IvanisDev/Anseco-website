@@ -80,6 +80,47 @@ export default function AboutPage() {
         </p>
       </section>
 
+      <section id="headmaster-message" className="bg-white px-5 py-20 sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-[1160px] gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+          <div className="overflow-hidden bg-[#0D2E6B] shadow-[0_20px_50px_rgba(13,46,107,0.12)]">
+            <div className="flex aspect-[4/5] items-center justify-center bg-[#EDF1F9] p-10 text-center">
+              <div>
+                <div className="mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-full bg-[#0D2E6B] text-2xl font-black text-[#C9990A]">
+                  HM
+                </div>
+                <p className="text-sm font-black uppercase tracking-[0.18em] text-[#0D2E6B]">Headmaster</p>
+                <p className="mt-2 text-xs text-[#64748B]">Portrait to be updated</p>
+              </div>
+            </div>
+            <div className="p-6 text-white">
+              <p className="text-lg font-black">Headmaster / Headmistress</p>
+              <p className="mt-1 text-sm text-white/60">Anlo Senior High School</p>
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Leadership Message</p>
+            <h2 className="font-display mb-7 text-3xl font-bold leading-tight text-[#0D2E6B] sm:text-4xl">
+              Message from Our Headmaster
+            </h2>
+            <div className="space-y-5 text-base leading-8 text-[#334155]">
+              <p>
+                Welcome to Anlo Senior High School, a community built on truth, service, discipline and purposeful learning. For more than six decades, ANSECO has prepared young people to think clearly, act responsibly and serve their families, communities and nation with pride.
+              </p>
+              <p>
+                Our work as a school is not limited to classroom success. We are committed to nurturing character, confidence, curiosity and respect for others. Every student who joins ANSECO becomes part of a tradition that values hard work, moral formation and steady academic progress.
+              </p>
+              <p>
+                I invite parents, students, alumni and friends of the school to continue partnering with us as we strengthen teaching, improve student welfare and create opportunities for every learner to discover their potential.
+              </p>
+              <p className="font-semibold text-[#0D2E6B]">
+                Together, we will keep raising the star of Anlo land through truth and service.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="history" className="px-5 py-20 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-[1160px] gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
           <div>

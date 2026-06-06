@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 };
 
 const programmeMeta: Record<string, { image: string; tagline: string }> = {
-  "general-arts": { image: "/images/programmes/general-arts.png", tagline: "Humanities, Languages & Social Science" },
-  "general-science": { image: "/images/programmes/general-science.png", tagline: "Physics, Chemistry, Biology & Mathematics" },
-  business: { image: "/images/programmes/business.png", tagline: "Accounting, Economics & Management" },
-  "agricultural-science": { image: "/images/programmes/agricultural-science.png", tagline: "Animal Science, Crop Science & Agribusiness" },
-  "home-economics": { image: "/images/programmes/home-economics.png", tagline: "Food, Nutrition & Management" },
-  "visual-arts": { image: "/images/programmes/visual-arts.png", tagline: "Design, Fine Art & Creative Practice" }
+  "general-arts": { image: "/images/optimized/general-arts.jpg", tagline: "Humanities, Languages & Social Science" },
+  "general-science": { image: "/images/optimized/general-science.jpg", tagline: "Physics, Chemistry, Biology & Mathematics" },
+  business: { image: "/images/optimized/business.jpg", tagline: "Accounting, Economics & Management" },
+  "agricultural-science": { image: "/images/optimized/agricultural-science.jpg", tagline: "Animal Science, Crop Science & Agribusiness" },
+  "home-economics": { image: "/images/optimized/home-economics.jpg", tagline: "Food, Nutrition & Management" },
+  "visual-arts": { image: "/images/optimized/visual-arts.jpg", tagline: "Design, Fine Art & Creative Practice" }
 };
 
 export default function ProgrammesPage() {

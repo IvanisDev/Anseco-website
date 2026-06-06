@@ -69,9 +69,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-3 pt-6 sm:flex-row">
-          <p className="text-center text-xs text-white/40 sm:text-left">© {new Date().getFullYear()} Anlo Senior High School (ANSECO). All rights reserved.</p>
-          <p className="text-center text-xs text-white/40 sm:text-right">Truth and Service</p>
+        <div className="pt-6">
+          <p className="text-center text-xs text-white/40">© {new Date().getFullYear()} Anlo Senior High School (ANSECO). All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, ChevronRight, Menu, Search, X } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnsecoCrest } from "@/components/anseco-crest";
 import { siteConfig } from "@/config/site";
 
@@ -18,15 +18,31 @@ const navLinks: NavLink[] = [
   { label: "About", href: "/about" },
   { label: "Admissions", href: "/admissions" },
   {
-    label: "Programmes",
+    label: "Academics",
     href: "/programmes",
     children: [
-      { label: "General Arts", href: "/programmes/general-arts" },
-      { label: "General Science", href: "/programmes/general-science" },
-      { label: "Business", href: "/programmes/business" },
-      { label: "Agricultural Science", href: "/programmes/agricultural-science" },
-      { label: "Home Economics", href: "/programmes/home-economics" },
-      { label: "Visual Arts", href: "/programmes/visual-arts" }
+      {
+        label: "Departments",
+        href: "/programmes",
+        children: [
+          { label: "General Arts", href: "/programmes/general-arts" },
+          { label: "General Science", href: "/programmes/general-science" },
+          { label: "Business", href: "/programmes/business" },
+          { label: "Agricultural Science", href: "/programmes/agricultural-science" },
+          { label: "Home Economics", href: "/programmes/home-economics" },
+          { label: "Visual Arts", href: "/programmes/visual-arts" }
+        ]
+      },
+      {
+        label: "Resources",
+        href: "/resources",
+        children: [
+          { label: "Library", href: "/resources#library" },
+          { label: "Dining Hall", href: "/resources#dining" },
+          { label: "Labs", href: "/resources#labs" },
+          { label: "Campus Tour", href: "/resources#campus-tour" }
+        ]
+      }
     ]
   },
   {
@@ -48,23 +64,14 @@ const navLinks: NavLink[] = [
       { label: "Alumni", href: "/alumni" }
     ]
   },
-  {
-    label: "Resources",
-    href: "/resources",
-    children: [
-      { label: "Library", href: "/resources#library" },
-      { label: "Dining Hall", href: "/resources#dining" },
-      { label: "Labs", href: "/resources#labs" },
-      { label: "Campus Tour", href: "/resources#campus-tour" }
-    ]
-  },
   { label: "Contact Us", href: "/contact" }
 ];
 
 const searchItems = [
   { label: "About ANSECO", href: "/about", description: "History, mission, values and leadership" },
   { label: "Admissions", href: "/admissions", description: "Application steps, requirements, FAQs and downloads" },
-  { label: "Programmes", href: "/programmes", description: "Academic pathways offered at ANSECO" },
+  { label: "Academics", href: "/programmes", description: "Academic pathways offered at ANSECO" },
+  { label: "Departments", href: "/programmes", description: "Academic departments and programmes" },
   { label: "General Arts", href: "/programmes/general-arts", description: "Programme details and sample subjects" },
   { label: "General Science", href: "/programmes/general-science", description: "Programme details and sample subjects" },
   { label: "Business", href: "/programmes/business", description: "Programme details and sample subjects" },
@@ -82,6 +89,7 @@ const searchItems = [
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openSubDropdown, setOpenSubDropdown] = useState<string | null>(null);
@@ -95,15 +103,43 @@ export function SiteHeader() {
     : searchItems.slice(0, 6)
   ).slice(0, 7);
 
-  function closeNavigation() {
+  const closeSearch = useCallback(() => {
+    setSearchOpen(false);
+    setSearchQuery("");
+  }, []);
+
+  const closeNavigation = useCallback(() => {
     setMobileOpen(false);
     setOpenDropdown(null);
     setOpenSubDropdown(null);
-    setSearchOpen(false);
-  }
+    setMobileExpanded(null);
+    setMobileSubExpanded(null);
+    closeSearch();
+  }, [closeSearch]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    function handlePointerDown(event: PointerEvent) {
+      if (headerRef.current?.contains(event.target as Node)) return;
+      closeNavigation();
+    }
+
+    function handleScroll() {
+      closeNavigation();
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [mobileOpen, closeNavigation]);
 
   return (
-    <header className="sticky top-0 z-50 border-b-4 border-[#C9990A] bg-[#061a43] text-white shadow-[0_18px_40px_rgba(6,26,67,0.24)]">
+    <header ref={headerRef} className="sticky top-0 z-50 border-b-4 border-[#C9990A] bg-[#061a43] text-white shadow-[0_18px_40px_rgba(6,26,67,0.24)]">
       <div className="w-full px-5 sm:px-8 lg:px-12">
         <div className="flex h-20 items-center justify-between">
           <Link href="/" className="flex items-center gap-4 hover:opacity-90" onClick={() => setMobileOpen(false)}>
@@ -158,9 +194,14 @@ export function SiteHeader() {
                 type="button"
                 aria-label="Search site"
                 aria-expanded={searchOpen}
-                className="border border-white/20 p-2.5 text-white/90 transition-colors hover:border-[#C9990A] hover:bg-white/10 hover:text-white"
+                className="border border-white/20 p-2.5 text-white/90 transition-all duration-200 hover:border-[#C9990A] hover:bg-white/10 hover:text-white active:scale-95"
                 onClick={() => {
-                  setSearchOpen((value) => !value);
+                  if (searchOpen) {
+                    closeSearch();
+                  } else {
+                    setSearchQuery("");
+                    setSearchOpen(true);
+                  }
                   setOpenDropdown(null);
                   setOpenSubDropdown(null);
                 }}
@@ -168,7 +209,7 @@ export function SiteHeader() {
                 <Search size={19} />
               </button>
               {searchOpen ? (
-                <div className="absolute right-0 top-14 z-50 w-80 border-t-4 border-[#C9990A] bg-white p-3 text-[#1A1A2E] shadow-2xl">
+                <div className="absolute right-0 top-14 z-50 w-80 animate-in fade-in-0 slide-in-from-top-2 duration-200 border-t-4 border-[#C9990A] bg-white p-3 text-[#1A1A2E] shadow-2xl">
                   <label className="sr-only" htmlFor="site-search">Search ANSECO</label>
                   <div className="flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2 focus-within:border-[#0D2E6B]">
                     <Search size={16} className="text-gray-400" />
@@ -178,7 +219,7 @@ export function SiteHeader() {
                       value={searchQuery}
                       onChange={(event) => setSearchQuery(event.target.value)}
                       onKeyDown={(event) => {
-                        if (event.key === "Escape") setSearchOpen(false);
+                        if (event.key === "Escape") closeSearch();
                         if (event.key === "Enter" && searchResults[0]) window.location.href = searchResults[0].href;
                       }}
                       placeholder="Search pages..."
@@ -202,7 +243,18 @@ export function SiteHeader() {
             </div>
           </div>
 
-          <button className="rounded-md p-2 transition-colors hover:bg-white/10 lg:hidden" type="button" aria-label="Toggle menu" onClick={() => setMobileOpen(!mobileOpen)}>
+          <button
+            className="rounded-md p-2 transition-all duration-200 hover:bg-white/10 active:scale-95 lg:hidden"
+            type="button"
+            aria-label="Toggle menu"
+            onClick={() => {
+              if (mobileOpen) {
+                closeNavigation();
+              } else {
+                setMobileOpen(true);
+              }
+            }}
+          >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>

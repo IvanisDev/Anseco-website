@@ -1,25 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { BookOpen, ChevronRight, FlaskConical, Monitor, Utensils } from "lucide-react";
+import { BookOpen, ChevronRight, FlaskConical, Monitor, Play, Utensils } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 
 export const metadata: Metadata = {
   title: "Resources",
   description: "Campus resources and facilities available to ANSECO students."
 };
-
-const libraryStats = [
-  ["5,000+", "Textbooks & References"],
-  ["120", "Study Seats"],
-  ["Mon-Sat", "Opening Days"],
-  ["GHC45K+", "OSA Donation (2024)"]
-];
-
-const mealTimes = [
-  ["Breakfast", "6:00 AM - 7:00 AM"],
-  ["Lunch", "12:30 PM - 1:30 PM"],
-  ["Dinner", "6:30 PM - 7:30 PM"]
-];
 
 const labs = [
   {
@@ -51,6 +38,8 @@ const tourItems = [
   "Sports fields and athletics track"
 ];
 
+const campusTourUrl = "https://www.youtube.com/";
+
 export default function ResourcesPage() {
   return (
     <div className="bg-[#F8F7F3]">
@@ -70,14 +59,6 @@ export default function ResourcesPage() {
               <p>
                 In 2024, the Old Students Association donated over <strong>GHC45,000</strong> worth of new library resources, significantly expanding the collection.
               </p>
-            </div>
-            <div className="mt-7 grid grid-cols-2 gap-3">
-              {libraryStats.map(([value, label]) => (
-                <div key={label} className="rounded-lg bg-[#EDF1F9] p-4">
-                  <div className="text-lg font-black text-[#0D2E6B]">{value}</div>
-                  <div className="mt-1 text-xs text-[#64748B]">{label}</div>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -110,14 +91,6 @@ export default function ResourcesPage() {
                 Students with specific dietary requirements or health conditions should notify the school at the start of term so appropriate accommodations can be made.
               </p>
             </div>
-            <div className="mt-7 space-y-3">
-              {mealTimes.map(([meal, time]) => (
-                <div key={meal} className="flex items-center justify-between rounded-lg bg-white px-4 py-3 text-sm shadow-sm">
-                  <span className="font-bold text-[#0D2E6B]">{meal}</span>
-                  <span className="text-xs text-[#64748B]">{time}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -145,10 +118,10 @@ export default function ResourcesPage() {
       <section id="campus-tour" className="bg-[#0D2E6B] py-20 text-white">
         <div className="mx-auto grid max-w-[1160px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:px-12">
           <div>
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Visit Us</p>
-            <h2 className="font-display mb-5 text-3xl font-bold leading-tight sm:text-4xl">Campus Tour</h2>
+            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Virtual Visit</p>
+            <h2 className="font-display mb-5 text-3xl font-bold leading-tight sm:text-4xl">Tour ANSECO Campus</h2>
             <p className="mb-7 text-sm leading-7 text-white/70">
-              Prospective students and their families are welcome to visit the ANSECO campus. Tours are conducted on school days between 9:00 AM and 3:00 PM. Prior notice is appreciated.
+              Watch our campus tour to get a closer look at the spaces where ANSECO students learn, live, study and build community. This video is a helpful first step for prospective students, parents and alumni who want to explore the school from anywhere.
             </p>
             <div className="space-y-4">
               {tourItems.map((item) => (
@@ -158,12 +131,28 @@ export default function ResourcesPage() {
                 </div>
               ))}
             </div>
-            <p className="mt-9 text-xs text-white/45">To schedule a visit, contact the school office at least 48 hours in advance.</p>
+            <a href={campusTourUrl} target="_blank" rel="noreferrer" className="mt-9 inline-flex items-center gap-3 bg-[#C9990A] px-6 py-3 text-sm font-black text-white transition-colors hover:bg-[#b8880a]">
+              Watch Campus Tour <ChevronRight size={16} />
+            </a>
           </div>
 
-          <div className="relative h-72 overflow-hidden rounded-2xl bg-white/10 sm:h-80">
-            <Image src="/images/campus.svg" alt="ANSECO campus illustration" fill sizes="580px" className="object-cover" />
-          </div>
+          <a href={campusTourUrl} target="_blank" rel="noreferrer" className="group block overflow-hidden rounded-2xl bg-white/10 shadow-[0_22px_60px_rgba(0,0,0,0.22)]">
+            <div className="relative h-72 bg-[#EDF1F9] sm:h-80">
+              <Image src="/images/campus.svg" alt="ANSECO campus tour video thumbnail" fill sizes="580px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+              <div className="absolute inset-0 flex items-center justify-center bg-[#061a43]/18 transition-colors group-hover:bg-[#061a43]/28">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-red-600 text-white shadow-[0_18px_42px_rgba(0,0,0,0.28)] transition-transform group-hover:scale-105">
+                  <Play size={34} fill="currentColor" className="ml-1" />
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-between gap-4 bg-white p-5 text-[#0D2E6B]">
+              <div>
+                <p className="text-sm font-black">ANSECO Campus Tour</p>
+                <p className="mt-1 text-xs text-[#64748B]">Click to watch on YouTube</p>
+              </div>
+              <ChevronRight size={18} className="shrink-0 text-[#C9990A]" />
+            </div>
+          </a>
         </div>
       </section>
     </div>
