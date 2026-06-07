@@ -37,7 +37,7 @@ export default function AdmissionsPage() {
   return (
     <div className="bg-[#F8F7F3]">
       <PageHeader title="Admissions Guide" eyebrow="Joining ANSECO" description="Step-by-step guidance for new students and parents. Prepare early, download the checklist and contact the school when you need help." />
-      <section id="admission-overview" className="bg-white py-16">
+      <section id="admission-overview" className="scroll-mt-28 bg-white py-16">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <h2 className="mb-8 text-4xl font-black tracking-tight text-[#1A1A2E] sm:text-5xl">Admission Overview</h2>
           <div className="space-y-7 text-lg leading-9 text-[#3F3F46]">
@@ -62,7 +62,7 @@ export default function AdmissionsPage() {
           </div>
         </div>
       </section>
-      <section id="how-to-apply" className="py-16">
+      <section id="how-to-apply" className="scroll-mt-28 py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#C9990A]">Step by Step</p>
@@ -82,7 +82,7 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      <section id="programmes" className="bg-white py-16">
+      <section id="programmes" className="scroll-mt-28 bg-white py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -108,7 +108,7 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      <section id="requirements" className="bg-white py-16">
+      <section id="requirements" className="scroll-mt-28 bg-white py-16">
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
           <div>
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#C9990A]">What to Bring</p>
@@ -122,7 +122,7 @@ export default function AdmissionsPage() {
               ))}
             </ul>
           </div>
-          <div id="downloads">
+          <div id="downloads" className="scroll-mt-28">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#C9990A]">Resources</p>
             <h2 className="font-display mb-5 text-2xl text-[#0D2E6B]">Download Documents</h2>
             <div className="space-y-3">
@@ -143,7 +143,7 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      <section id="faqs" className="py-16">
+      <section id="faqs" className="scroll-mt-28 py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#C9990A]">Common Questions</p>
@@ -165,7 +165,7 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      <section className="bg-[#0D2E6B] py-14 text-white">
+      <section id="admissions-contact" className="scroll-mt-28 bg-[#0D2E6B] py-14 text-white">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#C9990A]">Still Have Questions?</p>
           <h2 className="font-display mb-3 text-2xl sm:text-3xl">Contact Our Admissions Office</h2>

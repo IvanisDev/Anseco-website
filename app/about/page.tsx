@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BookOpen, Heart, Lightbulb, Shield, Star, Users, UserRound } from "lucide-react";
+import { BookOpen, Heart, Lightbulb, Music2, Shield, Star, Users, UserRound } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -182,6 +182,60 @@ export default function AboutPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section id="school-anthem" className="bg-white px-5 py-20 sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-[1160px] gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
+          <div className="bg-[#0D2E6B] p-8 text-white shadow-[0_20px_50px_rgba(13,46,107,0.12)]">
+            <div className="mb-10 flex h-16 w-16 items-center justify-center rounded-[18px] bg-[#C9990A]/25 text-[#E4B52B]">
+              <Music2 size={30} strokeWidth={2.2} />
+            </div>
+            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">School Spirit</p>
+            <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl">School Anthem</h2>
+            <p className="mt-6 text-base leading-8 text-white/65">
+              The ANSECO anthem is part of the school&apos;s shared identity, sung to remind students of discipline, loyalty, service and pride in the school community.
+            </p>
+          </div>
+
+          <div className="border border-[#0D2E6B]/10 bg-[#F8F7F3] p-8 shadow-[0_20px_50px_rgba(13,46,107,0.06)]">
+            <div className="mb-8 flex items-center justify-between gap-6 border-b border-[#0D2E6B]/10 pb-6">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Official Lyrics</p>
+                <h3 className="font-display mt-2 text-2xl font-bold text-[#0D2E6B]">ANSECO School Anthem</h3>
+              </div>
+              <span className="hidden h-px flex-1 bg-[#C9990A]/40 sm:block" />
+            </div>
+            <div className="space-y-8 text-lg leading-9 text-[#334155]">
+              <div>
+                <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Verse</p>
+                <p>
+                  Oh Lord God bless Mother Anseco<br />
+                  The source of knowledge and wisdom<br />
+                  The producer of intellects<br />
+                  The star of Anlo land<br />
+                  With truth and service, we shall fight<br />
+                  To uphold her good name always
+                </p>
+              </div>
+              <div>
+                <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Chorus / Refrain</p>
+                <p>
+                  Long live mother Anseco<br />
+                  God bless you forever and ever
+                </p>
+              </div>
+              <div>
+                <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Repeat</p>
+                <p>
+                  With truth and service, we shall fight<br />
+                  To uphold her good name always<br />
+                  Long live mother ANSECO,<br />
+                  God bless you forever and ever.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

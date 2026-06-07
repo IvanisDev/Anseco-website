@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 const sports = ["Football", "Athletics", "Table Tennis", "Volleyball", "Basketball", "Swimming"];
 const clubs = ["Science & Maths Club", "Debating & Public Speaking", "Environmental Club", "Red Cross Society", "Drama & Arts Club", "Press Club", "Christian Fellowship", "Student Leadership", "Cadet Club"];
 const houses = [
-  ["Nkrumah House", "Red", "#DC2626"],
-  ["Awooner-Williams House", "Blue", "#1D4ED8"],
-  ["Mensah-Sarbah House", "Green", "#15803D"],
-  ["Agbodeka House", "Yellow", "#CA8A04"]
+  ["House One", "Yellow", "#CA8A04"],
+  ["House Two", "Green", "#15803D"],
+  ["House Three", "Red", "#DC2626"],
+  ["House Four", "Blue", "#1D4ED8"]
 ];
 
 export default function SchoolLifePage() {
@@ -48,7 +48,7 @@ export default function SchoolLifePage() {
       <Section id="student-government" icon={<Star size={18} />} kicker="Leadership" title="Student Government">
         <Grid items={["SRC", "School prefect body", "House prefects", "Class governors"]} prefix="Student leadership is developed through" />
       </Section>
-      <section id="alumni" className="bg-[#0D2E6B] py-16 text-white">
+      <section id="alumni" className="scroll-mt-28 bg-[#0D2E6B] py-16 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-2 flex items-center gap-3"><GraduationCap size={18} className="text-[#C9990A]" /><p className="text-xs font-bold uppercase tracking-widest text-[#C9990A]">Old Students</p></div>
           <h2 className="font-display mb-4 text-2xl sm:text-3xl">ANSECO Old Students Association</h2>
@@ -65,7 +65,7 @@ export default function SchoolLifePage() {
 
 function Section({ id, icon, kicker, title, children, white = false }: { id: string; icon: React.ReactNode; kicker: string; title: string; children: React.ReactNode; white?: boolean }) {
   return (
-    <section id={id} className={`py-16 ${white ? "bg-white" : "bg-[#F8F7F3]"}`}>
+    <section id={id} className={`scroll-mt-28 py-16 ${white ? "bg-white" : "bg-[#F8F7F3]"}`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-2 flex items-center gap-3 text-[#C9990A]">{icon}<p className="text-xs font-bold uppercase tracking-widest">{kicker}</p></div>
         <h2 className="font-display mb-8 text-2xl text-[#0D2E6B] sm:text-3xl">{title}</h2>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, ChevronRight, Menu, Search, X } from "lucide-react";
+import type { MouseEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnsecoCrest } from "@/components/anseco-crest";
 import { siteConfig } from "@/config/site";
@@ -15,8 +16,32 @@ type NavLink = {
 
 const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Admissions", href: "/admissions" },
+  {
+    label: "About",
+    href: "/about",
+    children: [
+      { label: "Overview", href: "/about" },
+      { label: "Headmaster Message", href: "/about#headmaster-message" },
+      { label: "History", href: "/about#history" },
+      { label: "Motto & Values", href: "/about#values" },
+      { label: "School Anthem", href: "/about#school-anthem" },
+      { label: "Management Team", href: "/about#management" },
+      { label: "Board of Directors", href: "/about#board" }
+    ]
+  },
+  {
+    label: "Admissions",
+    href: "/admissions",
+    children: [
+      { label: "Overview", href: "/admissions#admission-overview" },
+      { label: "How to Join", href: "/admissions#how-to-apply" },
+      { label: "Programmes", href: "/admissions#programmes" },
+      { label: "Requirements", href: "/admissions#requirements" },
+      { label: "Downloads", href: "/admissions#downloads" },
+      { label: "FAQs", href: "/admissions#faqs" },
+      { label: "Contact Office", href: "/admissions#admissions-contact" }
+    ]
+  },
   {
     label: "Academics",
     href: "/programmes",
@@ -60,10 +85,13 @@ const navLinks: NavLink[] = [
       { label: "Sports & Athletics", href: "/school-life#sports" },
       { label: "Clubs & Societies", href: "/school-life#clubs" },
       { label: "Boarding Life", href: "/school-life#boarding" },
-      { label: "Gallery", href: "/gallery" },
-      { label: "Alumni", href: "/alumni" }
+      { label: "School Houses", href: "/school-life#houses" },
+      { label: "Student Government", href: "/school-life#student-government" },
+      { label: "Community Building", href: "/school-life#community" }
     ]
   },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Alumni", href: "/alumni" },
   { label: "Contact Us", href: "/contact" }
 ];
 
@@ -90,6 +118,7 @@ const searchItems = [
 export function SiteHeader() {
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openSubDropdown, setOpenSubDropdown] = useState<string | null>(null);
@@ -98,10 +127,9 @@ export function SiteHeader() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const normalizedQuery = searchQuery.trim().toLowerCase();
-  const searchResults = (normalizedQuery
-    ? searchItems.filter((item) => `${item.label} ${item.description}`.toLowerCase().includes(normalizedQuery))
-    : searchItems.slice(0, 6)
-  ).slice(0, 7);
+  const searchResults = normalizedQuery
+    ? searchItems.filter((item) => `${item.label} ${item.description}`.toLowerCase().includes(normalizedQuery)).slice(0, 7)
+    : [];
 
   const closeSearch = useCallback(() => {
     setSearchOpen(false);
@@ -116,6 +144,22 @@ export function SiteHeader() {
     setMobileSubExpanded(null);
     closeSearch();
   }, [closeSearch]);
+
+  const handleNavLinkClick = useCallback((event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    const [hrefPath, hash] = href.split("#");
+    const currentPath = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
+    const targetPath = hrefPath.endsWith("/") && hrefPath !== "/" ? hrefPath.slice(0, -1) : hrefPath;
+
+    if (hash && targetPath === currentPath) {
+      const target = document.getElementById(hash);
+      if (target) {
+        event.preventDefault();
+        window.history.pushState(null, "", href);
+        closeNavigation();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [closeNavigation, pathname]);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -137,6 +181,21 @@ export function SiteHeader() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [mobileOpen, closeNavigation]);
+
+  useEffect(() => {
+    if (!searchOpen) return;
+
+    function handlePointerDown(event: PointerEvent) {
+      if (searchRef.current?.contains(event.target as Node)) return;
+      closeSearch();
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [searchOpen, closeSearch]);
 
   return (
     <header ref={headerRef} className="sticky top-0 z-50 border-b-4 border-[#C9990A] bg-[#061a43] text-white shadow-[0_18px_40px_rgba(6,26,67,0.24)]">
@@ -170,14 +229,14 @@ export function SiteHeader() {
                     <div className="absolute left-0 top-full z-50 min-w-[240px] border-t-4 border-[#C9990A] bg-white py-2 text-[#1A1A2E] shadow-[0_24px_60px_rgba(6,26,67,0.18)]">
                       {link.children.map((child) => (
                         <div key={child.label} className="relative" onMouseEnter={() => child.children && setOpenSubDropdown(child.label)}>
-                          <Link href={child.href} className="flex items-center justify-between px-5 py-3 text-sm font-semibold transition-colors hover:bg-[#EDF1F9] hover:text-[#0D2E6B]">
+                          <Link href={child.href} className="flex items-center justify-between px-5 py-3 text-sm font-semibold transition-colors hover:bg-[#EDF1F9] hover:text-[#0D2E6B]" onClick={(event) => handleNavLinkClick(event, child.href)}>
                             {child.label}
                             {child.children ? <ChevronRight size={13} className="text-gray-400" /> : null}
                           </Link>
                           {child.children && openSubDropdown === child.label ? (
                             <div className="absolute left-full top-0 z-50 min-w-[190px] border-t-4 border-[#C9990A] bg-white py-2 shadow-xl">
                               {child.children.map((sub) => (
-                                <Link key={sub.label} href={sub.href} className="block px-5 py-3 text-sm font-semibold hover:bg-[#EDF1F9] hover:text-[#0D2E6B]">{sub.label}</Link>
+                                <Link key={sub.label} href={sub.href} className="block px-5 py-3 text-sm font-semibold hover:bg-[#EDF1F9] hover:text-[#0D2E6B]" onClick={(event) => handleNavLinkClick(event, sub.href)}>{sub.label}</Link>
                               ))}
                             </div>
                           ) : null}
@@ -189,12 +248,12 @@ export function SiteHeader() {
               ))}
             </nav>
 
-            <div className="relative">
+            <div ref={searchRef} className="relative">
               <button
                 type="button"
                 aria-label="Search site"
                 aria-expanded={searchOpen}
-                className="border border-white/20 p-2.5 text-white/90 transition-all duration-200 hover:border-[#C9990A] hover:bg-white/10 hover:text-white active:scale-95"
+                className="p-2.5 text-white/90 transition-all duration-200 hover:bg-white/10 hover:text-white active:scale-95"
                 onClick={() => {
                   if (searchOpen) {
                     closeSearch();
@@ -209,9 +268,9 @@ export function SiteHeader() {
                 <Search size={19} />
               </button>
               {searchOpen ? (
-                <div className="absolute right-0 top-14 z-50 w-80 animate-in fade-in-0 slide-in-from-top-2 duration-200 border-t-4 border-[#C9990A] bg-white p-3 text-[#1A1A2E] shadow-2xl">
+                <div className="absolute right-0 top-14 z-50 w-80 animate-in fade-in-0 slide-in-from-top-2 duration-200 bg-white p-3 text-[#1A1A2E] shadow-2xl">
                   <label className="sr-only" htmlFor="site-search">Search ANSECO</label>
-                  <div className="flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2 focus-within:border-[#0D2E6B]">
+                  <div className="flex items-center gap-2 px-2 py-2">
                     <Search size={16} className="text-gray-400" />
                     <input
                       id="site-search"
@@ -223,21 +282,23 @@ export function SiteHeader() {
                         if (event.key === "Enter" && searchResults[0]) window.location.href = searchResults[0].href;
                       }}
                       placeholder="Search pages..."
-                      className="w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
+                      className="w-full bg-transparent text-sm outline-none ring-0 placeholder:text-gray-400 focus:outline-none focus:ring-0"
                     />
                   </div>
-                  <div className="mt-3 max-h-80 overflow-y-auto">
-                    {searchResults.length > 0 ? (
+                  {normalizedQuery ? (
+                    <div className="mt-3 max-h-80 overflow-y-auto">
+                      {searchResults.length > 0 ? (
                       searchResults.map((item) => (
                         <Link key={item.href} href={item.href} className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-[#EDF1F9]" onClick={closeNavigation}>
                           <span className="block text-sm font-bold text-[#0D2E6B]">{item.label}</span>
                           <span className="block text-xs leading-relaxed text-gray-500">{item.description}</span>
                         </Link>
                       ))
-                    ) : (
-                      <p className="px-3 py-5 text-sm text-gray-500">No matching pages found.</p>
-                    )}
-                  </div>
+                      ) : (
+                        <p className="px-3 py-5 text-sm text-gray-500">No matching pages found.</p>
+                      )}
+                    </div>
+                  ) : null}
                 </div>
               ) : null}
             </div>
@@ -296,7 +357,10 @@ export function SiteHeader() {
                   <ChevronDown size={14} className={mobileExpanded === link.label ? "rotate-180" : ""} />
                 </button>
               ) : (
-                <Link href={link.href} className="block px-6 py-3 text-sm font-medium text-white/90 hover:bg-white/10" onClick={() => setMobileOpen(false)}>{link.label}</Link>
+                <Link href={link.href} className="block px-6 py-3 text-sm font-medium text-white/90 hover:bg-white/10" onClick={(event) => {
+                  handleNavLinkClick(event, link.href);
+                  setMobileOpen(false);
+                }}>{link.label}</Link>
               )}
               {link.children && mobileExpanded === link.label ? (
                 <div className="bg-[#091d47]">
@@ -308,12 +372,18 @@ export function SiteHeader() {
                           <ChevronDown size={12} className={mobileSubExpanded === child.label ? "rotate-180" : ""} />
                         </button>
                       ) : (
-                        <Link href={child.href} className="block px-10 py-2.5 text-xs text-white/70 hover:bg-white/10" onClick={() => setMobileOpen(false)}>{child.label}</Link>
+                        <Link href={child.href} className="block px-10 py-2.5 text-xs text-white/70 hover:bg-white/10" onClick={(event) => {
+                          handleNavLinkClick(event, child.href);
+                          setMobileOpen(false);
+                        }}>{child.label}</Link>
                       )}
                       {child.children && mobileSubExpanded === child.label ? (
                         <div className="bg-[#071530]">
                           {child.children.map((sub) => (
-                            <Link key={sub.label} href={sub.href} className="block px-14 py-2 text-xs text-white/60 hover:bg-white/10" onClick={() => setMobileOpen(false)}>{sub.label}</Link>
+                            <Link key={sub.label} href={sub.href} className="block px-14 py-2 text-xs text-white/60 hover:bg-white/10" onClick={(event) => {
+                              handleNavLinkClick(event, sub.href);
+                              setMobileOpen(false);
+                            }}>{sub.label}</Link>
                           ))}
                         </div>
                       ) : null}
