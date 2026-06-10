@@ -83,9 +83,9 @@ export default function AboutPage() {
       <section id="headmaster-message" className="bg-white px-5 py-20 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-[1160px] gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
           <div className="overflow-hidden bg-[#0D2E6B] shadow-[0_20px_50px_rgba(13,46,107,0.12)]">
-            <div className="flex aspect-[4/5] items-center justify-center bg-[#EDF1F9] p-10 text-center">
+            <div className="flex aspect-square items-center justify-center bg-[#EDF1F9] p-10 text-center">
               <div>
-                <div className="mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-full bg-[#0D2E6B] text-2xl font-black text-[#C9990A]">
+                <div className="mx-auto mb-5 flex h-32 w-32 items-center justify-center bg-[#0D2E6B] text-3xl font-black text-[#C9990A]">
                   HM
                 </div>
                 <p className="text-sm font-black uppercase tracking-[0.18em] text-[#0D2E6B]">Headmaster</p>
@@ -275,13 +275,13 @@ function PersonCard({ title, icon }: { title: string; icon: "user" | "shield" })
   const Icon = icon === "user" ? UserRound : Shield;
 
   return (
-    <div className="flex items-center gap-5 bg-white p-6 shadow-[0_15px_36px_rgba(13,46,107,0.06)]">
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#EDF1F9] text-[#7B95C8]">
-        <Icon size={18} />
+    <div className="flex aspect-square flex-col justify-between border border-[#0D2E6B]/10 bg-white p-6 shadow-[0_15px_36px_rgba(13,46,107,0.06)]">
+      <div className="flex aspect-square w-full items-center justify-center bg-[#EDF1F9] text-[#7B95C8]">
+        <Icon size={34} />
       </div>
       <div>
-        <h3 className="text-sm font-black text-[#0D2E6B]">{title}</h3>
-        <p className="mt-1 text-xs text-[#94A3B8]">TBD — Position Active</p>
+        <h3 className="text-lg font-black leading-tight text-[#0D2E6B]">{title}</h3>
+        <p className="mt-2 text-sm text-[#94A3B8]">TBD — Position Active</p>
       </div>
     </div>
   );

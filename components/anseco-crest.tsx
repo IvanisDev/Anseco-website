@@ -6,8 +6,8 @@ export function AnsecoCrest({ className = "h-11 w-10" }: { className?: string })
       src="/images/optimized/anseco-logo-transparent.png"
       alt="ANSECO crest"
       className={`${className} object-contain`}
-      width={953}
-      height={1040}
+      width={792}
+      height={765}
     />
   );
 }
