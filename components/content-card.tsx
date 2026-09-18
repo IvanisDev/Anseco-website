@@ -10,7 +10,8 @@ export function ContentCard({
   excerpt,
   image,
   meta,
-  badge
+  badge,
+  external = false
 }: {
   href: string;
   title: string;
@@ -18,12 +19,22 @@ export function ContentCard({
   image: string;
   meta: string;
   badge?: string;
+  external?: boolean;
 }) {
+  const linkProps = external ? { target: "_blank", rel: "noreferrer" } : {};
+  const isRemoteImage = image.startsWith("http://") || image.startsWith("https://");
+
   return (
     <Card className="overflow-hidden">
-      <Link href={href} className="block">
-        <div className="relative aspect-[16/10]">
-          <Image src={image} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+      <Link href={href} className="block" {...linkProps}>
+        <div className="relative aspect-[16/10] bg-[#EDF1F9]">
+          {isRemoteImage ? (
+            // External news images are served directly from the source site.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={image} alt="" className="h-full w-full object-cover" loading="lazy" />
+          ) : (
+            <Image src={image} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+          )}
         </div>
         <CardContent className="pt-5">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">

@@ -27,9 +27,9 @@ export default async function GalleryAlbumPage({ params }: { params: SlugParams 
   return (
     <>
       <PageHeader title={album.title} eyebrow="Gallery" description={album.description} />
-      <section className="container grid gap-4 py-10 md:grid-cols-2 lg:grid-cols-3">
+      <section className="container grid gap-4 py-20 md:grid-cols-2 lg:grid-cols-3">
         {album.photos.map((photo) => (
-          <figure key={photo.src} className="overflow-hidden rounded-lg border bg-card">
+          <figure key={photo.src} className="overflow-hidden border bg-card">
             <div className="relative aspect-[4/3]">
               <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
             </div>

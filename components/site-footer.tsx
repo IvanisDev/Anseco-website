@@ -55,9 +55,9 @@ export function SiteFooter() {
             <div className="space-y-5">
               <div className="flex items-start gap-3 text-sm leading-7 text-white/65">
                 <MapPin size={17} className="mt-1 shrink-0 text-[#C9990A]" />
-                <span>Anlo Senior High School<br />Anloga, Volta Region<br />Ghana</span>
+                <span>{siteConfig.address}</span>
               </div>
-              <a href={`tel:${siteConfig.phone.replaceAll(" ", "")}`} className="flex items-center gap-3 text-sm text-white/65 transition-colors hover:text-white">
+              <a href={`tel:${siteConfig.phoneHref}`} className="flex items-center gap-3 text-sm text-white/65 transition-colors hover:text-white">
                 <Phone size={17} className="text-[#C9990A]" />
                 {siteConfig.phone}
               </a>

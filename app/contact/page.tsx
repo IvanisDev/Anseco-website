@@ -21,24 +21,24 @@ export default function ContactPage() {
   return (
     <div className="bg-[#F8F7F3]">
       <PageHeader title="Contact ANSECO" eyebrow="Get in Touch" description="Reach out by form, phone or email. The form opens your email app with a prepared message." />
-      <section className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 py-12 sm:px-6 lg:grid-cols-3 lg:px-8">
+      <section className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-4 py-20 sm:px-6 lg:grid-cols-3 lg:px-8">
         <div className="lg:col-span-2">
-          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
+          <div className="border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
             <h2 className="mb-1 font-bold text-[#0D2E6B]">Send a Message</h2>
             <p className="mb-6 text-sm text-gray-500">Your mail app will open so you can review and send the message.</p>
             <ContactForm />
           </div>
         </div>
         <div className="space-y-4">
-          <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="border border-gray-100 bg-white p-5 shadow-sm">
             <h2 className="mb-4 text-sm font-bold text-[#0D2E6B]">Contact Information</h2>
             <div className="space-y-4">
               <Info icon={<MapPin size={15} />} label="Address" value={siteConfig.address} />
-              <Info icon={<Phone size={15} />} label="Phone" value={siteConfig.phone} href={`tel:${siteConfig.phone.replaceAll(" ", "")}`} />
+              <Info icon={<Phone size={15} />} label="Contact" value={siteConfig.phone} href={`tel:${siteConfig.phoneHref}`} />
               <Info icon={<Mail size={15} />} label="Email" value={siteConfig.email} href={`mailto:${siteConfig.email}`} />
             </div>
           </div>
-          <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="border border-gray-100 bg-white p-5 shadow-sm">
             <h2 className="mb-4 flex items-center gap-2 text-sm font-bold text-[#0D2E6B]"><Clock size={15} className="text-[#C9990A]" /> Office Hours</h2>
             <div className="space-y-2.5 text-sm">
               {[
@@ -53,7 +53,7 @@ export default function ContactPage() {
               ))}
             </div>
           </div>
-          <div className="overflow-hidden rounded-2xl border border-[#0D2E6B]/10 bg-[#EDF1F9] shadow-sm">
+          <div className="overflow-hidden border border-[#0D2E6B]/10 bg-[#EDF1F9] shadow-sm">
             <iframe
               title="Map showing Anlo Senior High School in Anloga, Volta Region"
               src={openStreetMapUrl}

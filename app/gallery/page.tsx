@@ -14,7 +14,7 @@ export default function GalleryPage() {
   return (
     <>
       <PageHeader title="Gallery" eyebrow="Albums" description="Browse school albums. Replace placeholder images with real school photographs before launch." />
-      <section className="container grid gap-5 py-10 md:grid-cols-2 lg:grid-cols-4">
+      <section className="container grid gap-5 py-20 md:grid-cols-2 lg:grid-cols-4">
         {getGalleryAlbums().map((album) => (
           <Card key={album.slug} className="overflow-hidden">
             <Link href={`/gallery/${album.slug}`}>

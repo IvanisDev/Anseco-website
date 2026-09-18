@@ -5,7 +5,7 @@ import { getEvents, getGalleryAlbums, getNewsPosts, getProgrammes } from "@/lib/
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/about", "/programmes", "/admissions", "/news", "/events", "/school-life", "/resources", "/gallery", "/alumni", "/contact"];
+  const routes = ["", "/about", "/programmes", "/admissions", "/news", "/events", "/school-life", "/student-life/discipline-code-of-conduct", "/resources", "/gallery", "/alumni", "/contact"];
   const staticRoutes = routes.map((route) => ({
     url: `${siteConfig.url}${route}`,
     lastModified: new Date()

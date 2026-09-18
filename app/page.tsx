@@ -2,14 +2,46 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { getEvents, getGalleryAlbums, getNewsPosts, getProgrammes } from "@/lib/content";
+import { getEvents, getGalleryAlbums, getNewsPosts } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
 
+const academicAreas = [
+  { name: "Science", description: "Build strong foundations in physics, chemistry, biology, mathematics and computing." },
+  { name: "General Arts", description: "Explore society, governance, history, geography, languages and the humanities." },
+  { name: "Business", description: "Develop practical knowledge in accounting, management, economics and enterprise." },
+  { name: "Agriculture", description: "Study modern agriculture, food systems, agribusiness and environmental stewardship." },
+  { name: "Home Economics", description: "Gain applied skills in nutrition, textiles, family life and household management." },
+  { name: "Visual and Performing Arts", description: "Develop creative ability through art, design, music and performance." },
+  { name: "Applied Technology", description: "Combine design, construction, computing, physics and technical problem-solving." },
+  { name: "Languages", description: "Strengthen communication through English literature, Ewe, French and related studies." }
+];
+
 export default function HomePage() {
-  const programmes = getProgrammes();
   const galleryAlbums = getGalleryAlbums();
   const newsPosts = getNewsPosts().slice(0, 3);
   const events = getEvents().slice(0, 3);
+  const achievements = [
+    {
+      value: "2,000+",
+      label: "Students",
+      description: "Learners shaped through academic discipline, leadership, culture and service."
+    },
+    {
+      value: "8",
+      label: "Learning Areas",
+      description: "Academic pathways covering science, arts, business, agriculture, technology, languages and more."
+    },
+    {
+      value: "60+",
+      label: "Years of Impact",
+      description: "A legacy of educating students and serving communities across Ghana and beyond."
+    },
+    {
+      value: "4",
+      label: "Houses",
+      description: "A house system that supports leadership, teamwork and healthy competition."
+    }
+  ];
   const admissionSteps = [
     {
       number: "01",
@@ -51,7 +83,7 @@ export default function HomePage() {
                 About ANSECO <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link href="/programmes" className="inline-flex items-center border border-white/35 px-7 py-4 text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-colors hover:border-[#E4B52B] hover:bg-white/10">
-                View Programmes
+                Explore Academics
               </Link>
             </div>
           </div>
@@ -81,41 +113,11 @@ export default function HomePage() {
               Anlo Senior High School is a respected public senior high school in Anloga, serving learners from the Anlo area, the Volta Region and communities beyond. Since {siteConfig.establishedYear}, ANSECO has helped young people grow through academic discipline, character formation and service to society.
             </p>
             <p>
-              The school offers a balanced senior high education with pathways in science, arts, business, agriculture, home economics and visual arts. Students learn in classrooms, laboratories, workshops, school life programmes and co-curricular activities that prepare them for further study and responsible leadership.
+              The school offers a balanced senior high education with pathways in science, general arts, business, agriculture, home economics, visual and performing arts, applied technology and languages. Students learn in classrooms, laboratories, workshops, school life programmes and co-curricular activities that prepare them for further study and responsible leadership.
             </p>
             <p>
               Guided by the motto <span className="font-semibold text-[#0D2E6B]">{siteConfig.motto}</span>, ANSECO continues to welcome parents, students, staff and alumni into a community committed to truth, service and steady progress.
             </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#F8F7F3] py-20">
-        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
-          <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Academic Programmes</p>
-              <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B] sm:text-5xl">Six Pathways to Your Future</h2>
-            </div>
-            <Link href="/programmes" className="inline-flex w-fit items-center gap-2 border-b-2 border-[#C9990A] pb-1 text-sm font-black uppercase tracking-[0.12em] text-[#0D2E6B] transition-colors hover:text-[#C9990A]">
-              All programmes <ChevronRight size={16} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {programmes.map((programme, index) => (
-              <Link
-                key={programme.slug}
-                href={`/programmes/${programme.slug}`}
-                className="group flex min-h-[260px] flex-col border border-[#0D2E6B]/10 bg-white p-7 text-left shadow-[0_18px_45px_rgba(13,46,107,0.06)] transition-all hover:-translate-y-1 hover:border-[#C9990A] hover:shadow-[0_26px_60px_rgba(13,46,107,0.12)]"
-              >
-                <div className="mb-8 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">0{index + 1}</div>
-                <h3 className="mb-3 max-w-sm text-2xl font-black leading-tight text-[#0D2E6B] transition-colors group-hover:text-[#C9990A]">{programme.name}</h3>
-                <p className="max-w-xl text-sm leading-7 text-gray-600">{programme.overview}</p>
-                <div className="mt-auto inline-flex items-center gap-2 pt-8 text-xs font-black uppercase tracking-[0.12em] text-[#0D2E6B]">
-                  Learn more <ArrowRight size={14} />
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       </section>
@@ -158,7 +160,70 @@ export default function HomePage() {
       </section>
 
       <section className="bg-[#F8F7F3] py-20">
-        <div className="mx-auto grid max-w-[1400px] gap-14 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-12">
+        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
+          <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Academic Learning Areas</p>
+              <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B] sm:text-5xl">Eight Pathways to Your Future</h2>
+            </div>
+            <Link href="/programmes" className="inline-flex w-fit items-center gap-2 border-b-2 border-[#C9990A] pb-1 text-sm font-black uppercase tracking-[0.12em] text-[#0D2E6B] transition-colors hover:text-[#C9990A]">
+              Explore academics <ChevronRight size={16} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {academicAreas.map((area, index) => (
+              <Link
+                key={area.name}
+                href="/programmes#programmes"
+                className="group flex min-h-[260px] flex-col border border-[#0D2E6B]/10 bg-white p-7 text-left shadow-[0_18px_45px_rgba(13,46,107,0.06)] transition-all hover:-translate-y-1 hover:border-[#C9990A] hover:shadow-[0_26px_60px_rgba(13,46,107,0.12)]"
+              >
+                <div className="mb-8 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">{String(index + 1).padStart(2, "0")}</div>
+                <h3 className="mb-3 max-w-sm text-2xl font-black leading-tight text-[#0D2E6B] transition-colors group-hover:text-[#C9990A]">{area.name}</h3>
+                <p className="max-w-xl text-sm leading-7 text-gray-600">{area.description}</p>
+                <div className="mt-auto inline-flex items-center gap-2 pt-8 text-xs font-black uppercase tracking-[0.12em] text-[#0D2E6B]">
+                  View subjects <ArrowRight size={14} />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#0D2E6B] py-20 text-white sm:py-24">
+        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
+          <div className="mb-12 grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
+            <div className="border-l-4 border-[#C9990A] pl-6">
+              <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Achievements</p>
+              <h2 className="font-display max-w-lg text-4xl font-bold leading-[0.98] sm:text-5xl lg:text-6xl">
+                Our Achievements
+              </h2>
+            </div>
+            <div className="max-w-5xl space-y-5 border-t border-white/15 pt-7 text-base leading-8 text-white/72 sm:text-lg lg:border-t-0 lg:pt-1">
+              <p>
+                For over six decades, ANSECO has built a strong legacy as The Star of Anlo Land, shaping students through academic discipline, leadership, character, culture, and service. The school&apos;s impact can be seen in the generations of students who have passed through its classrooms, represented the school in academic and co-curricular activities, and gone on to contribute to communities across Ghana and beyond.
+              </p>
+              <p>
+                Across eight learning areas - Science, General Arts, Business, Agriculture, Home Economics, Visual and Performing Arts, Applied Technology, and Languages - ANSECO continues to provide students with practical pathways for growth. Its achievement is measured not only by awards, but also by the confidence, discipline, creativity, and responsibility it builds in every learner.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {achievements.map((achievement) => (
+              <div key={achievement.label} className="flex min-h-[260px] flex-col justify-between border border-white/10 bg-white/[0.055] p-7 shadow-[0_24px_60px_rgba(0,0,0,0.12)]">
+                <div className="font-display text-5xl font-bold leading-none text-[#C9990A]">{achievement.value}</div>
+                <div>
+                  <h3 className="mb-3 text-xl font-black text-white">{achievement.label}</h3>
+                  <p className="text-sm font-medium leading-7 text-white/60">{achievement.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#F8F7F3] py-20">
+        <div className="mx-auto grid max-w-[1400px] gap-12 px-5 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-12">
           <div>
             <div className="mb-8 flex items-end justify-between gap-6">
               <div>

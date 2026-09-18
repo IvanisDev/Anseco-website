@@ -57,7 +57,7 @@ export default function ResourcesPage() {
                 The library is open Monday to Friday from 7:00 AM to 9:00 PM, and Saturday mornings during term. Study cubicles, group study areas, and a small reading room are available to students.
               </p>
               <p>
-                In 2024, the Old Students Association donated over <strong>GHC45,000</strong> worth of new library resources, significantly expanding the collection.
+                In 2024, ANSSOSA donated over <strong>GHC45,000</strong> worth of new library resources, significantly expanding the collection.
               </p>
             </div>
           </div>
@@ -102,7 +102,7 @@ export default function ResourcesPage() {
             {labs.map((lab) => {
               const Icon = lab.icon;
               return (
-                <div key={lab.title} className="rounded-xl bg-[#F8F7F3] p-7 shadow-[0_10px_26px_rgba(13,46,107,0.06)]">
+                <div key={lab.title} className="bg-[#F8F7F3] p-7 shadow-[0_10px_26px_rgba(13,46,107,0.06)]">
                   <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-lg bg-[#0D2E6B] text-[#C9990A]">
                     <Icon size={19} />
                   </div>
@@ -136,7 +136,7 @@ export default function ResourcesPage() {
             </a>
           </div>
 
-          <a href={campusTourUrl} target="_blank" rel="noreferrer" className="group block overflow-hidden rounded-2xl bg-white/10 shadow-[0_22px_60px_rgba(0,0,0,0.22)]">
+          <a href={campusTourUrl} target="_blank" rel="noreferrer" className="group block overflow-hidden bg-white/10 shadow-[0_22px_60px_rgba(0,0,0,0.22)]">
             <div className="relative h-72 bg-[#EDF1F9] sm:h-80">
               <Image src="/images/campus.svg" alt="ANSECO campus tour video thumbnail" fill sizes="580px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
               <div className="absolute inset-0 flex items-center justify-center bg-[#061a43]/18 transition-colors group-hover:bg-[#061a43]/28">
@@ -170,7 +170,7 @@ function SectionIntro({ title }: { title: string }) {
 
 function ResourceImageCard({ image, icon, text }: { image: string; icon: React.ReactNode; text: string }) {
   return (
-    <div className="overflow-hidden rounded-xl bg-[#F8F7F3] shadow-[0_12px_30px_rgba(13,46,107,0.07)]">
+    <div className="overflow-hidden bg-[#F8F7F3] shadow-[0_12px_30px_rgba(13,46,107,0.07)]">
       <div className="relative h-64 bg-[#EDF1F9]">
         <Image src={image} alt="" fill sizes="580px" className="object-cover" />
       </div>

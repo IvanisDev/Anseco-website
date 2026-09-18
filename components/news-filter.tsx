@@ -29,12 +29,13 @@ export function NewsFilter({ posts }: { posts: NewsPost[] }) {
         {visible.map((post) => (
           <ContentCard
             key={post.slug}
-            href={`/news/${post.slug}`}
+            href={post.externalUrl || `/news/${post.slug}`}
             title={post.title}
             excerpt={post.excerpt}
             image={post.coverImage}
             meta={post.date}
-            badge={post.category}
+            badge={post.source || post.category}
+            external={Boolean(post.externalUrl)}
           />
         ))}
       </div>

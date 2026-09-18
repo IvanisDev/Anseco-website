@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "fetch:external-news": "node scripts/fetch-external-news.mjs",
+    "prebuild": "node scripts/fetch-external-news.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint ."

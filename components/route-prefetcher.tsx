@@ -10,6 +10,7 @@ const routesToPrefetch = [
   "/news",
   "/events",
   "/school-life",
+  "/student-life/discipline-code-of-conduct",
   "/contact"
 ];
 

@@ -12,7 +12,7 @@ export default function EventsPage() {
   return (
     <>
       <PageHeader title="Events" eyebrow="Calendar" description="View upcoming and past school activities. Filtering happens instantly on this page." />
-      <section className="container py-10">
+      <section className="container py-20">
         <EventsFilter events={getEvents()} />
       </section>
     </>

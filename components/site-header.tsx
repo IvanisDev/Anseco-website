@@ -20,79 +20,45 @@ const navLinks: NavLink[] = [
     label: "About",
     href: "/about",
     children: [
-      { label: "Overview", href: "/about" },
-      { label: "Headmaster Message", href: "/about#headmaster-message" },
-      { label: "History", href: "/about#history" },
-      { label: "Motto & Values", href: "/about#values" },
-      { label: "School Anthem", href: "/about#school-anthem" },
-      { label: "Management Team", href: "/about#management" },
-      { label: "Board of Directors", href: "/about#board" }
+      { label: "Our History", href: "/about#history" },
+      { label: "Leadership", href: "/about#management" },
+      { label: "School Anthem", href: "/about#school-anthem" }
     ]
   },
   {
     label: "Admissions",
     href: "/admissions",
     children: [
-      { label: "Overview", href: "/admissions#admission-overview" },
-      { label: "How to Join", href: "/admissions#how-to-apply" },
-      { label: "Programmes", href: "/admissions#programmes" },
-      { label: "Requirements", href: "/admissions#requirements" },
-      { label: "Downloads", href: "/admissions#downloads" },
-      { label: "FAQs", href: "/admissions#faqs" },
-      { label: "Contact Office", href: "/admissions#admissions-contact" }
+      { label: "How to Apply", href: "/admissions#how-to-apply" },
+      { label: "Required Documents", href: "/admissions#requirements" },
+      { label: "FAQs", href: "/admissions#faqs" }
     ]
   },
   {
     label: "Academics",
     href: "/programmes",
     children: [
-      {
-        label: "Departments",
-        href: "/programmes",
-        children: [
-          { label: "General Arts", href: "/programmes/general-arts" },
-          { label: "General Science", href: "/programmes/general-science" },
-          { label: "Business", href: "/programmes/business" },
-          { label: "Agricultural Science", href: "/programmes/agricultural-science" },
-          { label: "Home Economics", href: "/programmes/home-economics" },
-          { label: "Visual Arts", href: "/programmes/visual-arts" }
-        ]
-      },
-      {
-        label: "Resources",
-        href: "/resources",
-        children: [
-          { label: "Library", href: "/resources#library" },
-          { label: "Dining Hall", href: "/resources#dining" },
-          { label: "Labs", href: "/resources#labs" },
-          { label: "Campus Tour", href: "/resources#campus-tour" }
-        ]
-      }
-    ]
-  },
-  {
-    label: "News & Events",
-    href: "/news",
-    children: [
-      { label: "Latest News", href: "/news" },
-      { label: "Events Calendar", href: "/events" }
+      { label: "Learning Areas", href: "/programmes#programmes" },
+      { label: "Resources", href: "/resources" },
+      { label: "Gallery", href: "/gallery" }
     ]
   },
   {
     label: "Student Life",
     href: "/school-life",
     children: [
-      { label: "Sports & Athletics", href: "/school-life#sports" },
-      { label: "Clubs & Societies", href: "/school-life#clubs" },
+      { label: "Overview", href: "/school-life" },
       { label: "Boarding Life", href: "/school-life#boarding" },
-      { label: "School Houses", href: "/school-life#houses" },
-      { label: "Student Government", href: "/school-life#student-government" },
-      { label: "Community Building", href: "/school-life#community" }
+      { label: "Clubs & Societies", href: "/school-life#clubs" },
+      { label: "Sports", href: "/school-life#sports" },
+      { label: "Houses", href: "/school-life#houses" },
+      { label: "Student Leadership", href: "/school-life#student-government" },
+      { label: "Discipline & Code of Conduct", href: "/student-life/discipline-code-of-conduct" }
     ]
   },
-  { label: "Gallery", href: "/gallery" },
+  { label: "News & Events", href: "/news" },
   { label: "Alumni", href: "/alumni" },
-  { label: "Contact Us", href: "/contact" }
+  { label: "Contact", href: "/contact" }
 ];
 
 const searchItems = [
@@ -109,9 +75,10 @@ const searchItems = [
   { label: "News & Updates", href: "/news", description: "Latest school notices and announcements" },
   { label: "Events Calendar", href: "/events", description: "Upcoming school dates and activities" },
   { label: "Student Life", href: "/school-life", description: "Sports, clubs, boarding and student leadership" },
+  { label: "Discipline & Code of Conduct", href: "/student-life/discipline-code-of-conduct", description: "Student conduct, offences and approved disciplinary guidelines" },
   { label: "Resources", href: "/resources", description: "Library, labs, dining hall and campus facilities" },
   { label: "Gallery", href: "/gallery", description: "School photo albums" },
-  { label: "Alumni", href: "/alumni", description: "Old students contact and support" },
+  { label: "Alumni", href: "/alumni", description: "ANSSOSA contact and support" },
   { label: "Contact", href: "/contact", description: "Phone, email and directions" }
 ];
 
@@ -281,7 +248,7 @@ export function SiteHeader() {
                         if (event.key === "Escape") closeSearch();
                         if (event.key === "Enter" && searchResults[0]) window.location.href = searchResults[0].href;
                       }}
-                      placeholder="Search pages..."
+                      placeholder="Keyword search"
                       className="w-full bg-transparent text-sm outline-none ring-0 placeholder:text-gray-400 focus:outline-none focus:ring-0"
                     />
                   </div>
@@ -289,7 +256,7 @@ export function SiteHeader() {
                     <div className="mt-3 max-h-80 overflow-y-auto">
                       {searchResults.length > 0 ? (
                       searchResults.map((item) => (
-                        <Link key={item.href} href={item.href} className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-[#EDF1F9]" onClick={closeNavigation}>
+                        <Link key={`${item.label}-${item.href}`} href={item.href} className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-[#EDF1F9]" onClick={closeNavigation}>
                           <span className="block text-sm font-bold text-[#0D2E6B]">{item.label}</span>
                           <span className="block text-xs leading-relaxed text-gray-500">{item.description}</span>
                         </Link>
@@ -330,7 +297,7 @@ export function SiteHeader() {
                 id="mobile-site-search"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search pages..."
+                placeholder="Keyword search"
                 className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white/50"
               />
             </div>
@@ -338,7 +305,7 @@ export function SiteHeader() {
               <div className="mt-2 overflow-hidden rounded-lg bg-[#091d47]">
                 {searchResults.length > 0 ? (
                   searchResults.map((item) => (
-                    <Link key={item.href} href={item.href} className="block px-4 py-2.5 text-xs text-white/75 hover:bg-white/10" onClick={closeNavigation}>
+                    <Link key={`${item.label}-${item.href}`} href={item.href} className="block px-4 py-2.5 text-xs text-white/75 hover:bg-white/10" onClick={closeNavigation}>
                       <span className="block font-semibold text-white">{item.label}</span>
                       <span>{item.description}</span>
                     </Link>

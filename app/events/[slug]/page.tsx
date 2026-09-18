@@ -33,14 +33,14 @@ export default async function EventPage({ params }: { params: SlugParams }) {
 
   return (
     <article>
-      <header className="container py-10">
+      <header className="container py-20">
         <Badge>{event.location}</Badge>
         <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">{event.title}</h1>
         <p className="mt-4 text-muted-foreground">
           {formatDate(event.startDate)}
           {event.endDate ? ` - ${formatDate(event.endDate)}` : null}
         </p>
-        <div className="relative mt-8 aspect-[16/8] overflow-hidden rounded-lg border">
+        <div className="relative mt-8 aspect-[16/8] overflow-hidden border">
           <Image src={event.coverImage} alt="" fill sizes="100vw" className="object-cover" priority />
         </div>
       </header>

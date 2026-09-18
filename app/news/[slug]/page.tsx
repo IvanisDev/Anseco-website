@@ -33,11 +33,11 @@ export default async function NewsPostPage({ params }: { params: SlugParams }) {
 
   return (
     <article>
-      <header className="container py-10">
+      <header className="container py-20">
         <Badge>{post.category}</Badge>
         <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">{post.title}</h1>
         <p className="mt-4 text-muted-foreground">{formatDate(post.date)}</p>
-        <div className="relative mt-8 aspect-[16/8] overflow-hidden rounded-lg border">
+        <div className="relative mt-8 aspect-[16/8] overflow-hidden border">
           <Image src={post.coverImage} alt="" fill sizes="100vw" className="object-cover" priority />
         </div>
       </header>
