@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, Scale } from "lucide-react";
+import { Scale } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 
 export const metadata: Metadata = {
-  title: "Discipline & Code of Conduct",
+  title: "Code of Conduct",
   description: "Student discipline, offences and guidelines for sanctions at Anlo Senior High School."
 };
 
@@ -51,16 +50,12 @@ export default function DisciplineCodeOfConductPage() {
   return (
     <div className="bg-[#F8F7F3]">
       <PageHeader
-        eyebrow="Student Life"
-        title="Discipline & Code of Conduct"
+        eyebrow="Academics"
+        title="Code of Conduct"
         description="A reference for students and families based on the Ghana Education Service approved code of conduct for schools."
       />
 
       <main className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-12">
-        <Link href="/school-life" className="mb-8 inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.12em] text-[#0D2E6B] hover:text-[#C9990A]">
-          <ArrowLeft size={16} /> Back to Student Life
-        </Link>
-
         <div className="mb-12 grid gap-8 border-l-4 border-[#C9990A] bg-white p-7 shadow-[0_18px_45px_rgba(13,46,107,0.06)] md:grid-cols-[auto_1fr] md:p-9">
           <div className="flex h-14 w-14 items-center justify-center bg-[#0D2E6B] text-[#E4B52B]">
             <Scale size={26} />

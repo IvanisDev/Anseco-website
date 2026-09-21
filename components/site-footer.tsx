@@ -1,15 +1,14 @@
 import Link from "next/link";
-import { Facebook, Mail, MapPin, Phone, Twitter, Youtube } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { AnsecoCrest } from "@/components/anseco-crest";
 import { siteConfig } from "@/config/site";
 
 const footerLinks = [
-  { label: "About ANSECO", href: "/about" },
+  { label: "About Us", href: "/about" },
   { label: "Admissions", href: "/admissions" },
-  { label: "Programmes", href: "/programmes" },
+  { label: "Learning Areas", href: "/programmes" },
   { label: "News & Events", href: "/news" },
-  { label: "School Life", href: "/school-life" },
-  { label: "Contact", href: "/contact" }
+  { label: "Campus Life", href: "/school-life" }
 ];
 
 export function SiteFooter() {
@@ -30,11 +29,6 @@ export function SiteFooter() {
             <p className="max-w-lg text-base leading-8 text-white/65">
               Shaping generations of learners since {siteConfig.establishedYear} through academic work, discipline, community and service.
             </p>
-            <div className="mt-6 flex items-center gap-3 text-white/45">
-              <a href="#" aria-label="Facebook" className="border border-white/15 p-2.5 transition-colors hover:border-[#C9990A] hover:text-[#C9990A]"><Facebook size={17} /></a>
-              <a href="#" aria-label="Twitter" className="border border-white/15 p-2.5 transition-colors hover:border-[#C9990A] hover:text-[#C9990A]"><Twitter size={17} /></a>
-              <a href="#" aria-label="YouTube" className="border border-white/15 p-2.5 transition-colors hover:border-[#C9990A] hover:text-[#C9990A]"><Youtube size={17} /></a>
-            </div>
           </div>
 
           <div>

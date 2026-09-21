@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { ContentCard } from "@/components/content-card";
-import { Button } from "@/components/ui/button";
 import type { NewsPost } from "@/lib/content";
 
 export function NewsFilter({ posts }: { posts: NewsPost[] }) {
@@ -12,20 +11,19 @@ export function NewsFilter({ posts }: { posts: NewsPost[] }) {
 
   return (
     <div>
-      <div className="mb-6 flex flex-wrap gap-2" aria-label="Filter news by category">
+      <div className="mb-10 flex flex-wrap gap-2" aria-label="Filter news by category">
         {categories.map((item) => (
-          <Button
+          <button
             key={item}
             type="button"
-            variant={category === item ? "default" : "outline"}
-            size="sm"
+            className={`border px-5 py-3 text-xs font-black uppercase tracking-[0.12em] transition-colors ${category === item ? "border-[#0D2E6B] bg-[#0D2E6B] text-white" : "border-[#0D2E6B]/15 bg-white text-[#0D2E6B] hover:border-[#C9990A] hover:text-[#C9990A]"}`}
             onClick={() => setCategory(item)}
           >
             {item}
-          </Button>
+          </button>
         ))}
       </div>
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {visible.map((post) => (
           <ContentCard
             key={post.slug}
@@ -39,6 +37,7 @@ export function NewsFilter({ posts }: { posts: NewsPost[] }) {
           />
         ))}
       </div>
+      {visible.length === 0 ? <p className="border border-[#0D2E6B]/10 bg-white p-8 text-center text-[#64748B]">No news items are available in this category.</p> : null}
     </div>
   );
 }

@@ -20,18 +20,20 @@ const navLinks: NavLink[] = [
     label: "About",
     href: "/about",
     children: [
-      { label: "Our History", href: "/about#history" },
-      { label: "Leadership", href: "/about#management" },
-      { label: "School Anthem", href: "/about#school-anthem" }
+      { label: "About Us", href: "/about" },
+      { label: "Our History", href: "/about/our-history" },
+      { label: "School Administration", href: "/about/school-administration" }
     ]
   },
   {
     label: "Admissions",
     href: "/admissions",
     children: [
-      { label: "How to Apply", href: "/admissions#how-to-apply" },
-      { label: "Required Documents", href: "/admissions#requirements" },
-      { label: "FAQs", href: "/admissions#faqs" }
+      { label: "Admissions Overview", href: "/admissions" },
+      { label: "How to Apply", href: "/admissions/how-to-apply" },
+      { label: "Prospectus & Requirements", href: "/admissions/prospectus" },
+      { label: "School Regulations", href: "/admissions/student-guidelines" },
+      { label: "Frequently Asked Questions", href: "/admissions/faqs" }
     ]
   },
   {
@@ -40,46 +42,33 @@ const navLinks: NavLink[] = [
     children: [
       { label: "Learning Areas", href: "/programmes#programmes" },
       { label: "Resources", href: "/resources" },
-      { label: "Gallery", href: "/gallery" }
+      { label: "Gallery", href: "/gallery" },
+      { label: "Code of Conduct", href: "/student-life/discipline-code-of-conduct" }
     ]
   },
-  {
-    label: "Student Life",
-    href: "/school-life",
-    children: [
-      { label: "Overview", href: "/school-life" },
-      { label: "Boarding Life", href: "/school-life#boarding" },
-      { label: "Clubs & Societies", href: "/school-life#clubs" },
-      { label: "Sports", href: "/school-life#sports" },
-      { label: "Houses", href: "/school-life#houses" },
-      { label: "Student Leadership", href: "/school-life#student-government" },
-      { label: "Discipline & Code of Conduct", href: "/student-life/discipline-code-of-conduct" }
-    ]
-  },
+  { label: "Campus Life", href: "/school-life" },
   { label: "News & Events", href: "/news" },
-  { label: "Alumni", href: "/alumni" },
-  { label: "Contact", href: "/contact" }
+  { label: "Alumni", href: "/alumni" }
 ];
 
 const searchItems = [
   { label: "About ANSECO", href: "/about", description: "History, mission, values and leadership" },
+  { label: "Our History", href: "/about/our-history", description: "The history, milestones and former headmasters of ANSECO" },
+  { label: "School Administration", href: "/about/school-administration", description: "School management, department heads, house parents and student leaders" },
   { label: "Admissions", href: "/admissions", description: "Application steps, requirements, FAQs and downloads" },
+  { label: "How to Apply", href: "/admissions/how-to-apply", description: "Placement, reporting and registration steps" },
+  { label: "Admissions Prospectus", href: "/admissions/prospectus", description: "Required documents and approved student items" },
+  { label: "School Regulations", href: "/admissions/student-guidelines", description: "Reporting, visiting, dress and health guidance" },
+  { label: "Admissions FAQs", href: "/admissions/faqs", description: "Common admission questions and answers" },
   { label: "Academics", href: "/programmes", description: "Academic pathways offered at ANSECO" },
   { label: "Departments", href: "/programmes", description: "Academic departments and programmes" },
-  { label: "General Arts", href: "/programmes/general-arts", description: "Programme details and sample subjects" },
-  { label: "General Science", href: "/programmes/general-science", description: "Programme details and sample subjects" },
-  { label: "Business", href: "/programmes/business", description: "Programme details and sample subjects" },
-  { label: "Agricultural Science", href: "/programmes/agricultural-science", description: "Programme details and sample subjects" },
-  { label: "Home Economics", href: "/programmes/home-economics", description: "Programme details and sample subjects" },
-  { label: "Visual Arts", href: "/programmes/visual-arts", description: "Programme details and sample subjects" },
   { label: "News & Updates", href: "/news", description: "Latest school notices and announcements" },
   { label: "Events Calendar", href: "/events", description: "Upcoming school dates and activities" },
-  { label: "Student Life", href: "/school-life", description: "Sports, clubs, boarding and student leadership" },
-  { label: "Discipline & Code of Conduct", href: "/student-life/discipline-code-of-conduct", description: "Student conduct, offences and approved disciplinary guidelines" },
+  { label: "Campus Life", href: "/school-life", description: "Sports, clubs, boarding and student leadership" },
+  { label: "Code of Conduct", href: "/student-life/discipline-code-of-conduct", description: "Student conduct, offences and approved disciplinary guidelines" },
   { label: "Resources", href: "/resources", description: "Library, labs, dining hall and campus facilities" },
   { label: "Gallery", href: "/gallery", description: "School photo albums" },
-  { label: "Alumni", href: "/alumni", description: "ANSSOSA contact and support" },
-  { label: "Contact", href: "/contact", description: "Phone, email and directions" }
+  { label: "Alumni", href: "/alumni", description: "ANSSOSA contact and support" }
 ];
 
 export function SiteHeader() {
@@ -117,15 +106,22 @@ export function SiteHeader() {
     const currentPath = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
     const targetPath = hrefPath.endsWith("/") && hrefPath !== "/" ? hrefPath.slice(0, -1) : hrefPath;
 
-    if (hash && targetPath === currentPath) {
-      const target = document.getElementById(hash);
-      if (target) {
-        event.preventDefault();
-        window.history.pushState(null, "", href);
-        closeNavigation();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+    if (targetPath !== currentPath) {
+      closeNavigation();
+      return;
     }
+
+    event.preventDefault();
+    closeNavigation();
+
+    if (hash) {
+      window.history.pushState(null, "", href);
+      document.getElementById(hash)?.scrollIntoView({ behavior: "auto", block: "start" });
+      return;
+    }
+
+    window.history.replaceState(null, "", hrefPath || "/");
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [closeNavigation, pathname]);
 
   useEffect(() => {
@@ -136,16 +132,10 @@ export function SiteHeader() {
       closeNavigation();
     }
 
-    function handleScroll() {
-      closeNavigation();
-    }
-
     document.addEventListener("pointerdown", handlePointerDown);
-    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown);
-      window.removeEventListener("scroll", handleScroll);
     };
   }, [mobileOpen, closeNavigation]);
 
@@ -188,6 +178,7 @@ export function SiteHeader() {
                   <Link
                     href={link.href}
                     className={`flex items-center gap-1 px-3 py-2 text-sm font-bold transition-colors ${pathname === link.href || pathname.startsWith(`${link.href}/`) ? "bg-[#C9990A] text-white" : "text-white/80 hover:bg-white/10 hover:text-white"}`}
+                    onClick={(event) => handleNavLinkClick(event, link.href)}
                   >
                     {link.label}
                     {link.children ? <ChevronDown size={13} /> : null}
@@ -288,7 +279,7 @@ export function SiteHeader() {
         </div>
       </div>
       {mobileOpen ? (
-        <div className="border-t border-white/10 bg-[#0D2E6B] pb-4 lg:hidden">
+        <div className="absolute inset-x-0 top-full max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-white/10 bg-[#0D2E6B] pb-4 shadow-[0_24px_50px_rgba(6,26,67,0.35)] lg:hidden">
           <div className="px-6 py-4">
             <label className="sr-only" htmlFor="mobile-site-search">Search ANSECO</label>
             <div className="flex items-center gap-2 rounded-lg border border-white/15 bg-white/10 px-3 py-2">

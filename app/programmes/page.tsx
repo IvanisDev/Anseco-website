@@ -41,6 +41,7 @@ const departmentHeads = [
 
 const electiveSections = [
   {
+    id: "science",
     title: "Science",
     note: "Choose from Option A - E",
     options: [
@@ -52,6 +53,7 @@ const electiveSections = [
     ]
   },
   {
+    id: "applied-technology",
     title: "Applied Technology",
     note: "Choose from Option A - B",
     options: [
@@ -60,6 +62,7 @@ const electiveSections = [
     ]
   },
   {
+    id: "home-economics",
     title: "Home Economics",
     note: "Choose from Option A - E",
     options: [
@@ -71,6 +74,7 @@ const electiveSections = [
     ]
   },
   {
+    id: "visual-performing-arts",
     title: "Visual and Performing Arts",
     note: "Choose from Option A - C",
     options: [
@@ -80,6 +84,7 @@ const electiveSections = [
     ]
   },
   {
+    id: "agricultural-science",
     title: "Agricultural Science",
     note: "Choose from Option A - C",
     options: [
@@ -89,6 +94,7 @@ const electiveSections = [
     ]
   },
   {
+    id: "business",
     title: "Business",
     note: "Choose from Option A - D",
     options: [
@@ -99,6 +105,7 @@ const electiveSections = [
     ]
   },
   {
+    id: "general-arts",
     title: "General Arts",
     note: "Choose from Option A - G",
     options: [
@@ -112,6 +119,7 @@ const electiveSections = [
     ]
   },
   {
+    id: "languages",
     title: "Languages",
     note: "Choose from Option A - C",
     options: [
@@ -120,6 +128,17 @@ const electiveSections = [
       ["Literature in English", "C.R.S", "Government", "French / Ewe", "PEH Elective"]
     ]
   }
+];
+
+const electiveSectionOrder = [
+  "science",
+  "general-arts",
+  "business",
+  "agricultural-science",
+  "home-economics",
+  "visual-performing-arts",
+  "applied-technology",
+  "languages"
 ];
 
 export default function ProgrammesPage() {
@@ -212,8 +231,10 @@ export default function ProgrammesPage() {
         </div>
 
         <div className="space-y-8">
-          {electiveSections.map((section) => (
-            <div key={section.title} className="border border-[#0D2E6B]/10 bg-white p-6 shadow-[0_18px_45px_rgba(13,46,107,0.06)]">
+          {[...electiveSections]
+            .sort((a, b) => electiveSectionOrder.indexOf(a.id) - electiveSectionOrder.indexOf(b.id))
+            .map((section) => (
+            <div id={`electives-${section.id}`} key={section.title} className="scroll-mt-28 border border-[#0D2E6B]/10 bg-white p-6 shadow-[0_18px_45px_rgba(13,46,107,0.06)]">
               <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <h3 className="font-display text-3xl font-bold text-[#0D2E6B]">{section.title}</h3>
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-[#C9990A]">{section.note}</p>

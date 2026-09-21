@@ -4,7 +4,6 @@ import matter from "gray-matter";
 import downloadsData from "@/data/downloads.json";
 import externalNewsData from "@/data/external-news.json";
 import galleryData from "@/data/gallery.json";
-import programmesData from "@/data/programmes.json";
 
 const root = process.cwd();
 
@@ -46,7 +45,6 @@ export type EventPost = {
   content: string;
 };
 
-export type Programme = (typeof programmesData.programmes)[number];
 export type Download = (typeof downloadsData.items)[number];
 const typedExternalNewsData = externalNewsData as ExternalNewsData;
 export type ExternalNewsItem = ExternalNewsData["items"][number];
@@ -102,14 +100,6 @@ export function getEvents() {
 
 export function getEvent(slug: string) {
   return getEvents().find((event) => event.slug === slug);
-}
-
-export function getProgrammes() {
-  return programmesData.programmes;
-}
-
-export function getProgramme(slug: string) {
-  return programmesData.programmes.find((programme) => programme.slug === slug);
 }
 
 export function getDownloads() {

@@ -5,13 +5,16 @@ import { useEffect } from "react";
 
 const routesToPrefetch = [
   "/about",
+  "/about/our-history",
+  "/about/school-administration",
   "/admissions",
+  "/admissions/how-to-apply",
+  "/admissions/prospectus",
   "/programmes",
   "/news",
   "/events",
   "/school-life",
-  "/student-life/discipline-code-of-conduct",
-  "/contact"
+  "/student-life/discipline-code-of-conduct"
 ];
 
 export function RoutePrefetcher() {

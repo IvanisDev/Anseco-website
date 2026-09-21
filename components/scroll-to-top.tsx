@@ -19,7 +19,7 @@ export function ScrollToTop() {
       if (hash) {
         const target = document.getElementById(decodeURIComponent(hash.slice(1)));
         if (target) {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          target.scrollIntoView({ behavior: "auto", block: "start" });
           return;
         }
       }

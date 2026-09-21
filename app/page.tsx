@@ -6,14 +6,14 @@ import { getEvents, getGalleryAlbums, getNewsPosts } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
 
 const academicAreas = [
-  { name: "Science", description: "Build strong foundations in physics, chemistry, biology, mathematics and computing." },
-  { name: "General Arts", description: "Explore society, governance, history, geography, languages and the humanities." },
-  { name: "Business", description: "Develop practical knowledge in accounting, management, economics and enterprise." },
-  { name: "Agriculture", description: "Study modern agriculture, food systems, agribusiness and environmental stewardship." },
-  { name: "Home Economics", description: "Gain applied skills in nutrition, textiles, family life and household management." },
-  { name: "Visual and Performing Arts", description: "Develop creative ability through art, design, music and performance." },
-  { name: "Applied Technology", description: "Combine design, construction, computing, physics and technical problem-solving." },
-  { name: "Languages", description: "Strengthen communication through English literature, Ewe, French and related studies." }
+  { name: "Science", slug: "science", description: "Build strong foundations in physics, chemistry, biology, mathematics and computing." },
+  { name: "General Arts", slug: "general-arts", description: "Explore society, governance, history, geography, languages and the humanities." },
+  { name: "Business", slug: "business", description: "Develop practical knowledge in accounting, management, economics and enterprise." },
+  { name: "Agriculture", slug: "agricultural-science", description: "Study modern agriculture, food systems, agribusiness and environmental stewardship." },
+  { name: "Home Economics", slug: "home-economics", description: "Gain applied skills in nutrition, textiles, family life and household management." },
+  { name: "Visual and Performing Arts", slug: "visual-performing-arts", description: "Develop creative ability through art, design, music and performance." },
+  { name: "Applied Technology", slug: "applied-technology", description: "Combine design, construction, computing, physics and technical problem-solving." },
+  { name: "Languages", slug: "languages", description: "Strengthen communication through English literature, Ewe, French and related studies." }
 ];
 
 export default function HomePage() {
@@ -23,8 +23,8 @@ export default function HomePage() {
   const achievements = [
     {
       value: "2,000+",
-      label: "Students",
-      description: "Learners shaped through academic discipline, leadership, culture and service."
+      label: "Current Students",
+      description: "Learners currently shaped through academic discipline, leadership, culture and service."
     },
     {
       value: "8",
@@ -40,6 +40,11 @@ export default function HomePage() {
       value: "4",
       label: "Houses",
       description: "A house system that supports leadership, teamwork and healthy competition."
+    },
+    {
+      value: "Thousands",
+      label: "of Graduates",
+      description: "Generations of ANSECO graduates contributing to communities across Ghana and beyond."
     }
   ];
   const admissionSteps = [
@@ -174,7 +179,7 @@ export default function HomePage() {
             {academicAreas.map((area, index) => (
               <Link
                 key={area.name}
-                href="/programmes#programmes"
+                href={`/programmes#electives-${area.slug}`}
                 className="group flex min-h-[260px] flex-col border border-[#0D2E6B]/10 bg-white p-7 text-left shadow-[0_18px_45px_rgba(13,46,107,0.06)] transition-all hover:-translate-y-1 hover:border-[#C9990A] hover:shadow-[0_26px_60px_rgba(13,46,107,0.12)]"
               >
                 <div className="mb-8 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">{String(index + 1).padStart(2, "0")}</div>
@@ -189,35 +194,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[#0D2E6B] py-20 text-white sm:py-24">
+      <section className="bg-[#F8F7F3] py-20 sm:py-24">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
-          <div className="mb-12 grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
-            <div className="border-l-4 border-[#C9990A] pl-6">
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Achievements</p>
-              <h2 className="font-display max-w-lg text-4xl font-bold leading-[0.98] sm:text-5xl lg:text-6xl">
-                Our Achievements
-              </h2>
-            </div>
-            <div className="max-w-5xl space-y-5 border-t border-white/15 pt-7 text-base leading-8 text-white/72 sm:text-lg lg:border-t-0 lg:pt-1">
-              <p>
-                For over six decades, ANSECO has built a strong legacy as The Star of Anlo Land, shaping students through academic discipline, leadership, character, culture, and service. The school&apos;s impact can be seen in the generations of students who have passed through its classrooms, represented the school in academic and co-curricular activities, and gone on to contribute to communities across Ghana and beyond.
-              </p>
-              <p>
-                Across eight learning areas - Science, General Arts, Business, Agriculture, Home Economics, Visual and Performing Arts, Applied Technology, and Languages - ANSECO continues to provide students with practical pathways for growth. Its achievement is measured not only by awards, but also by the confidence, discipline, creativity, and responsibility it builds in every learner.
-              </p>
+          <div className="mb-10">
+            <div>
+              <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Legacy in Numbers</p>
+              <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B] sm:text-5xl lg:text-6xl">Our Achievements</h2>
             </div>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {achievements.map((achievement) => (
-              <div key={achievement.label} className="flex min-h-[260px] flex-col justify-between border border-white/10 bg-white/[0.055] p-7 shadow-[0_24px_60px_rgba(0,0,0,0.12)]">
-                <div className="font-display text-5xl font-bold leading-none text-[#C9990A]">{achievement.value}</div>
+          <div className="relative overflow-hidden bg-[#0D2E6B] text-white">
+            <div className="absolute inset-y-0 left-0 w-2 bg-[#FACC15]" />
+            <div className="grid lg:grid-cols-[0.82fr_1.18fr]">
+              <div className="flex flex-col justify-between border-b border-white/10 p-8 sm:p-10 lg:min-h-[520px] lg:border-b-0 lg:border-r lg:p-12">
                 <div>
-                  <h3 className="mb-3 text-xl font-black text-white">{achievement.label}</h3>
-                  <p className="text-sm font-medium leading-7 text-white/60">{achievement.description}</p>
+                  <p className="text-xs font-black uppercase tracking-[0.24em] text-[#FACC15]">The Star of Anlo-Land</p>
+                  <h3 className="font-display mt-5 max-w-xl text-3xl font-bold leading-tight sm:text-4xl">
+                    Achievement measured in knowledge, confidence and character.
+                  </h3>
+                </div>
+                <div className="mt-12 space-y-5 text-base leading-8 text-white/65">
+                  <p>ANSECO&apos;s legacy lives in generations of students who have represented the school and contributed to communities across Ghana and beyond.</p>
+                  <p>Across eight learning areas, students gain practical pathways for academic growth, responsible leadership and lifelong service.</p>
                 </div>
               </div>
-            ))}
+
+              <div className="grid sm:grid-cols-2">
+                {achievements.map((achievement, index) => (
+                  <article key={achievement.label} className={`flex min-h-[260px] flex-col justify-between p-8 sm:p-9 ${index % 2 === 0 && index !== achievements.length - 1 ? "sm:border-r sm:border-white/10" : ""} ${index < achievements.length - 1 ? "border-b border-white/10" : ""} ${index === achievements.length - 1 ? "sm:col-span-2" : ""}`}>
+                    <div className="font-display text-6xl font-bold leading-none text-[#FACC15] sm:text-7xl">{achievement.value}</div>
+                    <div className="mt-10">
+                      <h3 className="text-lg font-black uppercase tracking-[0.08em] text-white">{achievement.label}</h3>
+                      <p className="mt-3 text-sm leading-7 text-white/55">{achievement.description}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -285,31 +298,35 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#0D2E6B] py-20 text-white">
-        <div className="absolute left-0 top-0 h-full w-3 bg-[#C9990A]" />
-        <div className="mx-auto grid max-w-[1560px] grid-cols-1 items-center gap-12 px-6 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-12 xl:gap-16">
-          <div>
-            <h2 className="font-display mb-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl xl:text-6xl">
+      <section className="bg-white py-20 sm:py-24">
+        <div className="mx-auto grid max-w-[1400px] gap-8 px-5 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:px-12">
+          <div className="relative overflow-hidden bg-[#0D2E6B] p-8 text-white sm:p-10 lg:p-12">
+            <div className="absolute inset-y-0 left-0 w-1.5 bg-[#C9990A]" />
+            <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-[#E4B52B]">Admissions</p>
+            <h2 className="font-display max-w-xl text-4xl font-bold leading-[1.05] sm:text-5xl">
               Start Your Journey at ANSECO
             </h2>
-            <p className="mb-9 max-w-2xl text-lg font-medium leading-8 text-white/70">
-              ANSECO admits students through the Ghana School Placement System. If you&apos;ve been placed here or want to know how to apply, our admissions office is ready to guide you.
+            <p className="mt-6 max-w-xl text-base leading-8 text-white/70 sm:text-lg">
+              Students join ANSECO through the Ghana School Placement System. Our admissions team helps every placed student move from confirmation to successful enrolment.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/admissions"
-                className="group flex items-center gap-3 bg-[#C9990A] px-7 py-4 text-sm font-black uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#b8880a]"
-              >
-                Admissions Guide <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
+            <Link
+              href="/admissions"
+              className="group mt-9 inline-flex items-center gap-3 bg-[#C9990A] px-7 py-4 text-sm font-black uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#b8880a]"
+            >
+              View Admissions Guide <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+
+          <div className="border-y border-[#0D2E6B]/10">
             {admissionSteps.map((step) => (
-              <div key={step.number} className="border border-white/10 bg-white/[0.06] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.12)]">
-                <div className="mb-7 font-display text-4xl font-bold text-[#C9990A]">{step.number}</div>
-                <h3 className="mb-2 text-lg font-black text-white">{step.title}</h3>
-                <p className="text-sm font-medium leading-6 text-white/60">{step.description}</p>
+              <div key={step.number} className="group grid gap-4 border-b border-[#0D2E6B]/10 py-6 last:border-b-0 sm:grid-cols-[72px_1fr] sm:items-start sm:gap-6">
+                <div className="font-display text-3xl font-bold leading-none text-[#C9990A] transition-colors group-hover:text-[#0D2E6B] sm:text-4xl">
+                  {step.number}
+                </div>
+                <div>
+                  <h3 className="text-lg font-black text-[#0D2E6B] sm:text-xl">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-[#64748B] sm:text-base">{step.description}</p>
+                </div>
               </div>
             ))}
           </div>
