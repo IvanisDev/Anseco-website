@@ -12,7 +12,7 @@ export default function NewsPage() {
   const posts = getAllNewsPosts();
   return (
     <div className="bg-[#F8F7F3]">
-      <PageHeader title="News & Updates" eyebrow="Latest from ANSECO" description="School notices, achievements and stories from ANSECO and trusted education news sources." />
+      <PageHeader title="News & Updates" eyebrow="Latest from ANSECO" description="School notices, achievements and verified external coverage directly concerning ANSECO." />
       <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
           <div className="mb-10 grid gap-6 border-b border-[#0D2E6B]/10 pb-8 lg:grid-cols-[1fr_auto] lg:items-end">

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { AmaAssistant } from "@/components/ama-assistant";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -9,16 +11,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: `${siteConfig.fullName} | ${siteConfig.schoolName}`,
-    template: `%s | ${siteConfig.schoolName}`
+    template: `%s | ${siteConfig.fullName}`
   },
-  description: `${siteConfig.fullName} in ${siteConfig.location}. Admissions, programmes, news, events and alumni information.`,
+  description: `${siteConfig.fullName} in ${siteConfig.location}. Admissions, learning areas, news, events and alumni information.`,
   icons: {
     icon: [
-      { url: "/favicon.png", sizes: "512x512", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" }
+      { url: "/favicon.ico?v=2", sizes: "any" },
+      { url: "/favicon-32x32.png?v=2", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.png?v=2", sizes: "512x512", type: "image/png" }
     ],
-    shortcut: "/favicon.png",
-    apple: "/apple-touch-icon.png"
+    shortcut: "/favicon.ico?v=2",
+    apple: "/apple-touch-icon.png?v=2"
   },
   openGraph: {
     title: siteConfig.fullName,
@@ -34,13 +37,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <ScrollToTop />
-        <a className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-background focus:p-3" href="#main">
+        <Suspense fallback={null}>
+          <ScrollToTop />
+        </Suspense>
+        <a className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border-2 focus:border-[#0D2E6B] focus:bg-white focus:px-5 focus:py-3 focus:font-bold focus:text-[#0D2E6B]" href="#main">
           Skip to content
         </a>
         <SiteHeader />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1}>{children}</main>
         <SiteFooter />
+        <AmaAssistant />
       </body>
     </html>
   );

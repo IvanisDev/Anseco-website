@@ -1,21 +1,13 @@
 import type { Metadata } from "next";
+import { LearningAreaAccordion } from "@/components/learning-area-accordion";
+import { LearningAreaCards } from "@/components/learning-area-cards";
 import { PageHeader } from "@/components/page-header";
+import { learningAreaSummaries } from "@/data/learning-area-summaries";
 
 export const metadata: Metadata = {
-  title: "Academics",
+  title: "Learning Areas",
   description: "Explore academic learning areas, core subjects and elective combinations at Anlo Senior High School."
 };
-
-const learningAreas = [
-  "Science",
-  "General Arts",
-  "Business",
-  "Agriculture",
-  "Home Economics",
-  "Visual and Performing Arts",
-  "Applied Technology",
-  "Languages"
-];
 
 const coreSubjects = [
   "English Language",
@@ -31,9 +23,9 @@ const departmentHeads = [
   { name: "Mr. Jonas Hatekah", department: "Mathematics" },
   { name: "Mr. Mathew Ganadzi", department: "General Arts" },
   { name: "Mr. Festus K. Sorkpor", department: "Languages" },
-  { name: "Mad. Esther A. Gabla", department: "Agriculture" },
+  { name: "Madam Esther A. Gabla", department: "Agriculture" },
   { name: "Mr. Saviour Wordzro", department: "Visual and Performing Arts" },
-  { name: "Mad. Rejoice Vormawor", department: "Home Economics" },
+  { name: "Madam Rejoice Vormawor", department: "Home Economics" },
   { name: "Mr. Edwin Atitsogbui", department: "Business" },
   { name: "Mr. Philip Mifetu", department: "Information and Comm. Technology" },
   { name: "Mr. Felix Q. Ladeka", department: "Physical Education and Health" }
@@ -141,16 +133,16 @@ const electiveSectionOrder = [
   "languages"
 ];
 
-export default function ProgrammesPage() {
+export default function LearningAreasPage() {
   return (
     <div className="bg-[#F8F7F3]">
       <PageHeader
         title="Academics at ANSECO"
-        eyebrow="Academic Programmes"
+        eyebrow="Learning Areas"
         description="Eight learning areas with core subjects and elective combinations that prepare learners for further study, work and responsible service."
       />
 
-      <section id="programmes" className="scroll-mt-28 mx-auto max-w-[1260px] px-5 py-20 sm:px-8 lg:px-12">
+      <section id="learning-areas" className="scroll-mt-28 mx-auto max-w-[1260px] px-5 py-20 sm:px-8 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
             <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Overview</p>
@@ -171,18 +163,13 @@ export default function ProgrammesPage() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {learningAreas.map((area, index) => (
-            <div key={area} className="border border-[#0D2E6B]/10 bg-white p-6 shadow-[0_16px_38px_rgba(13,46,107,0.05)]">
-              <p className="mb-7 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">{String(index + 1).padStart(2, "0")}</p>
-              <h3 className="text-xl font-black leading-tight text-[#0D2E6B]">{area}</h3>
-            </div>
-          ))}
+        <div className="mt-12">
+          <LearningAreaCards areas={learningAreaSummaries} compact />
         </div>
       </section>
 
       <section id="departments" className="scroll-mt-28 bg-white px-5 py-20 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-[1260px]">
+        <div className="mx-auto max-w-[1400px]">
           <div className="mb-10 max-w-3xl">
             <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Academic Leadership</p>
             <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B]">Heads of Departments</h2>
@@ -191,7 +178,7 @@ export default function ProgrammesPage() {
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {departmentHeads.map((hod) => (
               <div key={`${hod.name}-${hod.department}`} className="border border-[#0D2E6B]/10 bg-[#F8F7F3] p-5 shadow-[0_14px_32px_rgba(13,46,107,0.04)]">
                 <h3 className="text-base font-black uppercase tracking-[0.04em] text-[#0D2E6B]">{hod.name}</h3>
@@ -203,7 +190,7 @@ export default function ProgrammesPage() {
       </section>
 
       <section className="bg-white px-5 py-20 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-[1260px]">
+        <div className="mx-auto max-w-[1400px]">
           <div className="mb-8 max-w-3xl">
             <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Core Subjects</p>
             <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B]">Subjects for SHS Form 1 and 2</h2>
@@ -211,7 +198,7 @@ export default function ProgrammesPage() {
               All students in SHS Form 1 and 2 are expected to study the following core subjects. The first four are examinable under the West African Senior High School Certificate Examinations conducted by WAEC and form a key benchmark for further education and work.
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {coreSubjects.map((subject) => (
               <div key={subject} className="border border-[#0D2E6B]/10 bg-[#F8F7F3] px-5 py-4 text-base font-bold text-[#0D2E6B]">
                 {subject}
@@ -221,7 +208,7 @@ export default function ProgrammesPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1260px] px-5 py-20 sm:px-8 lg:px-12">
+      <section className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12">
         <div className="mb-10 max-w-4xl">
           <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Elective Subjects</p>
           <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B]">Learning Area Combinations</h2>
@@ -230,33 +217,7 @@ export default function ProgrammesPage() {
           </p>
         </div>
 
-        <div className="space-y-8">
-          {[...electiveSections]
-            .sort((a, b) => electiveSectionOrder.indexOf(a.id) - electiveSectionOrder.indexOf(b.id))
-            .map((section) => (
-            <div id={`electives-${section.id}`} key={section.title} className="scroll-mt-28 border border-[#0D2E6B]/10 bg-white p-6 shadow-[0_18px_45px_rgba(13,46,107,0.06)]">
-              <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                <h3 className="font-display text-3xl font-bold text-[#0D2E6B]">{section.title}</h3>
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#C9990A]">{section.note}</p>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {section.options.map((subjects, index) => (
-                  <div key={`${section.title}-${index}`} className="bg-[#F8F7F3] p-5">
-                    <p className="mb-4 text-sm font-black uppercase tracking-[0.18em] text-[#0D2E6B]">Option {String.fromCharCode(65 + index)}</p>
-                    <ol className="space-y-2 text-sm leading-6 text-[#334155]">
-                      {subjects.map((subject) => (
-                        <li key={subject} className="flex gap-3">
-                          <span className="font-black text-[#C9990A]">-</span>
-                          <span>{subject}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        <LearningAreaAccordion sections={[...electiveSections].sort((a, b) => electiveSectionOrder.indexOf(a.id) - electiveSectionOrder.indexOf(b.id))} />
       </section>
 
     </div>

@@ -10,11 +10,13 @@ const routesToPrefetch = [
   "/admissions",
   "/admissions/how-to-apply",
   "/admissions/prospectus",
-  "/programmes",
+  "/admissions/student-guidelines",
+  "/learning-areas",
+  "/final-year-students",
   "/news",
   "/events",
-  "/school-life",
-  "/student-life/discipline-code-of-conduct"
+  "/campus-life",
+  "/contact"
 ];
 
 export function RoutePrefetcher() {

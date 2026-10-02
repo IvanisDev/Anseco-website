@@ -19,7 +19,7 @@
     --border: 214 20% 86%;
     --input: 214 20% 86%;
     --ring: 154 78% 22%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   * {
@@ -28,6 +28,7 @@
 
   html {
     scroll-behavior: auto;
+    scroll-padding-top: 6rem;
   }
 
   body {
@@ -35,7 +36,8 @@
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+    outline: 3px solid #facc15;
+    outline-offset: 3px;
   }
 }
 
@@ -48,11 +50,69 @@
   }
 }
 
+.school-ticker-track {
+  animation: ticker 68s linear infinite;
+  width: max-content;
+}
+
+@media (min-width: 640px) {
+  .school-ticker-track {
+    animation-duration: 46s;
+  }
+}
+
+@media (min-width: 1024px) {
+  .school-ticker-track {
+    animation-duration: 34s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .school-ticker-track {
+    animation: none;
+    transform: none;
+  }
+}
+
 .font-display {
   font-family: Georgia, "Times New Roman", serif;
 }
 
 @layer components {
+  main article[class*="border"],
+  main a[class*="border"][class*="bg-white"],
+  main a[class*="overflow-hidden"][class*="bg-"],
+  main div[class*="border"][class*="bg-white"],
+  main div[class*="shadow-"][class*="bg-"],
+  main section[class*="border"][class*="bg-"],
+  main aside[class*="bg-"],
+  main a[class*="inline-flex"][class*="bg-"] {
+    border-radius: 12px;
+  }
+
+  main article[class*="border-l-4"][class*="bg-"],
+  main aside[class*="border-l-4"][class*="bg-"],
+  main div[class*="border-l-4"][class*="bg-"],
+  main section[class*="border-l-4"][class*="bg-"] {
+    border-left-width: 0;
+  }
+
+  main article[class*="border-t-4"][class*="bg-"],
+  main aside[class*="border-t-4"][class*="bg-"],
+  main div[class*="border-t-4"][class*="bg-"],
+  main section[class*="border-t-4"][class*="bg-"] {
+    border-top-width: 0;
+  }
+
   .prose-school {
     @apply max-w-none text-foreground;
   }

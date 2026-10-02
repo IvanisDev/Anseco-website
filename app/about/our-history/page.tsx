@@ -7,25 +7,51 @@ export const metadata: Metadata = {
 };
 
 const headmasters = [
-  { name: "Mr. Isaiah Y. Fiagbe", year: "1959 - 1960" },
-  { name: "Mr. Evans Agbottah", year: "1960 - 1963" },
-  { name: "Mr. Sosthenes D. Sorkpor", year: "1963 - 1987" },
-  { name: "Mr. Eric K. Dzikunu", year: "1987 - 1993" },
-  { name: "Mr. Jackson K. Akpade", year: "1994 - 1999" },
-  { name: "Mr. Emmanuel K. Ketteku", year: "2000 - 2006" },
-  { name: "Mr. Wilberforce I.K Azumah", year: "2006 - 2014" },
-  { name: "Mr. Gideon Tay", year: "2014 - 2017" },
-  { name: "Mr. Ganya A.S Ladzekpo", year: "2017 - 2020" },
-  { name: "Mr. Kplorla K. Mensah-Gbekor", year: "2020 - 2021" },
-  { name: "Mr. Wisdom K. Adeti", year: "2021 - 2025" },
-  { name: "Mr. Newman H.K. Dziedzoave", year: "2025 - Date" }
+  { name: "Mr. Isaiah Y. Fiagbe", period: "1959–1960" },
+  { name: "Mr. Evans Agbottah", period: "1960–1963" },
+  { name: "Mr. Sosthenes D. Sorkpor", period: "1963–1987" },
+  { name: "Mr. Eric K. Dzikunu", period: "1987–1993" },
+  { name: "Mr. Jackson K. Akpade", period: "1994–1999" },
+  { name: "Mr. Emmanuel K. Ketteku", period: "2000–2006" },
+  { name: "Mr. Wilberforce I.K. Azumah", period: "2006–2014" },
+  { name: "Mr. Gideon Tay", period: "2014–2017" },
+  { name: "Mr. Ganya A.S. Ladzekpo", period: "2017–2020" },
+  { name: "Mr. Kplorla K. Mensah-Gbekor", period: "2020–2021" },
+  { name: "Mr. Wisdom K. Adeti", period: "2021–2025" },
+  { name: "Mr. Newman H.K. Dziedzoave", period: "2025–Present" }
 ];
 
 const milestones = [
-  "ANSECO won the Best Disciplined School Award in the Volta Region for three consecutive years: 2008, 2009 and 2010.",
-  "In 2021, ANSECO was crowned Volta Regional Champion and placed 4th in the Southern Zonal Competition during the Renewable Energy Quiz Competition.",
-  "The school has featured in the National Science and Maths Quiz (NSMQ) Competition since 2012. In 2017, the school reached the quarter-finals.",
-  "The school was National Champion in the Inter-School Constitution Game Competition in 2007 and 2010."
+  {
+    year: "2007",
+    title: "National Champion",
+    description: "Inter-School Constitution Game Competition"
+  },
+  {
+    year: "2008–2010",
+    title: "Best Disciplined School",
+    description: "Volta Region, three consecutive years"
+  },
+  {
+    year: "2010",
+    title: "National Champion",
+    description: "Inter-School Constitution Game Competition"
+  },
+  {
+    year: "2012",
+    title: "NSMQ Participation",
+    description: "ANSECO begins appearing in the National Science and Maths Quiz"
+  },
+  {
+    year: "2017",
+    title: "NSMQ Quarter-Finalist",
+    description: "ANSECO reaches the quarter-final stage of the National Science and Maths Quiz"
+  },
+  {
+    year: "2021",
+    title: "Renewable Energy Quiz",
+    description: "Volta Regional Champion and 4th in the Southern Zonal Competition"
+  }
 ];
 
 export default function OurHistoryPage() {
@@ -37,7 +63,7 @@ export default function OurHistoryPage() {
         description="From a community-supported beginning to a leading public senior high school serving Anlo-Land and the Volta Region."
       />
 
-      <main className="mx-auto max-w-[980px] px-5 py-20 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-[980px] px-5 py-20 sm:px-8 lg:px-12">
         <div className="space-y-5 text-base leading-8 text-[#334155]">
           <p>Anlo Secondary School (ANSECO), now known as Anlo Senior High School, is one of the Government-Assisted Secondary Schools in Ghana.</p>
           <p>The school is situated at Avume, about three (3) kilometers from Anloga main town along the Anloga-Keta Road and about two (2) kilometers away from the Keta Lagoon on the left and the Gulf of Guinea on the right. Its GPS address is VN-1333-1364.</p>
@@ -45,40 +71,46 @@ export default function OurHistoryPage() {
           <p>On 10th April 1959, the school was re-opened by these gallant founding fathers, all of blessed memory: Togbi Adeladza II, Awoamefia of Anlo; Mr. Cephas Kofi Fiagbe; and Mr. James W.K. Doe.</p>
           <p>In the 1963/1964 academic year, the school was enlisted as one of the Government-Assisted Secondary Schools, and the first headmaster was Mr. Sosthenes Doe Sorkpor.</p>
           <p>Anlo Senior High School is a co-educational institution with adequate facilities for both boarders and day students. From a student population of nine (9), comprising five (5) males and four (4) females, ANSECO has grown to become a school of choice in the Volta Region. The student population as of 2026 was two thousand and ninety-four (2,094).</p>
-          <p>Anlo Senior High School has a well-structured governance system. At the apex is the Board of Governors, supported by Senior and Middle Management Teams and student leaders.</p>
-
-          <section className="border-l-4 border-[#C9990A] bg-white p-6 shadow-[0_16px_38px_rgba(13,46,107,0.06)]">
-            <h2 className="mb-4 text-xl font-black text-[#0D2E6B]">Key Milestones</h2>
-            <ul className="space-y-3 text-sm leading-7 text-[#334155]">
-              {milestones.map((milestone) => <li key={milestone}>{milestone}</li>)}
-            </ul>
+          <section className="overflow-hidden border border-[#0D2E6B]/10 bg-white shadow-[0_16px_38px_rgba(13,46,107,0.06)]">
+            <div className="bg-[#0D2E6B] px-6 py-5 sm:px-8">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Achievements</p>
+              <h2 className="font-display mt-2 text-3xl font-bold text-white">Key Milestones</h2>
+            </div>
+            <ol className="grid sm:grid-cols-2 lg:grid-cols-3">
+              {milestones.map((milestone, index) => (
+                <li
+                  key={`${milestone.year}-${milestone.title}`}
+                  className="relative border-b border-[#0D2E6B]/10 p-6 last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(3n)]:border-r-0 lg:[&:nth-last-child(-n+3)]:border-b-0"
+                >
+                  <p className="font-display text-3xl font-bold text-[#C9990A]">{milestone.year}</p>
+                  <h3 className="mt-5 text-lg font-black text-[#0D2E6B]">{milestone.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#64748B]">{milestone.description}</p>
+                  <span className="mt-6 block text-xs font-black text-[#0D2E6B]/30">{String(index + 1).padStart(2, "0")}</span>
+                </li>
+              ))}
+            </ol>
           </section>
 
           <section className="overflow-hidden border border-[#0D2E6B]/10 bg-white shadow-[0_16px_38px_rgba(13,46,107,0.06)]">
             <div className="border-b border-[#0D2E6B]/10 bg-[#0D2E6B] px-5 py-4">
               <h2 className="text-lg font-black uppercase tracking-[0.12em] text-white">List of Headmasters</h2>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[540px] border-collapse text-left text-sm">
-                <thead className="bg-[#EDF1F9] text-[#0D2E6B]">
-                  <tr>
-                    <th className="px-5 py-3 font-black uppercase tracking-[0.08em]">Name of Headmaster</th>
-                    <th className="px-5 py-3 font-black uppercase tracking-[0.08em]">Year</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#0D2E6B]/10">
-                  {headmasters.map((headmaster) => (
-                    <tr key={headmaster.name}>
-                      <td className="px-5 py-3 font-semibold text-[#0D2E6B]">{headmaster.name}</td>
-                      <td className="px-5 py-3 text-[#64748B]">{headmaster.year}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="px-6 py-10 sm:px-10">
+              <ol className="relative ml-2 border-l-2 border-[#C9990A]/35">
+                {headmasters.map((headmaster, index) => (
+                  <li key={headmaster.name} className={index === headmasters.length - 1 ? "relative pl-8" : "relative pb-9 pl-8"}>
+                    <span className="absolute -left-[9px] top-1.5 h-4 w-4 border-4 border-white bg-[#C9990A]" />
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-[#C9990A]">
+                      {headmaster.period}
+                    </p>
+                    <p className="mt-2 text-lg font-bold leading-7 text-[#0D2E6B]">{headmaster.name}</p>
+                  </li>
+                ))}
+              </ol>
             </div>
           </section>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

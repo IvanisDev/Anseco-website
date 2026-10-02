@@ -83,7 +83,30 @@ export function getExternalNewsPosts() {
 }
 
 export function getAllNewsPosts() {
-  return [...getNewsPosts(), ...getExternalNewsPosts()].sort(
+  const seenTitles = new Set<string>();
+  const seenUrls = new Set<string>();
+
+  return [...getNewsPosts(), ...getExternalNewsPosts()].filter((post) => {
+    const titleKey = post.title.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    let urlKey = "";
+
+    if (post.externalUrl) {
+      try {
+        const url = new URL(post.externalUrl);
+        url.hash = "";
+        url.search = "";
+        url.pathname = url.pathname.replace(/\/amp\/?$/i, "/").replace(/\/+$/, "") || "/";
+        urlKey = url.toString().toLowerCase();
+      } catch {
+        urlKey = post.externalUrl.toLowerCase().replace(/[?#].*$/, "").replace(/\/amp\/?$/i, "").replace(/\/+$/, "");
+      }
+    }
+
+    if ((titleKey && seenTitles.has(titleKey)) || (urlKey && seenUrls.has(urlKey))) return false;
+    if (titleKey) seenTitles.add(titleKey);
+    if (urlKey) seenUrls.add(urlKey);
+    return true;
+  }).sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 }

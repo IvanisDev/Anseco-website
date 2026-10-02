@@ -24,7 +24,7 @@ export function ContentCard({
   const isRemoteImage = image.startsWith("http://") || image.startsWith("https://");
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden border border-[#0D2E6B]/10 bg-white shadow-[0_16px_38px_rgba(13,46,107,0.05)] transition-all hover:-translate-y-1 hover:border-[#C9990A] hover:shadow-[0_24px_55px_rgba(13,46,107,0.1)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[12px] border border-[#0D2E6B]/10 bg-white shadow-[0_16px_38px_rgba(13,46,107,0.05)] transition-all hover:-translate-y-1 hover:border-[#C9990A] hover:shadow-[0_24px_55px_rgba(13,46,107,0.1)]">
       <Link href={href} className="flex h-full flex-col" {...linkProps}>
         <div className="relative aspect-[16/10] overflow-hidden bg-[#EDF1F9]">
           {isRemoteImage ? (
@@ -36,7 +36,7 @@ export function ContentCard({
           )}
         </div>
         <div className="flex flex-1 flex-col p-6">
-          <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-[#94A3B8]">
+          <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-[#64748B]">
             {badge ? <span className="bg-[#C9990A]/10 px-2.5 py-1 font-black uppercase tracking-[0.14em] text-[#C9990A]">{badge}</span> : null}
             <span>{meta.includes("-") ? formatDate(meta) : meta}</span>
           </div>

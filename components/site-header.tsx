@@ -20,7 +20,7 @@ const navLinks: NavLink[] = [
     label: "About",
     href: "/about",
     children: [
-      { label: "About Us", href: "/about" },
+      { label: "About ANSECO", href: "/about" },
       { label: "Our History", href: "/about/our-history" },
       { label: "School Administration", href: "/about/school-administration" }
     ]
@@ -33,23 +33,64 @@ const navLinks: NavLink[] = [
       { label: "How to Apply", href: "/admissions/how-to-apply" },
       { label: "Prospectus & Requirements", href: "/admissions/prospectus" },
       { label: "School Regulations", href: "/admissions/student-guidelines" },
-      { label: "Frequently Asked Questions", href: "/admissions/faqs" }
+      { label: "FQAs", href: "/admissions/faqs" }
     ]
   },
   {
     label: "Academics",
-    href: "/programmes",
+    href: "/learning-areas",
     children: [
-      { label: "Learning Areas", href: "/programmes#programmes" },
+      { label: "Learning Areas", href: "/learning-areas#learning-areas" },
       { label: "Resources", href: "/resources" },
-      { label: "Gallery", href: "/gallery" },
-      { label: "Code of Conduct", href: "/student-life/discipline-code-of-conduct" }
+      { label: "Final-Year Students", href: "/final-year-students" },
+      { label: "Academic Calendar", href: "/academic-calendar" }
     ]
   },
-  { label: "Campus Life", href: "/school-life" },
-  { label: "News & Events", href: "/news" },
-  { label: "Alumni", href: "/alumni" }
+  {
+    label: "Campus Life",
+    href: "/campus-life",
+    children: [
+      { label: "Student Life", href: "/campus-life" },
+      { label: "Clubs & Societies", href: "/campus-life/clubs-societies" },
+      { label: "Sports & Athletics", href: "/campus-life/sports-athletics" },
+      { label: "Boarding & Day Students", href: "/campus-life/boarding-day-students" }
+    ]
+  },
+  {
+    label: "Media",
+    href: "/news",
+    children: [
+      { label: "News", href: "/news" },
+      { label: "Events", href: "/events" },
+      { label: "Gallery", href: "/gallery" }
+    ]
+  },
+  {
+    label: "Alumni",
+    href: "/alumni",
+    children: [
+      { label: "ANSSOSA", href: "/alumni" },
+      { label: "Alumni Leadership", href: "/alumni/leadership" },
+      { label: "Projects & Impact", href: "/alumni/projects-impact" },
+      { label: "Transcript & Records", href: "/alumni/transcript-records" },
+      { label: "Get Involved", href: "/alumni/get-involved" }
+    ]
+  },
+  { label: "Contact", href: "/contact" }
 ];
+
+function hrefPath(href: string) {
+  return href.split("#")[0].replace(/\/$/, "") || "/";
+}
+
+function pathMatches(href: string, pathname: string) {
+  const target = hrefPath(href);
+  return target === "/" ? pathname === "/" : pathname === target || pathname.startsWith(`${target}/`);
+}
+
+function navLinkIsActive(link: NavLink, pathname: string): boolean {
+  return pathMatches(link.href, pathname) || Boolean(link.children?.some((child) => navLinkIsActive(child, pathname)));
+}
 
 const searchItems = [
   { label: "About ANSECO", href: "/about", description: "History, mission, values and leadership" },
@@ -58,17 +99,28 @@ const searchItems = [
   { label: "Admissions", href: "/admissions", description: "Application steps, requirements, FAQs and downloads" },
   { label: "How to Apply", href: "/admissions/how-to-apply", description: "Placement, reporting and registration steps" },
   { label: "Admissions Prospectus", href: "/admissions/prospectus", description: "Required documents and approved student items" },
-  { label: "School Regulations", href: "/admissions/student-guidelines", description: "Reporting, visiting, dress and health guidance" },
+  { label: "School Regulations", href: "/admissions/student-guidelines", description: "Reporting, visiting, dress, health and student conduct guidance" },
   { label: "Admissions FAQs", href: "/admissions/faqs", description: "Common admission questions and answers" },
-  { label: "Academics", href: "/programmes", description: "Academic pathways offered at ANSECO" },
-  { label: "Departments", href: "/programmes", description: "Academic departments and programmes" },
+  { label: "Academics", href: "/learning-areas", description: "Learning areas offered at ANSECO" },
+  { label: "Departments", href: "/learning-areas", description: "Academic departments and learning areas" },
+  { label: "Heads of Departments", href: "/about/school-administration#heads-of-departments", description: "Academic department leaders at ANSECO" },
+  { label: "Final-Year Students & WASSCE", href: "/final-year-students", description: "WASSCE preparation, candidate guidance, examination conduct and next steps" },
+  { label: "Academic Calendar", href: "/academic-calendar", description: "Published academic dates and school programmes" },
   { label: "News & Updates", href: "/news", description: "Latest school notices and announcements" },
   { label: "Events Calendar", href: "/events", description: "Upcoming school dates and activities" },
-  { label: "Campus Life", href: "/school-life", description: "Sports, clubs, boarding and student leadership" },
-  { label: "Code of Conduct", href: "/student-life/discipline-code-of-conduct", description: "Student conduct, offences and approved disciplinary guidelines" },
+  { label: "Campus Life", href: "/campus-life", description: "Sports, clubs, boarding and student leadership" },
+  { label: "Clubs & Societies", href: "/campus-life/clubs-societies", description: "Student clubs, service groups and societies" },
+  { label: "Sports & Athletics", href: "/campus-life/sports-athletics", description: "Sporting activities and inter-house participation" },
+  { label: "Boarding & Day Students", href: "/campus-life/boarding-day-students", description: "Boarding life, day students and the four ANSECO houses" },
+  { label: "Student Conduct & Discipline", href: "/admissions/student-guidelines#student-conduct-discipline", description: "GES offences, sanctions and approved disciplinary guidelines" },
   { label: "Resources", href: "/resources", description: "Library, labs, dining hall and campus facilities" },
-  { label: "Gallery", href: "/gallery", description: "School photo albums" },
-  { label: "Alumni", href: "/alumni", description: "ANSSOSA contact and support" }
+  { label: "Gallery", href: "/gallery", description: "School photo albums covering academics, campus life, events and history" },
+  { label: "Alumni", href: "/alumni", description: "ANSSOSA contact and support" },
+  { label: "Alumni Leadership", href: "/alumni/leadership", description: "ANSSOSA Global and Diaspora executives" },
+  { label: "Alumni Projects & Impact", href: "/alumni/projects-impact", description: "Current and completed alumni projects" },
+  { label: "Transcript & Records", href: "/alumni/transcript-records", description: "Guidance for academic record requests" },
+  { label: "Get Involved", href: "/alumni/get-involved", description: "Reconnect, volunteer, mentor and support ANSECO" },
+  { label: "Contact ANSECO", href: "/contact", description: "Current school address and telephone numbers" }
 ];
 
 export function SiteHeader() {
@@ -154,13 +206,22 @@ export function SiteHeader() {
     };
   }, [searchOpen, closeSearch]);
 
+  useEffect(() => {
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") closeNavigation();
+    }
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [closeNavigation]);
+
   return (
     <header ref={headerRef} className="sticky top-0 z-50 border-b-4 border-[#C9990A] bg-[#061a43] text-white shadow-[0_18px_40px_rgba(6,26,67,0.24)]">
       <div className="w-full px-5 sm:px-8 lg:px-12">
         <div className="flex h-20 items-center justify-between">
-          <Link href="/" className="flex items-center gap-4 hover:opacity-90" onClick={() => setMobileOpen(false)}>
-            <AnsecoCrest className="h-14 w-14" />
-            <div>
+          <Link href="/" className="flex min-w-0 items-center gap-3 hover:opacity-90 sm:gap-4" onClick={() => setMobileOpen(false)}>
+            <AnsecoCrest className="h-12 w-12 shrink-0 sm:h-14 sm:w-14" />
+            <div className="hidden min-[380px]:block">
               <div className="text-sm font-black uppercase leading-tight tracking-[0.12em]">ANLO SENIOR HIGH SCHOOL</div>
               <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.28em] text-[#C9990A]">{siteConfig.motto}</div>
             </div>
@@ -168,33 +229,45 @@ export function SiteHeader() {
 
           <div className="hidden items-center gap-2 lg:flex">
             <nav className="flex items-center gap-0.5" aria-label="Main navigation">
-              {navLinks.map((link) => (
+              {navLinks.map((link) => {
+                const isActive = navLinkIsActive(link, pathname);
+                return (
                 <div
                   key={link.label}
                   className="relative"
                   onMouseEnter={() => { if (link.children) setOpenDropdown(link.label); setOpenSubDropdown(null); }}
                   onMouseLeave={() => { setOpenDropdown(null); setOpenSubDropdown(null); }}
+                  onFocus={() => { if (link.children) setOpenDropdown(link.label); }}
+                  onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget)) {
+                      setOpenDropdown(null);
+                      setOpenSubDropdown(null);
+                    }
+                  }}
                 >
                   <Link
                     href={link.href}
-                    className={`flex items-center gap-1 px-3 py-2 text-sm font-bold transition-colors ${pathname === link.href || pathname.startsWith(`${link.href}/`) ? "bg-[#C9990A] text-white" : "text-white/80 hover:bg-white/10 hover:text-white"}`}
+                    aria-current={pathMatches(link.href, pathname) ? "page" : undefined}
+                    aria-expanded={link.children ? openDropdown === link.label : undefined}
+                    aria-controls={link.children ? `desktop-menu-${link.label.toLowerCase().replaceAll(" ", "-")}` : undefined}
+                    className={`flex items-center gap-1 rounded-[6px] px-3 py-2 text-sm font-bold transition-colors ${isActive ? "bg-[#C9990A] text-white" : "text-white/80 hover:bg-white/10 hover:text-white"}`}
                     onClick={(event) => handleNavLinkClick(event, link.href)}
                   >
                     {link.label}
                     {link.children ? <ChevronDown size={13} /> : null}
                   </Link>
                   {link.children && openDropdown === link.label ? (
-                    <div className="absolute left-0 top-full z-50 min-w-[240px] border-t-4 border-[#C9990A] bg-white py-2 text-[#1A1A2E] shadow-[0_24px_60px_rgba(6,26,67,0.18)]">
+                    <div id={`desktop-menu-${link.label.toLowerCase().replaceAll(" ", "-")}`} className="absolute left-0 top-full z-50 min-w-[240px] border-t-4 border-[#C9990A] bg-white py-2 text-[#1A1A2E] shadow-[0_24px_60px_rgba(6,26,67,0.18)]">
                       {link.children.map((child) => (
                         <div key={child.label} className="relative" onMouseEnter={() => child.children && setOpenSubDropdown(child.label)}>
-                          <Link href={child.href} className="flex items-center justify-between px-5 py-3 text-sm font-semibold transition-colors hover:bg-[#EDF1F9] hover:text-[#0D2E6B]" onClick={(event) => handleNavLinkClick(event, child.href)}>
+                          <Link href={child.href} aria-current={pathMatches(child.href, pathname) ? "page" : undefined} className={`flex items-center justify-between px-5 py-3 text-sm font-semibold transition-colors hover:bg-[#EDF1F9] hover:text-[#0D2E6B] ${navLinkIsActive(child, pathname) ? "bg-[#EDF1F9] text-[#0D2E6B]" : ""}`} onClick={(event) => handleNavLinkClick(event, child.href)}>
                             {child.label}
                             {child.children ? <ChevronRight size={13} className="text-gray-400" /> : null}
                           </Link>
                           {child.children && openSubDropdown === child.label ? (
                             <div className="absolute left-full top-0 z-50 min-w-[190px] border-t-4 border-[#C9990A] bg-white py-2 shadow-xl">
                               {child.children.map((sub) => (
-                                <Link key={sub.label} href={sub.href} className="block px-5 py-3 text-sm font-semibold hover:bg-[#EDF1F9] hover:text-[#0D2E6B]" onClick={(event) => handleNavLinkClick(event, sub.href)}>{sub.label}</Link>
+                                <Link key={sub.label} href={sub.href} aria-current={pathMatches(sub.href, pathname) ? "page" : undefined} className={`block px-5 py-3 text-sm font-semibold hover:bg-[#EDF1F9] hover:text-[#0D2E6B] ${pathMatches(sub.href, pathname) ? "bg-[#EDF1F9] text-[#0D2E6B]" : ""}`} onClick={(event) => handleNavLinkClick(event, sub.href)}>{sub.label}</Link>
                               ))}
                             </div>
                           ) : null}
@@ -203,7 +276,8 @@ export function SiteHeader() {
                     </div>
                   ) : null}
                 </div>
-              ))}
+                );
+              })}
             </nav>
 
             <div ref={searchRef} className="relative">
@@ -211,7 +285,8 @@ export function SiteHeader() {
                 type="button"
                 aria-label="Search site"
                 aria-expanded={searchOpen}
-                className="p-2.5 text-white/90 transition-all duration-200 hover:bg-white/10 hover:text-white active:scale-95"
+                aria-controls="desktop-site-search"
+                className="flex h-11 w-11 items-center justify-center text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                 onClick={() => {
                   if (searchOpen) {
                     closeSearch();
@@ -226,9 +301,9 @@ export function SiteHeader() {
                 <Search size={19} />
               </button>
               {searchOpen ? (
-                <div className="absolute right-0 top-14 z-50 w-80 animate-in fade-in-0 slide-in-from-top-2 duration-200 bg-white p-3 text-[#1A1A2E] shadow-2xl">
+                <div id="desktop-site-search" role="search" className="absolute right-0 top-14 z-50 w-80 animate-in fade-in-0 slide-in-from-top-2 rounded-[8px] bg-white p-3 text-[#1A1A2E] shadow-2xl duration-200">
                   <label className="sr-only" htmlFor="site-search">Search ANSECO</label>
-                  <div className="flex items-center gap-2 px-2 py-2">
+                  <div className="flex items-center gap-2 rounded-[8px] px-2 py-2">
                     <Search size={16} className="text-gray-400" />
                     <input
                       id="site-search"
@@ -244,7 +319,7 @@ export function SiteHeader() {
                     />
                   </div>
                   {normalizedQuery ? (
-                    <div className="mt-3 max-h-80 overflow-y-auto">
+                    <div className="mt-3 max-h-80 overflow-y-auto" aria-live="polite">
                       {searchResults.length > 0 ? (
                       searchResults.map((item) => (
                         <Link key={`${item.label}-${item.href}`} href={item.href} className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-[#EDF1F9]" onClick={closeNavigation}>
@@ -263,9 +338,11 @@ export function SiteHeader() {
           </div>
 
           <button
-            className="rounded-md p-2 transition-all duration-200 hover:bg-white/10 active:scale-95 lg:hidden"
+            className="relative z-10 flex h-11 w-11 shrink-0 touch-manipulation items-center justify-center transition-colors hover:bg-white/10 lg:hidden"
             type="button"
-            aria-label="Toggle menu"
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
             onClick={() => {
               if (mobileOpen) {
                 closeNavigation();
@@ -279,21 +356,21 @@ export function SiteHeader() {
         </div>
       </div>
       {mobileOpen ? (
-        <div className="absolute inset-x-0 top-full max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-white/10 bg-[#0D2E6B] pb-4 shadow-[0_24px_50px_rgba(6,26,67,0.35)] lg:hidden">
+        <div id="mobile-navigation" className="fixed inset-x-0 top-20 z-[90] max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-white/10 bg-[#0D2E6B] pb-4 shadow-[0_24px_50px_rgba(6,26,67,0.35)] lg:hidden">
           <div className="px-6 py-4">
             <label className="sr-only" htmlFor="mobile-site-search">Search ANSECO</label>
-            <div className="flex items-center gap-2 rounded-lg border border-white/15 bg-white/10 px-3 py-2">
+            <div className="flex items-center gap-2 rounded-[8px] border border-white/15 bg-white/10 px-3 py-2">
               <Search size={16} className="text-[#C9990A]" />
               <input
                 id="mobile-site-search"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder="Keyword search"
-                className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white/50"
+                className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white/70"
               />
             </div>
             {searchQuery.trim() ? (
-              <div className="mt-2 overflow-hidden rounded-lg bg-[#091d47]">
+              <div className="mt-2 overflow-hidden rounded-lg bg-[#091d47]" aria-live="polite">
                 {searchResults.length > 0 ? (
                   searchResults.map((item) => (
                     <Link key={`${item.label}-${item.href}`} href={item.href} className="block px-4 py-2.5 text-xs text-white/75 hover:bg-white/10" onClick={closeNavigation}>
@@ -302,35 +379,42 @@ export function SiteHeader() {
                     </Link>
                   ))
                 ) : (
-                  <p className="px-4 py-3 text-xs text-white/60">No matching pages found.</p>
+                  <p className="px-4 py-3 text-xs text-white/75">No matching pages found.</p>
                 )}
               </div>
             ) : null}
           </div>
-          {navLinks.map((link) => (
+          {navLinks.map((link) => {
+            const isActive = navLinkIsActive(link, pathname);
+            return (
             <div key={link.label}>
               {link.children ? (
-                <button className="flex w-full items-center justify-between px-6 py-3 text-left text-sm font-medium text-white/90 hover:bg-white/10" onClick={() => setMobileExpanded(mobileExpanded === link.label ? null : link.label)}>
+                <button
+                  className={`flex min-h-11 w-full touch-manipulation items-center justify-between px-6 py-3 text-left text-sm font-medium hover:bg-white/10 ${isActive ? "bg-[#C9990A] text-white" : "text-white/90"}`}
+                  aria-expanded={mobileExpanded === link.label}
+                  aria-controls={`mobile-menu-${link.label.toLowerCase().replaceAll(" ", "-")}`}
+                  onClick={() => setMobileExpanded(mobileExpanded === link.label ? null : link.label)}
+                >
                   {link.label}
                   <ChevronDown size={14} className={mobileExpanded === link.label ? "rotate-180" : ""} />
                 </button>
               ) : (
-                <Link href={link.href} className="block px-6 py-3 text-sm font-medium text-white/90 hover:bg-white/10" onClick={(event) => {
+                <Link href={link.href} aria-current={pathMatches(link.href, pathname) ? "page" : undefined} className={`block px-6 py-3 text-sm font-medium hover:bg-white/10 ${isActive ? "bg-[#C9990A] text-white" : "text-white/90"}`} onClick={(event) => {
                   handleNavLinkClick(event, link.href);
                   setMobileOpen(false);
                 }}>{link.label}</Link>
               )}
               {link.children && mobileExpanded === link.label ? (
-                <div className="bg-[#091d47]">
+                <div id={`mobile-menu-${link.label.toLowerCase().replaceAll(" ", "-")}`} className="bg-[#091d47]">
                   {link.children.map((child) => (
                     <div key={child.label}>
                       {child.children ? (
-                        <button className="flex w-full items-center justify-between px-10 py-2.5 text-left text-xs text-white/70 hover:bg-white/10" onClick={() => setMobileSubExpanded(mobileSubExpanded === child.label ? null : child.label)}>
+                        <button className="flex min-h-11 w-full items-center justify-between px-10 py-2.5 text-left text-xs text-white/75 hover:bg-white/10" aria-expanded={mobileSubExpanded === child.label} onClick={() => setMobileSubExpanded(mobileSubExpanded === child.label ? null : child.label)}>
                           {child.label}
                           <ChevronDown size={12} className={mobileSubExpanded === child.label ? "rotate-180" : ""} />
                         </button>
                       ) : (
-                        <Link href={child.href} className="block px-10 py-2.5 text-xs text-white/70 hover:bg-white/10" onClick={(event) => {
+                        <Link href={child.href} aria-current={pathMatches(child.href, pathname) ? "page" : undefined} className={`block px-10 py-2.5 text-xs hover:bg-white/10 ${navLinkIsActive(child, pathname) ? "bg-white/15 font-bold text-white" : "text-white/70"}`} onClick={(event) => {
                           handleNavLinkClick(event, child.href);
                           setMobileOpen(false);
                         }}>{child.label}</Link>
@@ -338,7 +422,7 @@ export function SiteHeader() {
                       {child.children && mobileSubExpanded === child.label ? (
                         <div className="bg-[#071530]">
                           {child.children.map((sub) => (
-                            <Link key={sub.label} href={sub.href} className="block px-14 py-2 text-xs text-white/60 hover:bg-white/10" onClick={(event) => {
+                            <Link key={sub.label} href={sub.href} aria-current={pathMatches(sub.href, pathname) ? "page" : undefined} className={`block px-14 py-2 text-xs hover:bg-white/10 ${pathMatches(sub.href, pathname) ? "bg-white/15 font-bold text-white" : "text-white/75"}`} onClick={(event) => {
                               handleNavLinkClick(event, sub.href);
                               setMobileOpen(false);
                             }}>{sub.label}</Link>
@@ -350,7 +434,8 @@ export function SiteHeader() {
                 </div>
               ) : null}
             </div>
-          ))}
+            );
+          })}
         </div>
       ) : null}
     </header>

@@ -11,19 +11,24 @@ export function NewsFilter({ posts }: { posts: NewsPost[] }) {
 
   return (
     <div>
-      <div className="mb-10 flex flex-wrap gap-2" aria-label="Filter news by category">
+      <div className="mb-10 flex flex-wrap gap-2" role="group" aria-label="Filter news by category">
         {categories.map((item) => (
           <button
             key={item}
             type="button"
-            className={`border px-5 py-3 text-xs font-black uppercase tracking-[0.12em] transition-colors ${category === item ? "border-[#0D2E6B] bg-[#0D2E6B] text-white" : "border-[#0D2E6B]/15 bg-white text-[#0D2E6B] hover:border-[#C9990A] hover:text-[#C9990A]"}`}
+            aria-pressed={category === item}
+            aria-controls="news-results"
+            className={`rounded-[12px] border px-5 py-3 text-xs font-black uppercase tracking-[0.12em] transition-colors ${category === item ? "border-[#0D2E6B] bg-[#0D2E6B] text-white" : "border-[#0D2E6B]/15 bg-white text-[#0D2E6B] hover:border-[#C9990A] hover:text-[#C9990A]"}`}
             onClick={() => setCategory(item)}
           >
             {item}
           </button>
         ))}
       </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <p className="sr-only" aria-live="polite">
+        Showing {visible.length} news {visible.length === 1 ? "item" : "items"}.
+      </p>
+      <div id="news-results" className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {visible.map((post) => (
           <ContentCard
             key={post.slug}

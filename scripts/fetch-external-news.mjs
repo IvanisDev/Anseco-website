@@ -26,12 +26,13 @@ const sources = [
   }
 ];
 
-const matchTerms = [
+const directIdentifiers = [
   "anseco",
+  "anssosa",
   "anlo senior high",
   "anlo senior high school",
   "anlo shs",
-  "anlo senior high sch"
+  "anlo secondary school"
 ];
 
 const maxAgeDays = Number(process.env.EXTERNAL_NEWS_MAX_AGE_DAYS || 180);
@@ -59,6 +60,22 @@ function slugify(value) {
     .slice(0, 90);
 }
 
+function canonicalizeUrl(value) {
+  try {
+    const url = new URL(value);
+    url.hash = "";
+    url.search = "";
+    url.pathname = url.pathname.replace(/\/amp\/?$/i, "/").replace(/\/+$/, "") || "/";
+    return url.toString().toLowerCase();
+  } catch {
+    return String(value || "").toLowerCase().replace(/[?#].*$/, "").replace(/\/amp\/?$/i, "").replace(/\/+$/, "");
+  }
+}
+
+function normalizeTitle(value) {
+  return stripHtml(value).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
 function isCurrent(date) {
   if (!date) return true;
   const time = new Date(date).getTime();
@@ -67,9 +84,11 @@ function isCurrent(date) {
   return age <= maxAgeDays * 24 * 60 * 60 * 1000;
 }
 
-function isAnsecoRelated(item) {
-  const haystack = `${item.title} ${item.excerpt} ${item.content || ""}`.toLowerCase();
-  return matchTerms.some((term) => haystack.includes(term));
+function isDirectlyAboutAnseco(item) {
+  // Full article bodies can mention ANSECO only in passing. Restrict matching to
+  // the fields that identify the actual subject of the story.
+  const subjectFields = `${item.title || ""} ${item.excerpt || ""} ${decodeURIComponent(item.url || "")}`.toLowerCase();
+  return directIdentifiers.some((identifier) => subjectFields.includes(identifier));
 }
 
 function normalizeItem(item, source) {
@@ -171,7 +190,7 @@ async function collectFromSource(source) {
 
       for (const rawItem of parsed) {
         const item = normalizeItem(rawItem, source);
-        if (item && isCurrent(item.date) && isAnsecoRelated({ ...item, content: rawItem.content })) {
+        if (item && isCurrent(item.date) && isDirectlyAboutAnseco(item)) {
           items.push(item);
         }
       }
@@ -188,18 +207,28 @@ let manualItems = [];
 
 try {
   const existing = JSON.parse(await fs.readFile(outputPath, "utf8"));
-  manualItems = Array.isArray(existing.items) ? existing.items.filter((item) => item.manual) : [];
+  manualItems = Array.isArray(existing.items)
+    ? existing.items.filter((item) => item.manual && isCurrent(item.date) && isDirectlyAboutAnseco(item))
+    : [];
 } catch {
   manualItems = [];
 }
 
-const unique = new Map();
+const uniqueItems = [];
+const seenUrls = new Set();
+const seenTitles = new Set();
 
 for (const item of [...manualItems, ...allItems]) {
-  unique.set(item.url, item);
+  const urlKey = canonicalizeUrl(item.url);
+  const titleKey = normalizeTitle(item.title);
+  if ((urlKey && seenUrls.has(urlKey)) || (titleKey && seenTitles.has(titleKey))) continue;
+
+  if (urlKey) seenUrls.add(urlKey);
+  if (titleKey) seenTitles.add(titleKey);
+  uniqueItems.push(item);
 }
 
-const items = [...unique.values()]
+const items = uniqueItems
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   .slice(0, maxItems);
 

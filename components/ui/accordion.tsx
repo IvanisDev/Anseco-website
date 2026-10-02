@@ -10,7 +10,7 @@ export function AccordionItem({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>) {
-  return <AccordionPrimitive.Item className={cn("border-b", className)} {...props} />;
+  return <AccordionPrimitive.Item className={cn("rounded-[12px] border-b", className)} {...props} />;
 }
 
 export function AccordionTrigger({

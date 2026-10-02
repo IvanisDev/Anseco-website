@@ -1,10 +1,10 @@
 export const admissionSteps = [
-  ["01", "Check Your CSSPS Placement", "Confirm placement through the official placement process and keep a printed copy for reporting."],
-  ["02", "Review the Reporting Requirements", "Read the prospectus and reporting checklist carefully before arrival day."],
-  ["03", "Gather Your Documents", "Prepare originals and photocopies of all required documents early."],
-  ["04", "Report on the Official Date", "Arrive on the published reporting date with a parent or guardian where required."],
-  ["05", "Complete Registration", "Submit documents and complete the school registration process."],
-  ["06", "Settle In", "Collect guidance on classes, boarding, uniforms and orientation."]
+  ["01", "Check the CSSPS Placement", "The student and parent or guardian should confirm the placement through the official CSSPS process and keep a printed copy for reporting."],
+  ["02", "Review the Reporting Requirements", "Read the prospectus and reporting checklist together so every requirement is understood before arrival day."],
+  ["03", "Gather the Required Documents", "Prepare the student's documents, parent or guardian identification, and all required originals and photocopies early."],
+  ["04", "Report on the Official Date", "The student should report on the published date accompanied by a parent or guardian, as required by the school."],
+  ["05", "Complete Registration", "Submit the required documents and work with the admissions team to complete the student's registration."],
+  ["06", "Prepare for Campus Life", "Review the guidance on classes, boarding, uniforms and orientation together before the student settles in."]
 ];
 
 export const requiredDocuments = [
@@ -20,28 +20,33 @@ export const boardingItems = [
   "Underwear: 5 pants, 3 black underskirts, 3 under-knickers and 3 vests for girls; 3 boxer shorts or pants and 3 white singlets for boys; plus 3 handkerchiefs",
   "2 plastic buckets with covers and 1 sponge dish (Duraplast)",
   "Toiletries: deodorant, toilet rolls, toothpaste, toothbrush, soap, pomade, towel, sponge and sanitary pads for girls",
-  "1 drinking cup, 1 flat plastic or stainless-steel plate and a set of cutlery",
-  "2 pairs of decent sandals (1 black and 1 brown), with no embellishment", "1 pair of bathroom slippers",
-  "1 pair of decent sneakers (black or white)", "1 pair of black low-heel shoes for both boys and girls",
-  "2 pairs of socks (1 white and 1 black)", "Black belt with a simple buckle", "1 pair of pyjamas or sleepwear",
-  "2 pairs of khaki trousers (boys only)", "2 pairs of khaki shorts (boys only)", "1 pair of white trousers (boys only)",
-  "1 white flock dress for girls; refer to the appendix for the design", "2 white shirts, 1 short-sleeved and 1 long-sleeved (boys only)",
-  "2 short-sleeved green check shirts for boys; name must be embroidered on the left chest",
-  "2 medium-sized green check dresses for girls; name must be embroidered on the left chest",
-  "2 long-sleeved check shirts for prep for both boys and girls", "2 pairs of check trousers for prep (girls only)",
+  "1 drinking cup, 1 flat plastic or stainless-steel plate and a set of cutlery", "1 pair of bathroom slippers",
+  "1 pair of pyjamas or sleepwear",
   "1 torch with dry cells", "RSV/NIV Bible or Quran, and a school-specified hymn book for Christians", "1 raincoat or umbrella",
   "1 school bag, 1 lunch bag and 1 water bottle", "1 mathematical set and scientific calculator", "2 standard graph books",
   "20 exercise books and 10 notebooks", "2 long local standing brooms", "Inesfly for bedbugs"
 ];
 
-export const sharedStudentItems = ["Valid NHIS card", "Four passport-size pictures, to be taken in the school"];
-
 export const dayStudentItems = [
-  "2 short-sleeved green check shirts for boys", "2 medium-sized green check dresses for girls",
-  "1 mathematical set and scientific calculator", "1 pair of decent black sandals to the school's specification",
-  "1 pair of decent sneakers (black or white)", "1 school bag", "Black belt with a simple buckle",
-  "2 pairs of khaki shorts (boys only)", "2 standard graph books", "20 exercise books and 10 notebooks",
+  "1 mathematical set and scientific calculator", "1 school bag", "2 standard graph books", "20 exercise books and 10 notebooks",
   "2 long local standing brooms"
+];
+
+export const uniformItems = [
+  "2 pairs of decent sandals (1 black and 1 brown for boarding students; black for day students), with no embellishment",
+  "1 pair of decent sneakers (black or white)",
+  "1 pair of black low-heel shoes for both boys and girls",
+  "2 pairs of socks (1 white and 1 black)",
+  "Black belt with a simple buckle",
+  "2 pairs of khaki trousers (boys only)",
+  "2 pairs of khaki shorts (boys only)",
+  "1 pair of white trousers (boys only)",
+  "1 white flock dress for girls; refer to the approved school design",
+  "2 white shirts, 1 short-sleeved and 1 long-sleeved (boys only)",
+  "2 short-sleeved green check shirts for boys; name must be embroidered on the left chest",
+  "2 medium-sized green check dresses for girls; name must be embroidered on the left chest",
+  "2 long-sleeved check shirts for prep for both boys and girls",
+  "2 pairs of check trousers for prep (girls only)"
 ];
 
 export const cleaningGroups = [

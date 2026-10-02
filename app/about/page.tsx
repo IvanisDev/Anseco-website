@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Music2 } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, BookOpenText, Music2 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: `About ${siteConfig.fullName}, its history, motto, values and leadership.`
+  title: "About ANSECO",
+  description: `Meet ${siteConfig.fullName} through its leadership, motto, vision, mission and values.`
 };
 
 const values = [
@@ -39,25 +40,17 @@ export default function AboutPage() {
           About Anlo Senior High School
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-white/70">
-          Over six decades of academic excellence, moral formation, and service in the Volta Region of Ghana.
+          Anlo Senior High School (ANSECO) is a public senior high school in Anloga, Volta Region, committed to
+          academic development, character formation, discipline, and service.
         </p>
       </section>
 
       <section id="headmaster-message" className="bg-white px-5 py-20 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-[1160px] gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
-          <div className="overflow-hidden bg-[#0D2E6B] shadow-[0_20px_50px_rgba(13,46,107,0.12)]">
-            <div className="flex aspect-square items-center justify-center bg-[#EDF1F9] p-10 text-center">
-              <div>
-                <div className="mx-auto mb-5 flex h-32 w-32 items-center justify-center bg-[#0D2E6B] text-3xl font-black text-[#C9990A]">
-                  HM
-                </div>
-                <p className="text-sm font-black uppercase tracking-[0.18em] text-[#0D2E6B]">Mr. Newman H.K. Dziedzoave</p>
-                <p className="mt-2 text-xs text-[#64748B]">Portrait to be updated</p>
-              </div>
-            </div>
-            <div className="p-6 text-white">
-              <p className="text-lg font-black">Mr. Newman H.K. Dziedzoave</p>
-              <p className="mt-1 text-sm text-white/60">Anlo Senior High School</p>
+          <div className="flex min-h-72 items-end bg-[#0D2E6B] p-8 text-white shadow-[0_20px_50px_rgba(13,46,107,0.12)] sm:p-10">
+            <div className="border-l-4 border-[#C9990A] pl-5">
+              <p className="font-display text-2xl font-bold leading-tight">Mr. Newman H.K. Dziedzoave</p>
+              <p className="mt-3 text-sm font-semibold text-white/70">Headmaster, Anlo Senior High School</p>
             </div>
           </div>
 
@@ -68,7 +61,9 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-5 text-base leading-8 text-[#334155]">
               <p>
-                On behalf of the Board of Governors, Parents Association, Old Students, staff and the entire student body, I warmly welcome you to Anlo Senior High School, ANSECO, Anloga, &quot;The Star of Anlo-Land&quot;, in the Volta Region of Ghana.
+                On behalf of the Board of Governors, Parents Association, Old Students, staff, and the entire
+                student body, I warmly welcome you to Anlo Senior High School (ANSECO), Anloga, &quot;The Star of
+                Anlo-Land&quot; in the Volta Region of Ghana.
               </p>
               <p>
                 Anlo Senior High School is blessed with dedicated and hardworking staff. It also has adequate infrastructure conducive for effective teaching and learning.
@@ -77,13 +72,30 @@ export default function AboutPage() {
                 Mother ANSECO is a place where great men and women are made, and we look forward to seeing you come and progress to greatness.
               </p>
               <p>
-                Our motto is, &quot;Truth and Service&quot;, which we believe can only be achieved through discipline and self-discipline. ANSECO is open to all persons and positioned to admit students who have been placed by CSSPS.
+                Our motto is &quot;Truth and Service&quot;, which we believe can only be achieved through discipline and
+                self-discipline. ANSECO is open to all persons and positioned to admit students who have been
+                placed by CSSPS.
               </p>
               <p className="font-semibold text-[#0D2E6B]">
-                You are once again warmly welcome to ANSECO; The Star of Anlo land.
+                Once again, you are warmly welcome to ANSECO: The Star of Anlo-Land.
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-[#F8F7F3] px-5 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[960px] border-l-4 border-[#C9990A] bg-white p-8 shadow-[0_18px_45px_rgba(13,46,107,0.06)] sm:p-10">
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">About ANSECO</p>
+          <h2 className="font-display text-3xl font-bold leading-tight text-[#0D2E6B] sm:text-4xl">
+            The Star of Anlo-Land
+          </h2>
+          <p className="mt-5 text-base leading-8 text-[#334155] sm:text-lg">
+            Anlo Senior High School, known as ANSECO, provides a supportive environment where learners are
+            encouraged to discover their potential, pursue academic and professional excellence, and grow into
+            responsible citizens. Guided by Truth and Service, the school welcomes students placed through the
+            Computerized School Selection and Placement System (CSSPS).
+          </p>
         </div>
       </section>
 
@@ -93,21 +105,21 @@ export default function AboutPage() {
             <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Our Foundation</p>
             <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl">Vision, Mission & Core Values</h2>
             <div className="mx-auto mt-7 w-fit border border-white/20 bg-white/[0.04] px-16 py-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-white/45">Motto</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-white/75">Motto</p>
               <p className="font-display mt-2 text-3xl italic text-[#C9990A]">&quot;{siteConfig.motto}&quot;</p>
             </div>
           </div>
 
           <div className="mb-10 grid gap-5 lg:grid-cols-2">
-            <div className="border border-white/10 bg-white/[0.045] p-7">
+            <div className="border border-white/10 bg-white/[0.045] p-7 text-center">
               <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Vision</p>
-              <p className="text-xl font-semibold leading-8 text-white">
+              <p className="font-display mx-auto max-w-xl text-balance text-xl font-bold leading-8 text-white sm:text-2xl sm:leading-9">
                 A learning community that inspires all learners to discover and develop their potentials.
               </p>
             </div>
-            <div className="border border-white/10 bg-white/[0.045] p-7">
+            <div className="border border-white/10 bg-white/[0.045] p-7 text-center">
               <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Mission</p>
-              <p className="text-xl font-semibold leading-8 text-white">
+              <p className="font-display mx-auto max-w-xl text-balance text-xl font-bold leading-8 text-white sm:text-2xl sm:leading-9">
                 To provide the learner with a suitable learning environment to facilitate professional and academic excellence.
               </p>
             </div>
@@ -129,7 +141,7 @@ export default function AboutPage() {
                     <span className="font-display text-5xl font-bold text-[#C9990A]">{value.letter}</span>
                   </div>
                   <h3 className="mb-3 text-lg font-black">{value.title}</h3>
-                  <p className="text-sm leading-6 text-white/60">{value.description}</p>
+                  <p className="text-sm leading-6 text-white/75">{value.description}</p>
                 </div>
               );
             })}
@@ -147,13 +159,14 @@ export default function AboutPage() {
       <section id="school-anthem" className="bg-white px-5 py-20 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-[1160px] gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
           <div className="bg-[#0D2E6B] p-8 text-white shadow-[0_20px_50px_rgba(13,46,107,0.12)]">
-            <div className="mb-10 flex h-16 w-16 items-center justify-center rounded-[18px] bg-[#C9990A]/25 text-[#E4B52B]">
+            <div className="mb-10 flex h-16 w-16 items-center justify-center rounded-[12px] bg-[#C9990A]/25 text-[#E4B52B]">
               <Music2 size={30} strokeWidth={2.2} />
             </div>
             <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">School Spirit</p>
             <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl">School Anthem</h2>
             <p className="mt-6 text-base leading-8 text-white/65">
-              The ANSECO anthem is part of the school&apos;s shared identity, sung to remind students of discipline, loyalty, service and pride in the school community.
+              The school anthem reflects the shared identity and spirit of Mother ANSECO and the values of Truth
+              and Service.
             </p>
           </div>
 
@@ -162,7 +175,9 @@ export default function AboutPage() {
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Official Lyrics</p>
                 <h3 className="font-display mt-2 text-2xl font-bold text-[#0D2E6B]">The School Anthem</h3>
-                <p className="mt-2 text-sm font-bold uppercase tracking-[0.14em] text-[#64748B]">Mr. P.K. Kpogo</p>
+                <p className="mt-2 text-sm font-bold uppercase tracking-[0.14em] text-[#64748B]">
+                  Written by Mr. P.K. Kpogo
+                </p>
               </div>
               <span className="hidden h-px flex-1 bg-[#C9990A]/40 sm:block" />
             </div>
@@ -177,6 +192,38 @@ export default function AboutPage() {
               God Bless you, for Ever<br />
               and Ever
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#F8F7F3] px-5 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto flex min-h-[340px] max-w-[1160px] flex-col justify-center gap-8 border-l-4 border-[#C9990A] bg-white px-8 py-12 shadow-[0_18px_45px_rgba(13,46,107,0.06)] lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex items-start gap-5">
+            <BookOpenText className="mt-1 shrink-0 text-[#C9990A]" size={28} />
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Continue Exploring</p>
+              <h2 className="font-display mt-2 text-3xl font-bold text-[#0D2E6B]">Discover Our Story</h2>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-[#64748B]">
+                Learn about the people and events that shaped Anlo Senior High School from its early years to the
+                institution it is today.
+              </p>
+            </div>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3 lg:w-[620px]">
+            {[
+              { href: "/about/our-history", label: "Explore our history" },
+              { href: "/about/school-administration", label: "Meet our administration" },
+              { href: "/gallery/historical-anseco", label: "Historical gallery" }
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="relative flex min-h-24 items-center border border-[#0D2E6B]/20 py-5 pl-5 pr-12 text-[11px] font-black uppercase leading-5 tracking-[0.08em] text-[#0D2E6B] transition-colors hover:border-[#0D2E6B] hover:bg-[#0D2E6B] hover:text-white"
+              >
+                <span className="max-w-[calc(100%-2.5rem)]">{item.label}</span>
+                <ArrowRight className="absolute right-5 shrink-0" size={16} />
+              </Link>
+            ))}
           </div>
         </div>
       </section>

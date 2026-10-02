@@ -7,7 +7,7 @@ import { getGalleryAlbums } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Gallery",
-  description: "Photo albums featuring the ANSECO campus, students, sports and cultural activities."
+  description: "Photo albums documenting ANSECO academics, campus life, events, alumni and history."
 };
 
 export default function GalleryPage() {
@@ -16,9 +16,9 @@ export default function GalleryPage() {
 
   return (
     <div className="bg-[#F8F7F3]">
-      <PageHeader title="Gallery" eyebrow="Life in Pictures" description="Explore moments from the ANSECO campus, student activities, sports and school culture." />
+      <PageHeader title="Gallery" eyebrow="Life in Pictures" description="Explore ANSECO through album collections covering learning, campus life, community, events and school history." />
 
-      <main className="py-20 sm:py-24">
+      <div className="py-20 sm:py-24">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
           <div className="mb-10 grid gap-6 border-b border-[#0D2E6B]/10 pb-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
@@ -60,7 +60,7 @@ export default function GalleryPage() {
             ))}
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

@@ -1,48 +1,12 @@
-{
-  "albums": [
-    {
-      "title": "Campus Views",
-      "slug": "campus-views",
-      "description": "Selected views of classrooms, walkways and school grounds.",
-      "coverImage": "/images/campus.svg",
-      "photos": [
-        { "src": "/images/campus.svg", "alt": "ANSECO campus view" },
-        { "src": "/images/classroom.svg", "alt": "Classroom block placeholder" },
-        { "src": "/images/library.svg", "alt": "Library study area placeholder" }
-      ]
-    },
-    {
-      "title": "Student Life",
-      "slug": "student-life",
-      "description": "Study, clubs and daily student activities.",
-      "coverImage": "/images/students.svg",
-      "photos": [
-        { "src": "/images/students.svg", "alt": "Students on campus placeholder" },
-        { "src": "/images/classroom.svg", "alt": "Students in class placeholder" },
-        { "src": "/images/library.svg", "alt": "Students studying placeholder" }
-      ]
-    },
-    {
-      "title": "Sports",
-      "slug": "sports",
-      "description": "Inter-house games, training and sports day moments.",
-      "coverImage": "/images/sports.svg",
-      "photos": [
-        { "src": "/images/sports.svg", "alt": "Sports field placeholder" },
-        { "src": "/images/inter-house.svg", "alt": "Inter-house activities placeholder" },
-        { "src": "/images/students.svg", "alt": "Student supporters placeholder" }
-      ]
-    },
-    {
-      "title": "Cultural Activities",
-      "slug": "cultural-activities",
-      "description": "Cultural day, performances and student creativity.",
-      "coverImage": "/images/cultural-day.svg",
-      "photos": [
-        { "src": "/images/cultural-day.svg", "alt": "Cultural day placeholder" },
-        { "src": "/images/students.svg", "alt": "Student gathering placeholder" },
-        { "src": "/images/campus.svg", "alt": "Assembly area placeholder" }
-      ]
-    }
-  ]
-}
+{"albums":[
+  {"title":"Campus","slug":"campus","description":"The ANSECO grounds, buildings, landmarks and learning environment.","coverImage":"/images/optimized/ama-anseco.jpg","photos":[{"src":"/images/optimized/ama-anseco.jpg","alt":"Ama ANSECO statue on campus"},{"src":"/images/campus.svg","alt":"ANSECO campus grounds"}]},
+  {"title":"Academics","slug":"academics","description":"Classroom learning, laboratories, study and academic activities.","coverImage":"/images/classroom.svg","photos":[{"src":"/images/classroom.svg","alt":"Academic learning at ANSECO"},{"src":"/images/library.svg","alt":"Library and study activities"},{"src":"/images/exams.svg","alt":"Academic assessment activities"}]},
+  {"title":"Campus Life","slug":"campus-life","description":"Daily student experiences, friendships and life across campus.","coverImage":"/images/students.svg","photos":[{"src":"/images/students.svg","alt":"ANSECO students on campus"},{"src":"/images/classroom.svg","alt":"Students during the school day"},{"src":"/images/library.svg","alt":"Students studying together"}]},
+  {"title":"Sports","slug":"sports","description":"Training, inter-house competition and school sporting activities.","coverImage":"/images/sports.svg","photos":[{"src":"/images/sports.svg","alt":"Sporting activities at ANSECO"},{"src":"/images/inter-house.svg","alt":"Inter-house sports competition"},{"src":"/images/students.svg","alt":"Students supporting school sports"}]},
+  {"title":"Clubs & Societies","slug":"clubs-societies","description":"Student-led clubs, societies, service groups and creative activities.","coverImage":"/images/students.svg","photos":[{"src":"/images/students.svg","alt":"Students participating in clubs and societies"},{"src":"/images/cultural-day.svg","alt":"Club and society activities"}]},
+  {"title":"Cultural Activities","slug":"cultural-activities","description":"Cultural celebrations, performances and student creativity.","coverImage":"/images/cultural-day.svg","photos":[{"src":"/images/cultural-day.svg","alt":"ANSECO cultural activities"},{"src":"/images/students.svg","alt":"Students celebrating school culture"}]},
+  {"title":"Houses & Boarding","slug":"houses-boarding","description":"Residential life, school houses and inter-house community.","coverImage":"/images/inter-house.svg","photos":[{"src":"/images/inter-house.svg","alt":"ANSECO inter-house activities"},{"src":"/images/campus.svg","alt":"Boarding life on campus"}]},
+  {"title":"Events","slug":"events","description":"School gatherings, ceremonies, meetings and special occasions.","coverImage":"/images/prize-giving.svg","photos":[{"src":"/images/prize-giving.svg","alt":"ANSECO school ceremony"},{"src":"/images/pta.svg","alt":"ANSECO community gathering"},{"src":"/images/cultural-day.svg","alt":"Special event at ANSECO"}]},
+  {"title":"Alumni","slug":"alumni","description":"ANSSOSA visits, year-group activities and alumni contributions.","coverImage":"/images/optimized/ama-anseco.jpg","photos":[{"src":"/images/optimized/ama-anseco.jpg","alt":"ANSECO alumni legacy on campus"},{"src":"/images/prize-giving.svg","alt":"ANSSOSA and school community activity"}]},
+  {"title":"Historical ANSECO","slug":"historical-anseco","description":"Images preserving the people, places and milestones in ANSECO history.","coverImage":"/images/optimized/ama-anseco.jpg","photos":[{"src":"/images/optimized/ama-anseco.jpg","alt":"Ama ANSECO and the school legacy"},{"src":"/images/campus.svg","alt":"ANSECO campus history"}]}
+]}
