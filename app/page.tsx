@@ -178,7 +178,7 @@ export default function HomePage() {
 
           <div className="relative overflow-hidden rounded-[12px] bg-[#0D2E6B] text-white">
             <div className="grid lg:grid-cols-[0.7fr_1.3fr]">
-              <div className="flex flex-col justify-between border-b border-white/10 p-8 sm:p-10 lg:min-h-[480px] lg:border-b-0 lg:border-r lg:p-12">
+              <div className="flex flex-col justify-between p-8 sm:p-10 lg:min-h-[480px] lg:border-r lg:border-white/10 lg:p-12">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-[#FACC15]">The Star of Anlo-Land</p>
                   <h3 className="font-display mt-5 max-w-xl text-3xl font-bold leading-tight sm:text-4xl">
@@ -191,7 +191,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="grid gap-px bg-white/10 sm:grid-cols-2 xl:grid-cols-6">
+              <div className="grid sm:grid-cols-2 xl:grid-cols-6">
                 {achievements.map((achievement, index) => (
                   <article key={achievement.label} className={`flex min-h-[210px] min-w-0 flex-col justify-center overflow-hidden bg-[#0D2E6B] p-6 sm:p-7 ${index < 2 ? "xl:col-span-3" : "xl:col-span-2"} ${index === achievements.length - 1 ? "sm:col-span-2 xl:col-span-2" : ""}`}>
                     <div className={`font-display whitespace-nowrap font-bold leading-none text-[#FACC15] ${achievement.value.length > 4 ? "text-4xl sm:text-5xl" : "text-5xl sm:text-6xl"}`}>{achievement.value}</div>

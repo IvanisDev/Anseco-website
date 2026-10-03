@@ -77,7 +77,7 @@ export const amaKnowledge: AmaKnowledgeEntry[] = [
   {
     id: "academic-resources",
     patterns: [/academic resource/i, /school resource/i, /facilit/i, /librar/i, /laborator/i, /computer lab/i, /dining hall/i],
-    answer: "ANSECO's published resources include academic and practical learning facilities such as science laboratories, an ICT laboratory, a Home Economics Centre, and other spaces that support student learning and school life.",
+    answer: "ANSECO's Facilities & Resources page separates Educational Resources—School Library, Science Laboratory, Classroom Blocks, ICT Laboratory and Visual Arts Studio—from Campus Life Resources—Assembly Hall, Dining Hall, Sick Bay and Sports Field.",
     href: "/resources",
     linkLabel: "Explore School Resources"
   },

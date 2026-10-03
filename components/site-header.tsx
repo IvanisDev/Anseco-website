@@ -12,6 +12,7 @@ type NavLink = {
   label: string;
   href: string;
   children?: NavLink[];
+  contributesToParentActive?: boolean;
 };
 
 const navLinks: NavLink[] = [
@@ -41,7 +42,7 @@ const navLinks: NavLink[] = [
     href: "/learning-areas",
     children: [
       { label: "Learning Areas", href: "/learning-areas#learning-areas" },
-      { label: "Resources", href: "/resources" },
+      { label: "Facilities & Resources", href: "/resources#educational-resources" },
       { label: "Final-Year Students", href: "/final-year-students" },
       { label: "Academic Calendar", href: "/academic-calendar" }
     ]
@@ -53,7 +54,8 @@ const navLinks: NavLink[] = [
       { label: "Student Life", href: "/campus-life" },
       { label: "Clubs & Societies", href: "/campus-life/clubs-societies" },
       { label: "Sports & Athletics", href: "/campus-life/sports-athletics" },
-      { label: "Boarding & Day Students", href: "/campus-life/boarding-day-students" }
+      { label: "Boarding & Day Students", href: "/campus-life/boarding-day-students" },
+      { label: "Campus Facilities", href: "/campus-life/facilities" }
     ]
   },
   {
@@ -89,7 +91,7 @@ function pathMatches(href: string, pathname: string) {
 }
 
 function navLinkIsActive(link: NavLink, pathname: string): boolean {
-  return pathMatches(link.href, pathname) || Boolean(link.children?.some((child) => navLinkIsActive(child, pathname)));
+  return pathMatches(link.href, pathname) || Boolean(link.children?.some((child) => child.contributesToParentActive !== false && navLinkIsActive(child, pathname)));
 }
 
 const searchItems = [
@@ -113,7 +115,8 @@ const searchItems = [
   { label: "Sports & Athletics", href: "/campus-life/sports-athletics", description: "Sporting activities and inter-house participation" },
   { label: "Boarding & Day Students", href: "/campus-life/boarding-day-students", description: "Boarding life, day students and the four ANSECO houses" },
   { label: "Student Conduct & Discipline", href: "/admissions/student-guidelines#student-conduct-discipline", description: "GES offences, sanctions and approved disciplinary guidelines" },
-  { label: "Resources", href: "/resources", description: "Library, labs, dining hall and campus facilities" },
+  { label: "Facilities & Resources", href: "/resources", description: "Educational facilities and campus-life resources at ANSECO" },
+  { label: "Campus Facilities", href: "/campus-life/facilities", description: "Assembly hall, dining hall, sick bay and sports field" },
   { label: "Gallery", href: "/gallery", description: "School photo albums covering academics, campus life, events and history" },
   { label: "Alumni", href: "/alumni", description: "ANSSOSA contact and support" },
   { label: "Alumni Leadership", href: "/alumni/leadership", description: "ANSSOSA Global and Diaspora executives" },

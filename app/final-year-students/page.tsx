@@ -59,6 +59,9 @@ export default function FinalYearStudentsPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               <AcademicLink href="/academic-calendar" icon={<CalendarDays size={22} />} title="ANSECO Calendar" description="Check published school dates and programmes." />
               <AcademicLink href="https://waecgh.org/home/wassce-school/" external icon={<ExternalLink size={22} />} title="Official WAEC Information" description="Read WAEC guidance for school candidates." />
+              <div className="sm:col-span-2">
+                <AcademicLink href="https://waecgh.org/timetable/" external icon={<CalendarDays size={22} />} title="Official WASSCE Timetables" description="View the latest examination timetables published by WAEC Ghana." />
+              </div>
             </div>
           </div>
         </section>
@@ -113,7 +116,8 @@ export default function FinalYearStudentsPage() {
 
             <div className="space-y-5">
               <AcademicLink href="/admissions/student-guidelines#student-conduct-discipline" icon={<ShieldCheck size={22} />} title="Examination Conduct" description="Review the school rules on examination misconduct, discipline and approved sanctions." />
-              <AcademicLink href="/resources" icon={<BookOpenCheck size={22} />} title="Academic Resources" description="Explore ANSECO's library, laboratories and study resources." />
+              <AcademicLink href="https://waecgh.org/home/rules-and-regulations/" external icon={<ExternalLink size={22} />} title="WAEC Rules & Regulations" description="Read the official examination rules and regulations published by WAEC Ghana." />
+              <AcademicLink href="/resources#educational-resources" icon={<BookOpenCheck size={22} />} title="Educational Resources" description="Explore ANSECO's library, laboratories and learning facilities." />
               <AcademicLink href="/contact" icon={<GraduationCap size={22} />} title="Ask the School" description="Contact ANSECO when a final-year notice or requirement needs clarification." />
             </div>
           </div>

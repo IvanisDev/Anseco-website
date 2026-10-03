@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUp, MessageCircle, X } from "lucide-react";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { amaKnowledge } from "@/data/ama-knowledge";
 import { resolveAcademicQuestion, type AcademicContext } from "@/lib/ama/academics";
 import { matchAmaIntent } from "@/lib/ama/matcher";
@@ -49,6 +49,7 @@ const siteRoutes = [
   "/campus-life",
   "/campus-life/boarding-day-students",
   "/campus-life/clubs-societies",
+  "/campus-life/facilities",
   "/campus-life/sports-athletics",
   "/contact",
   "/events",
@@ -218,6 +219,7 @@ function searchSiteIndex(question: string, chunks: SiteKnowledgeChunk[]): AmaAns
 export function AmaAssistant() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState<AmaMessage[]>([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -226,26 +228,47 @@ export function AmaAssistant() {
   const messageEndRef = useRef<HTMLDivElement>(null);
   const messageId = useRef(0);
   const responseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const siteIndexPromiseRef = useRef<Promise<SiteKnowledgeChunk[]> | null>(null);
   const academicContextRef = useRef<AcademicContext | undefined>(undefined);
 
+  const closeAma = useCallback(() => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    setClosing(true);
+    closeTimerRef.current = setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+      closeTimerRef.current = null;
+    }, 180);
+  }, []);
+
+  function openAma() {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    setClosing(false);
+    setOpen(true);
+  }
+
   useEffect(() => {
     if (!open) return;
-    inputRef.current?.focus();
+    const isMobile = window.matchMedia("(max-width: 639px)").matches;
+    if (!isMobile) inputRef.current?.focus();
+    const previousOverflow = document.body.style.overflow;
+    if (isMobile) document.body.style.overflow = "hidden";
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") closeAma();
     }
     function handlePointerDown(event: PointerEvent) {
       if (panelRef.current?.contains(event.target as Node)) return;
-      setOpen(false);
+      closeAma();
     }
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("pointerdown", handlePointerDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("pointerdown", handlePointerDown);
+      document.body.style.overflow = previousOverflow;
     };
-  }, [open]);
+  }, [open, closeAma]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ block: "nearest" });
@@ -254,11 +277,12 @@ export function AmaAssistant() {
   useEffect(() => {
     return () => {
       if (responseTimerRef.current) clearTimeout(responseTimerRef.current);
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     };
   }, []);
 
   useEffect(() => {
-    if (open && !isTyping) inputRef.current?.focus();
+    if (open && !isTyping && !window.matchMedia("(max-width: 639px)").matches) inputRef.current?.focus();
   }, [isTyping, open]);
 
   async function askAma(value: string) {
@@ -312,21 +336,24 @@ export function AmaAssistant() {
   const suggestions = suggestionsForPath(pathname);
 
   return (
-    <div className="fixed bottom-4 right-4 z-[70] sm:bottom-6 sm:right-6">
+    <div className={open
+      ? `fixed inset-x-2 bottom-2 top-2 z-[70] sm:inset-x-auto sm:top-auto sm:right-6 ${pathname === "/" ? "sm:bottom-12" : "sm:bottom-6"}`
+      : `fixed right-4 z-[70] sm:right-6 ${pathname === "/" ? "bottom-2 sm:bottom-12" : "bottom-4 sm:bottom-6"}`}
+    >
       {open ? (
         <section
           ref={panelRef}
           role="dialog"
           aria-modal="false"
           aria-labelledby="ama-title"
-          className="flex h-[min(620px,calc(100dvh-2rem))] w-[min(390px,calc(100vw-2rem))] flex-col overflow-hidden rounded-[12px] border border-[#0D2E6B]/15 bg-white shadow-none sm:shadow-[0_28px_80px_rgba(6,26,67,0.3)]"
+          className={`flex h-full w-full origin-bottom-right flex-col overflow-hidden rounded-[12px] border border-[#0D2E6B]/15 bg-white shadow-none sm:h-[min(620px,calc(100dvh-2rem))] sm:w-[min(390px,calc(100vw-2rem))] sm:shadow-[0_28px_80px_rgba(6,26,67,0.3)] ${closing ? "animate-out fade-out-0 zoom-out-95 slide-out-to-bottom-2 duration-200" : "animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 duration-200"}`}
         >
           <header className="flex items-center justify-between gap-4 bg-[#0D2E6B] px-5 py-4 text-white">
             <div>
               <p id="ama-title" className="text-lg font-black">Ama</p>
               <p className="text-xs font-semibold text-white/75">ANSECO Information Assistant</p>
             </div>
-            <button type="button" className="flex h-10 w-10 items-center justify-center rounded-[12px] text-white hover:bg-white/10" aria-label="Close Ama" onClick={() => setOpen(false)}>
+            <button type="button" className="flex h-10 w-10 items-center justify-center rounded-[12px] text-white hover:bg-white/10" aria-label="Close Ama" onClick={closeAma}>
               <X size={20} aria-hidden="true" />
             </button>
           </header>
@@ -355,7 +382,7 @@ export function AmaAssistant() {
                 <div key={message.id} className={message.role === "user" ? "ml-auto max-w-[88%] rounded-[12px] rounded-br-none bg-[#0D2E6B] p-4 text-sm leading-6 text-white" : "max-w-[90%] rounded-[12px] rounded-tl-none bg-white p-4 text-sm leading-6 text-[#334155] shadow-sm"}>
                   <p>{message.text}</p>
                   {message.role === "ama" && message.result ? (
-                    <Link href={message.result.href} className="mt-3 inline-flex items-center gap-2 font-black text-[#0D2E6B] underline decoration-[#C9990A] decoration-2 underline-offset-4" onClick={() => setOpen(false)}>
+                    <Link href={message.result.href} className="mt-3 inline-flex items-center gap-2 font-black text-[#0D2E6B] underline decoration-[#C9990A] decoration-2 underline-offset-4" onClick={closeAma}>
                       {message.result.linkLabel} <span aria-hidden="true">→</span>
                     </Link>
                   ) : null}
@@ -391,7 +418,7 @@ export function AmaAssistant() {
                 value={question}
                 onChange={(event) => setQuestion(event.target.value)}
                 disabled={isTyping}
-                className="min-w-0 flex-1 bg-transparent text-sm text-[#1A1A2E] outline-none placeholder:text-[#64748B] disabled:cursor-wait"
+                className="min-w-0 flex-1 bg-transparent text-base text-[#1A1A2E] outline-none placeholder:text-[#64748B] disabled:cursor-wait sm:text-sm"
                 placeholder={isTyping ? "Ama is typing..." : "Ask Ama a question..."}
                 autoComplete="off"
               />
@@ -402,9 +429,8 @@ export function AmaAssistant() {
           </form>
         </section>
       ) : (
-        <button type="button" className="inline-flex min-h-14 touch-manipulation items-center gap-3 rounded-[12px] bg-[#0D2E6B] px-5 py-3 font-black text-white shadow-none transition-transform hover:-translate-y-0.5 hover:bg-[#C9990A] sm:shadow-[0_18px_45px_rgba(6,26,67,0.28)]" aria-label="Open Ama, ANSECO Information Assistant" onClick={() => setOpen(true)}>
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FACC15] text-[#0D2E6B]" aria-hidden="true"><MessageCircle size={19} /></span>
-          <span>Ask Ama</span>
+        <button type="button" className="inline-flex h-14 w-14 origin-bottom-right touch-manipulation items-center justify-center rounded-full bg-[#0D2E6B] text-[#FACC15] shadow-none transition-transform animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 duration-200 hover:-translate-y-0.5 hover:bg-[#C9990A] sm:shadow-[0_18px_45px_rgba(6,26,67,0.28)]" aria-label="Open Ama, ANSECO Information Assistant" onClick={openAma}>
+          <MessageCircle size={25} aria-hidden="true" />
         </button>
       )}
     </div>
