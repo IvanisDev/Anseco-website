@@ -209,7 +209,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <div className="grid gap-3 sm:grid-cols-3 lg:w-[620px]">
+          <div className="grid gap-3 sm:grid-cols-2 lg:w-[620px]">
             {[
               { href: "/about/our-history", label: "Explore our history" },
               { href: "/about/school-administration", label: "Meet our administration" },

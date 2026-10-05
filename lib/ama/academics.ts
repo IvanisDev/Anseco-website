@@ -13,6 +13,12 @@ type AcademicResolution = {
   href: string;
   linkLabel: string;
   context: AcademicContext;
+  careerRecommendation?: {
+    career: string;
+    programmeName: string;
+    programmeDescription: string;
+    careerPaths: string[];
+  };
 };
 
 function findProgramme(question: string) {
@@ -65,7 +71,13 @@ export function resolveAcademicQuestion(question: string, previous?: AcademicCon
       answer: `For a career in ${careerMatch.career}, ${programme.name} is the most directly aligned published Learning Area. ${programme.description} Relevant future directions include ${programme.careerPaths.join(", ")}. Final placement and subject choices should be confirmed with ANSECO's academic guidance team.`,
       href,
       linkLabel: `Explore ${programme.name}`,
-      context: { programmeId: programme.id, intent }
+      context: { programmeId: programme.id, intent },
+      careerRecommendation: {
+        career: careerMatch.career,
+        programmeName: programme.name,
+        programmeDescription: programme.description,
+        careerPaths: programme.careerPaths
+      }
     };
   }
 

@@ -6,6 +6,7 @@ import { ArrowUp, MessageCircle, X } from "lucide-react";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { amaKnowledge } from "@/data/ama-knowledge";
 import { resolveAcademicQuestion, type AcademicContext } from "@/lib/ama/academics";
+import { resolveContextualIntent, updateConversationContext, type AmaConversationContext } from "@/lib/ama/context";
 import { matchAmaIntent } from "@/lib/ama/matcher";
 
 type AmaMessage = {
@@ -13,6 +14,7 @@ type AmaMessage = {
   role: "user" | "ama";
   text: string;
   result?: { href: string; linkLabel: string };
+  results?: { href: string; linkLabel: string }[];
   followUps?: string[];
 };
 
@@ -20,8 +22,57 @@ type AmaAnswer = {
   answer: string;
   href?: string;
   linkLabel?: string;
+  results?: { href: string; linkLabel: string }[];
   followUps?: string[];
 };
+
+type AmaUserType = "current_student" | "prospective_jhs_student" | "visitor" | "alumni";
+type AcademicAnswer = NonNullable<ReturnType<typeof resolveAcademicQuestion>>;
+
+const audienceChoices = ["Current ANSECO Student", "JHS Student Considering ANSECO", "Visitor", "Alumni"];
+
+function userTypeFromChoice(value: string): AmaUserType | undefined {
+  if (value === audienceChoices[0]) return "current_student";
+  if (value === audienceChoices[1]) return "prospective_jhs_student";
+  if (value === audienceChoices[2]) return "visitor";
+  if (value === audienceChoices[3]) return "alumni";
+  return undefined;
+}
+
+function contextualizeCareerAnswer(answer: AcademicAnswer, userType?: AmaUserType): AmaAnswer {
+  const recommendation = answer.careerRecommendation;
+  if (!recommendation || !userType) return answer;
+
+  const pathways = recommendation.careerPaths.join(", ");
+  if (userType === "current_student") {
+    return {
+      ...answer,
+      answer: `${recommendation.programmeName} is a relevant Learning Area to explore for your interest in ${recommendation.career}. ${recommendation.programmeDescription} Related pathways include ${pathways}. If you are already enrolled in a different Learning Area, speak with your teachers or guidance staff about pathways toward your career goal.`
+    };
+  }
+
+  if (userType === "prospective_jhs_student" || userType === "visitor") {
+    const audienceIntroduction = userType === "visitor"
+      ? `if you are supporting someone interested in ${recommendation.career}`
+      : `if you are interested in ${recommendation.career}`;
+    return {
+      ...answer,
+      answer: `${recommendation.programmeName} is a relevant Learning Area to explore ${audienceIntroduction}. ${recommendation.programmeDescription} Published career and further-study paths connected to this Learning Area include ${pathways}. You can explore ANSECO's ${recommendation.programmeName} Learning Area, including its available subjects, combinations and career pathways, before making a decision.`
+    };
+  }
+
+  return answer;
+}
+
+function splitCompoundQuestion(question: string) {
+  return question
+    .replace(/[?;]+/g, " | ")
+    .replace(/\.(?=\s|$)/g, " | ")
+    .replace(/\b(?:and|also|plus|as well as|secondly)\b/gi, " | ")
+    .split("|")
+    .map((clause) => clause.trim())
+    .filter((clause) => clause.length > 3);
+}
 
 type SiteKnowledgeChunk = {
   answer: string;
@@ -64,7 +115,13 @@ const searchStopWords = new Set([
   "a", "about", "an", "and", "are", "at", "be", "can", "do", "does", "for", "from", "give", "how", "i", "in", "is", "it", "list", "me", "of", "on", "or", "please", "school", "tell", "the", "their", "there", "to", "what", "when", "where", "which", "who", "why", "with"
 ]);
 
-const defaultSuggestions = ["How do I apply?", "What are the Learning Areas?", "What are the four houses?", "How do I request a transcript?"];
+const defaultSuggestions = [
+  "How do I apply?",
+  "What are the Learning Areas?",
+  "Tell me about ANSECO's history",
+  "How do I prepare for WASSCE?",
+  "How do I request a transcript?"
+];
 
 function suggestionsForPath(pathname: string) {
   if (pathname.startsWith("/admissions")) return ["How do I apply?", "What documents are required?", "What do boarding students need?", "Show me the school regulations"];
@@ -231,6 +288,9 @@ export function AmaAssistant() {
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const siteIndexPromiseRef = useRef<Promise<SiteKnowledgeChunk[]> | null>(null);
   const academicContextRef = useRef<AcademicContext | undefined>(undefined);
+  const conversationContextRef = useRef<AmaConversationContext>({});
+  const userTypeRef = useRef<AmaUserType | undefined>(undefined);
+  const pendingQuestionRef = useRef<string | undefined>(undefined);
 
   const closeAma = useCallback(() => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
@@ -275,6 +335,13 @@ export function AmaAssistant() {
   }, [isTyping, messages]);
 
   useEffect(() => {
+    const storedUserType = window.sessionStorage.getItem("ama-user-type");
+    if (storedUserType === "current_student" || storedUserType === "prospective_jhs_student" || storedUserType === "visitor" || storedUserType === "alumni") {
+      userTypeRef.current = storedUserType;
+    }
+  }, []);
+
+  useEffect(() => {
     return () => {
       if (responseTimerRef.current) clearTimeout(responseTimerRef.current);
       if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
@@ -288,39 +355,123 @@ export function AmaAssistant() {
   async function askAma(value: string) {
     const trimmed = value.trim();
     if (!trimmed || isTyping) return;
-    const academicAnswer = resolveAcademicQuestion(trimmed, academicContextRef.current);
+    const selectedUserType = userTypeFromChoice(trimmed);
+
+    if (!userTypeRef.current && !selectedUserType) {
+      pendingQuestionRef.current = trimmed;
+      setMessages((current) => [...current, { id: ++messageId.current, role: "user", text: trimmed }]);
+      setQuestion("");
+      setIsTyping(true);
+      await new Promise<void>((resolve) => {
+        responseTimerRef.current = setTimeout(resolve, 5000);
+      });
+      responseTimerRef.current = null;
+      setMessages((current) => [...current, {
+        id: ++messageId.current,
+        role: "ama",
+        text: "Before I answer, which option best describes you?",
+        followUps: audienceChoices
+      }]);
+      setIsTyping(false);
+      return;
+    }
+
+    let questionToResolve = trimmed;
+    if (selectedUserType) {
+      userTypeRef.current = selectedUserType;
+      window.sessionStorage.setItem("ama-user-type", selectedUserType);
+      if (pendingQuestionRef.current) {
+        questionToResolve = pendingQuestionRef.current;
+        pendingQuestionRef.current = undefined;
+      }
+    }
+
+    const clauses = splitCompoundQuestion(questionToResolve);
+    const compoundAnswer: AmaAnswer | undefined = clauses.length > 1 ? (() => {
+      const localConversationContext = { ...conversationContextRef.current };
+      let localAcademicContext = academicContextRef.current;
+      const seenIntents = new Set<string>();
+      const parts: AmaAnswer[] = [];
+
+      clauses.forEach((clause) => {
+        const clauseAcademicAnswer = resolveAcademicQuestion(clause, localAcademicContext);
+        if (clauseAcademicAnswer) {
+          const key = `academic:${clauseAcademicAnswer.context.programmeId}:${clauseAcademicAnswer.context.intent}`;
+          if (seenIntents.has(key)) return;
+          seenIntents.add(key);
+          localAcademicContext = clauseAcademicAnswer.context;
+          const resolved = contextualizeCareerAnswer(clauseAcademicAnswer, userTypeRef.current);
+          const hideLink = userTypeRef.current === "current_student" || userTypeRef.current === "alumni";
+          parts.push({
+            answer: resolved.answer,
+            href: hideLink ? undefined : resolved.href,
+            linkLabel: hideLink ? undefined : resolved.linkLabel
+          });
+          return;
+        }
+
+        const contextualEntry = resolveContextualIntent(clause, localConversationContext, amaKnowledge);
+        const clauseIntent = contextualEntry ? undefined : matchAmaIntent(clause, amaKnowledge);
+        const entry = contextualEntry || clauseIntent?.entry;
+        if (!entry || seenIntents.has(entry.id)) return;
+        seenIntents.add(entry.id);
+        updateConversationContext(localConversationContext, entry);
+        parts.push({ answer: entry.answer, href: entry.href, linkLabel: entry.linkLabel });
+      });
+
+      if (parts.length < 2) return undefined;
+      academicContextRef.current = localAcademicContext;
+      conversationContextRef.current = localConversationContext;
+      return {
+        answer: parts.map((part) => part.answer).join("\n\n"),
+        results: parts.flatMap((part) => part.href && part.linkLabel ? [{ href: part.href, linkLabel: part.linkLabel }] : [])
+      };
+    })() : undefined;
+
+    const academicAnswer: AcademicAnswer | undefined = compoundAnswer
+      ? undefined
+      : resolveAcademicQuestion(questionToResolve, academicContextRef.current);
     if (academicAnswer) academicContextRef.current = academicAnswer.context;
-    const intent = matchAmaIntent(trimmed, amaKnowledge);
-    const match = academicAnswer ? undefined : intent.entry;
+
+    const contextualMatch = academicAnswer
+      ? undefined
+      : resolveContextualIntent(questionToResolve, conversationContextRef.current, amaKnowledge);
+    const intent = academicAnswer || contextualMatch ? { confidence: "high" as const } : matchAmaIntent(questionToResolve, amaKnowledge);
+    const match = academicAnswer ? undefined : contextualMatch || intent.entry;
     const clarification = academicAnswer ? undefined : intent.clarification;
+    updateConversationContext(conversationContextRef.current, match);
     const fallback = "I do not have verified information about that yet. Please contact ANSECO for an approved answer. Do not share student names, grades, admission numbers, or other personal records here.";
     const userId = ++messageId.current;
     setMessages((current) => [...current, { id: userId, role: "user", text: trimmed }]);
     setQuestion("");
     setIsTyping(true);
 
-    if (!academicAnswer && !match && !clarification && !siteIndexPromiseRef.current) siteIndexPromiseRef.current = buildSiteIndex();
+    if (!compoundAnswer && !academicAnswer && !match && !clarification && !siteIndexPromiseRef.current) siteIndexPromiseRef.current = buildSiteIndex();
     const typingDelay = new Promise<void>((resolve) => {
       responseTimerRef.current = setTimeout(resolve, 5000);
     });
     const [siteIndex] = await Promise.all([
-      academicAnswer || match || clarification ? Promise.resolve([] as SiteKnowledgeChunk[]) : siteIndexPromiseRef.current!,
+      compoundAnswer || academicAnswer || match || clarification ? Promise.resolve([] as SiteKnowledgeChunk[]) : siteIndexPromiseRef.current!,
       typingDelay
     ]);
     responseTimerRef.current = null;
-    const retrieved = academicAnswer || match || clarification ? undefined : searchSiteIndex(trimmed, siteIndex);
-    const answer: AmaAnswer | undefined = academicAnswer
-      ? academicAnswer
+    const retrieved = compoundAnswer || academicAnswer || match || clarification ? undefined : searchSiteIndex(questionToResolve, siteIndex);
+    const answer: AmaAnswer | undefined = compoundAnswer
+      ? compoundAnswer
+      : academicAnswer
+        ? contextualizeCareerAnswer(academicAnswer, userTypeRef.current)
       : match
         ? { answer: match.answer, href: match.href, linkLabel: match.linkLabel, followUps: match.followUps }
         : clarification
           ? { answer: "I can help with that. Which requirements are you looking for?", followUps: clarification }
           : retrieved;
+    const hideAcademicLink = Boolean(academicAnswer) && (userTypeRef.current === "current_student" || userTypeRef.current === "alumni");
     const reply: AmaMessage = {
       id: ++messageId.current,
       role: "ama",
       text: answer?.answer || fallback,
-      result: answer?.href && answer.linkLabel ? { href: answer.href, linkLabel: answer.linkLabel } : answer ? undefined : { href: "/contact", linkLabel: "Contact ANSECO" },
+      result: !hideAcademicLink && answer?.href && answer.linkLabel ? { href: answer.href, linkLabel: answer.linkLabel } : answer ? undefined : { href: "/contact", linkLabel: "Contact ANSECO" },
+      results: answer?.results,
       followUps: answer?.followUps
     };
 
@@ -380,11 +531,20 @@ export function AmaAssistant() {
             <div className="mt-4 space-y-4">
               {messages.map((message) => (
                 <div key={message.id} className={message.role === "user" ? "ml-auto max-w-[88%] rounded-[12px] rounded-br-none bg-[#0D2E6B] p-4 text-sm leading-6 text-white" : "max-w-[90%] rounded-[12px] rounded-tl-none bg-white p-4 text-sm leading-6 text-[#334155] shadow-sm"}>
-                  <p>{message.text}</p>
+                  <p className="whitespace-pre-line">{message.text}</p>
                   {message.role === "ama" && message.result ? (
                     <Link href={message.result.href} className="mt-3 inline-flex items-center gap-2 font-black text-[#0D2E6B] underline decoration-[#C9990A] decoration-2 underline-offset-4" onClick={closeAma}>
                       {message.result.linkLabel} <span aria-hidden="true">→</span>
                     </Link>
+                  ) : null}
+                  {message.role === "ama" && message.results?.length ? (
+                    <div className="mt-3 flex flex-col items-start gap-2">
+                      {message.results.map((result) => (
+                        <Link key={`${result.href}-${result.linkLabel}`} href={result.href} className="inline-flex items-center gap-2 font-black text-[#0D2E6B] underline decoration-[#C9990A] decoration-2 underline-offset-4" onClick={closeAma}>
+                          {result.linkLabel} <span aria-hidden="true">→</span>
+                        </Link>
+                      ))}
+                    </div>
                   ) : null}
                   {message.role === "ama" && message.followUps?.length ? (
                     <div className="mt-3 flex flex-wrap gap-2">

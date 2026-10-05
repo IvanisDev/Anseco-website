@@ -76,8 +76,8 @@ export default function HomePage() {
               One of the Volta Region&apos;s respected senior high schools, serving learners and families from Anloga and surrounding communities since {siteConfig.establishedYear}.
             </p>
             <div className="mt-9 flex w-full flex-col items-start gap-4 sm:w-auto sm:flex-row sm:flex-wrap">
-              <Link href="/about" className="group inline-flex min-h-14 w-72 max-w-full min-w-0 flex-none items-center justify-center gap-3 rounded-[12px] bg-[#C9990A] px-4 py-4 text-center text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#b8880a] sm:px-7">
-                About ANSECO <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
+              <Link href="/about" className="inline-flex min-h-14 w-72 max-w-full min-w-0 flex-none items-center justify-center rounded-[12px] bg-[#C9990A] px-4 py-4 text-center text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#b8880a] sm:px-7">
+                About ANSECO
               </Link>
               <Link href="/learning-areas" className="inline-flex min-h-14 w-72 max-w-full min-w-0 flex-none items-center justify-center rounded-[12px] border border-white/35 px-4 py-4 text-center text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-colors hover:border-[#E4B52B] hover:bg-white/10 sm:px-7">
                 Explore Academics

@@ -221,6 +221,16 @@ export const amaKnowledge: AmaKnowledgeEntry[] = [
     followUps: ["What documents do I need?", "Boarding requirements", "Day student requirements"]
   },
   {
+    id: "admission-documents",
+    patterns: [/(admission|registration|reporting).*(document|paperwork)/i, /(document|paperwork).*(admission|registration|reporting)/i],
+    aliases: ["what documents do i need for admission", "admission documents", "registration documents"],
+    keywords: { admission: 4, registration: 4, document: 5, documents: 5, paperwork: 4 },
+    answer: "Students reporting to ANSECO should bring the required admission and registration documents listed in the current school prospectus. Requirements may differ for boarding and day students.",
+    href: "/admissions/prospectus",
+    linkLabel: "View Prospectus & Requirements",
+    followUps: ["Boarding requirements", "Day student requirements"]
+  },
+  {
     id: "prospectus",
     patterns: [/prospectus/i, /admission requirement/i, /required document/i, /uniform/i, /cleaning material/i, /what.*bring/i],
     answer: "The ANSECO prospectus lists required documents, boarding and day-student items, cleaning materials, and uniform requirements. A printable PDF is also available.",
@@ -305,7 +315,7 @@ export const amaKnowledge: AmaKnowledgeEntry[] = [
     patterns: [/history/i, /founded/i, /established/i, /founding/i, /founder/i],
     aliases: ["when was anseco founded", "tell me the school history", "when was the school established"],
     keywords: { history: 4, founded: 4, established: 4, founding: 4, origin: 2 },
-    answer: "Anlo Senior High School was established in 1959 in Anloga. The school's history includes growth from nine students into an institution serving learners across the Volta Region and beyond.",
+    answer: "ANSECO was established in August 1954 and reopened on 10 April 1959 through the efforts of Togbi Adeladza II, Mr. Cephas Kofi Fiagbe, and Mr. James W.K. Doe. It became a Government-Assisted Secondary School in the 1963/1964 academic year and has grown from an initial nine students into a major school serving Anlo-Land and the Volta Region.",
     href: "/about/our-history",
     linkLabel: "Explore Our History"
   },

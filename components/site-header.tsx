@@ -253,7 +253,7 @@ export function SiteHeader() {
                     aria-current={pathMatches(link.href, pathname) ? "page" : undefined}
                     aria-expanded={link.children ? openDropdown === link.label : undefined}
                     aria-controls={link.children ? `desktop-menu-${link.label.toLowerCase().replaceAll(" ", "-")}` : undefined}
-                    className={`flex items-center gap-1 rounded-[6px] px-3 py-2 text-sm font-bold transition-colors ${isActive ? "bg-[#C9990A] text-white" : "text-white/80 hover:bg-white/10 hover:text-white"}`}
+                    className={`relative flex items-center gap-1 px-3 py-2 text-sm font-bold transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:transition-colors ${isActive ? "text-white after:bg-[#FACC15]" : "text-white/80 after:bg-transparent hover:text-white hover:after:bg-white/50"}`}
                     onClick={(event) => handleNavLinkClick(event, link.href)}
                   >
                     {link.label}

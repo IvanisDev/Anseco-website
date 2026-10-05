@@ -89,12 +89,16 @@
 
 @layer components {
   main article[class*="border"],
-  main a[class*="border"][class*="bg-white"],
+  main a[class*="border"],
   main a[class*="overflow-hidden"][class*="bg-"],
-  main div[class*="border"][class*="bg-white"],
+  main div[class*="border"][class*="bg-"],
+  main div[class*="grid"][class*="overflow-hidden"][class*="bg-"],
   main div[class*="shadow-"][class*="bg-"],
   main section[class*="border"][class*="bg-"],
+  main section[class*="grid"][class*="bg-"],
   main aside[class*="bg-"],
+  main figure[class*="border"],
+  main li[class*="bg-"],
   main a[class*="inline-flex"][class*="bg-"] {
     border-radius: 12px;
   }
