@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { LearningAreaCards } from "@/components/learning-area-cards";
 import { SchoolTicker } from "@/components/school-ticker";
 import { siteConfig } from "@/config/site";
@@ -9,34 +9,34 @@ import { getEvents, getGalleryAlbums, getNewsPosts } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
 
 export default function HomePage() {
+  const viewMoreLinkClass = "inline-flex min-h-12 w-fit items-center justify-center rounded-full border-2 border-[#0D2E6B] px-7 py-3 text-sm font-black text-[#1A1A1A] transition-colors hover:bg-[#0D2E6B] hover:text-white";
   const galleryAlbums = getGalleryAlbums();
   const newsPosts = getNewsPosts().slice(0, 3);
-  const events = getEvents().slice(0, 5);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const events = getEvents()
+    .filter((event) => new Date(`${event.endDate || event.startDate}T23:59:59`) >= today)
+    .slice(0, 5);
   const achievements = [
+    {
+      value: "2,094",
+      label: "Current Students",
+      description: "The verified 2026 student population of ANSECO."
+    },
     {
       value: "8",
       label: "Learning Areas",
       description: "A broad academic offering across science, arts, business, agriculture, technology and languages."
     },
     {
-      value: "3",
-      label: "Consecutive Awards",
-      description: "Best Disciplined School in the Volta Region in 2008, 2009 and 2010."
+      value: "4",
+      label: "Student Houses",
+      description: "Four houses support student belonging, leadership, activities and school community."
     },
     {
-      value: "70+",
+      value: "60+",
       label: "Years of Service",
-      description: "Serving learners and communities since the school was established in 1954."
-    },
-    {
-      value: "2",
-      label: "National Titles",
-      description: "National Champion in the Inter-School Constitution Game Competition in 2007 and 2010."
-    },
-    {
-      value: "10,000+",
-      label: "Graduates",
-      description: "Generations of ANSECO graduates contributing to communities across Ghana and beyond."
+      description: "More than six decades of learning, character development and service to communities."
     }
   ];
   const admissionSteps = [
@@ -47,18 +47,18 @@ export default function HomePage() {
     },
     {
       number: "02",
-      title: "Prepare Documents",
-      description: "Gather BECE results, birth certificate, and photos."
+      title: "Review Requirements",
+      description: "Check the current ANSECO admission and prospectus requirements."
     },
     {
       number: "03",
-      title: "Report to School",
-      description: "Report on the official reporting date with all documents."
+      title: "Report to ANSECO",
+      description: "Report on the school's official reporting date with the required documents."
     },
     {
       number: "04",
-      title: "Pay Fees",
-      description: "Pay the required fees to complete enrolment."
+      title: "Complete Registration",
+      description: "Follow the school's registration instructions to complete enrolment."
     }
   ];
 
@@ -73,13 +73,13 @@ export default function HomePage() {
               Anlo Senior <span className="block text-[#E4B52B]">High School</span>
             </h1>
             <p className="mt-7 max-w-2xl text-lg font-medium leading-8 text-white/78">
-              One of the Volta Region&apos;s respected senior high schools, serving learners and families from Anloga and surrounding communities since {siteConfig.establishedYear}.
+              The Star of Anlo-Land. A learning community in Anloga committed to academic development, character, discipline and service.
             </p>
             <div className="mt-9 flex w-full flex-col items-start gap-4 sm:w-auto sm:flex-row sm:flex-wrap">
-              <Link href="/about" className="inline-flex min-h-14 w-72 max-w-full min-w-0 flex-none items-center justify-center rounded-[12px] bg-[#C9990A] px-4 py-4 text-center text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#b8880a] sm:px-7">
+              <Link href="/about" className="inline-flex min-h-14 w-72 max-w-full min-w-0 flex-none items-center justify-center rounded-[12px] border border-white/35 px-4 py-4 text-center text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-colors hover:border-[#E4B52B] hover:bg-white/10 sm:px-7">
                 About ANSECO
               </Link>
-              <Link href="/learning-areas" className="inline-flex min-h-14 w-72 max-w-full min-w-0 flex-none items-center justify-center rounded-[12px] border border-white/35 px-4 py-4 text-center text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-colors hover:border-[#E4B52B] hover:bg-white/10 sm:px-7">
+              <Link href="/learning-areas" className="inline-flex min-h-14 w-72 max-w-full min-w-0 flex-none items-center justify-center rounded-[12px] bg-[#C9990A] px-4 py-4 text-center text-sm font-extrabold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#b8880a] sm:px-7">
                 Explore Academics
               </Link>
             </div>
@@ -92,21 +92,48 @@ export default function HomePage() {
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto grid max-w-[1400px] gap-10 px-5 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:px-12">
           <div className="lg:pt-3">
-            <p className="mb-5 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Welcome</p>
-            <h2 className="font-display text-5xl font-bold leading-[0.98] text-[#1A1A2E] sm:text-6xl lg:text-7xl">
+            <h2 className="font-display text-5xl font-bold leading-[0.98] text-[#1A1A1A] sm:text-6xl lg:text-7xl">
               Welcome to ANSECO
             </h2>
           </div>
-          <div className="max-w-4xl space-y-5 border-t-4 border-[#0D2E6B] pt-7 text-base leading-8 text-[#555866] sm:text-lg">
+          <div className="max-w-4xl space-y-5 text-base leading-8 text-[#555555] sm:text-lg">
             <p>
-              Anlo Senior High School (ANSECO) is a public senior high school in Anloga, Volta Region, committed to academic development, character formation, discipline and service.
+              Anlo Senior High School (ANSECO) is a public senior high school in Anloga, Volta Region, committed to academic development, character formation, discipline and service. Guided by our motto, <strong className="font-semibold text-[#1A1A1A]">&quot;{siteConfig.motto},&quot;</strong> the school provides a supportive environment where students can discover and develop their abilities.
             </p>
             <p>
-              Guided by our motto, <strong className="font-semibold text-[#0D2E6B]">&quot;{siteConfig.motto},&quot;</strong> ANSECO provides a supportive learning environment where students are encouraged to discover their potential, develop their abilities and prepare for further education and responsible service to society.
+              Across eight Learning Areas, students prepare for further education, future careers and responsible service while becoming part of a community connected to generations of ANSECO learners.
             </p>
-            <p>
-              Whether you are a prospective student, parent, current student, old student or visitor, we invite you to explore ANSECO and learn more about our academics, campus life, history and community.
+          </div>
+        </div>
+      </section>
+
+      <section id="why-anseco" className="scroll-mt-24 bg-[#F8F7F3] py-20 sm:py-24">
+        <div className="mx-auto grid max-w-[1400px] gap-12 px-5 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16 lg:px-12">
+          <div>
+            <h2 className="font-display text-5xl font-bold leading-tight text-[#1A1A1A] sm:text-6xl">Why ANSECO?</h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-[#555555] sm:text-lg">
+              At ANSECO, education extends beyond the classroom. Students join a learning community shaped by Truth and Service, academic development, discipline, responsibility and generations of connection to Anlo-Land.
             </p>
+            <Link href="/campus-life" className={`mt-8 ${viewMoreLinkClass}`}>
+              Discover Student Life
+            </Link>
+          </div>
+
+          <div className="border-y border-[#0D2E6B]/15">
+            {[
+              ["01", "A Legacy in Anlo-Land", `Founded in 1954 and reopened in ${siteConfig.establishedYear}, ANSECO has grown from nine students into a school community serving more than 2,000 learners while maintaining its identity as The Star of Anlo-Land.`],
+              ["02", "Learning with Purpose", "Students develop their interests and abilities across eight Learning Areas that create pathways toward further education, work and future careers."],
+              ["03", "Character & Responsibility", "Service, Truth, Accountability and Reliability shape the school's emphasis on discipline, self-discipline, responsible leadership and service."],
+              ["04", "A Community Beyond School", "Current learners, staff, parents and generations of old students remain connected through the shared identity and legacy of Mother ANSECO."]
+            ].map(([number, title, description]) => (
+              <article key={number} className="grid gap-4 border-b border-[#0D2E6B]/15 py-7 last:border-b-0 sm:grid-cols-[64px_1fr] sm:gap-6">
+                <span className="font-display text-3xl font-bold text-[#8A6700]">{number}</span>
+                <div>
+                  <h3 className="text-xl font-black text-[#1A1A1A]">{title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#666666]">{description}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -115,11 +142,10 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Gallery</p>
-              <h2 className="font-display text-4xl font-bold text-[#0D2E6B] sm:text-5xl">Life at ANSECO</h2>
+              <h2 className="font-display text-4xl font-bold text-[#1A1A1A] sm:text-5xl">Life at ANSECO</h2>
             </div>
-            <Link href="/gallery" className="flex items-center gap-2 border-b-2 border-[#C9990A] pb-1 text-sm font-black uppercase tracking-[0.12em] text-[#0D2E6B] transition-colors hover:text-[#C9990A]">
-              View gallery <ChevronRight size={16} />
+            <Link href="/gallery" className={viewMoreLinkClass}>
+              View Gallery
             </Link>
           </div>
 
@@ -139,7 +165,6 @@ export default function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#091d47] via-[#091d47]/30 to-transparent" />
                 <div className={`absolute inset-x-0 bottom-0 text-white ${index === 0 ? "p-7 sm:p-9" : "p-6"}`}>
-                  <p className="mb-2 text-[10px] font-black uppercase tracking-[0.28em] text-[#FACC15]">Album</p>
                   <h3 className={`font-display font-bold ${index === 0 ? "text-3xl sm:text-4xl" : "text-2xl"}`}>{album.title}</h3>
                   {index === 0 ? <p className="mt-3 max-w-xl line-clamp-2 text-sm leading-6 text-white/75">{album.description}</p> : null}
                   <div className="mt-5 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-white">
@@ -156,11 +181,10 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
           <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Academic Learning Areas</p>
-              <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B] sm:text-5xl">Eight Learning Areas</h2>
+              <h2 className="font-display text-4xl font-bold leading-tight text-[#1A1A1A] sm:text-5xl">Learning Areas</h2>
             </div>
-            <Link href="/learning-areas" className="inline-flex w-fit items-center gap-2 border-b-2 border-[#C9990A] pb-1 text-sm font-black uppercase tracking-[0.12em] text-[#0D2E6B] transition-colors hover:text-[#C9990A]">
-              Explore academics <ChevronRight size={16} />
+            <Link href="/learning-areas" className={viewMoreLinkClass}>
+              Explore Academics
             </Link>
           </div>
           <LearningAreaCards areas={learningAreaSummaries} />
@@ -171,8 +195,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
           <div className="mb-10">
             <div>
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Legacy in Numbers</p>
-              <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B] sm:text-5xl lg:text-6xl">Our Achievements</h2>
+              <h2 className="font-display text-4xl font-bold leading-tight text-[#1A1A1A] sm:text-5xl lg:text-6xl">Our Achievements</h2>
             </div>
           </div>
 
@@ -180,7 +203,6 @@ export default function HomePage() {
             <div className="grid lg:grid-cols-[0.7fr_1.3fr]">
               <div className="flex flex-col justify-between p-8 sm:p-10 lg:min-h-[480px] lg:border-r lg:border-white/10 lg:p-12">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-[0.24em] text-[#FACC15]">The Star of Anlo-Land</p>
                   <h3 className="font-display mt-5 max-w-xl text-3xl font-bold leading-tight sm:text-4xl">
                     Achievement measured in knowledge, confidence and character.
                   </h3>
@@ -191,9 +213,9 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 xl:grid-cols-6">
-                {achievements.map((achievement, index) => (
-                  <article key={achievement.label} className={`flex min-h-[210px] min-w-0 flex-col justify-center overflow-hidden bg-[#0D2E6B] p-6 sm:p-7 ${index < 2 ? "xl:col-span-3" : "xl:col-span-2"} ${index === achievements.length - 1 ? "sm:col-span-2 xl:col-span-2" : ""}`}>
+              <div className="grid sm:grid-cols-2">
+                {achievements.map((achievement) => (
+                  <article key={achievement.label} className="flex min-h-[210px] min-w-0 flex-col justify-center overflow-hidden border-white/10 bg-[#0D2E6B] p-6 sm:border-b sm:border-r sm:p-7">
                     <div className={`font-display whitespace-nowrap font-bold leading-none text-[#FACC15] ${achievement.value.length > 4 ? "text-4xl sm:text-5xl" : "text-5xl sm:text-6xl"}`}>{achievement.value}</div>
                     <div className="mt-5">
                       <h3 className="text-base font-black uppercase tracking-[0.08em] text-white">{achievement.label}</h3>
@@ -211,10 +233,9 @@ export default function HomePage() {
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-12">
           <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Latest from ANSECO</p>
-              <h2 className="font-display text-4xl font-bold text-[#0D2E6B] sm:text-5xl">Latest News</h2>
+              <h2 className="font-display text-4xl font-bold text-[#1A1A1A] sm:text-5xl">Latest News</h2>
             </div>
-            <Link href="/news" className="inline-flex w-fit items-center gap-2 border-b-2 border-[#C9990A] pb-1 text-xs font-black uppercase tracking-[0.12em] text-[#0D2E6B] transition-colors hover:text-[#C9990A]">View all news <ChevronRight size={15} /></Link>
+            <Link href="/news" className={viewMoreLinkClass}>View All News</Link>
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
@@ -224,14 +245,14 @@ export default function HomePage() {
                   <Image src={post.coverImage} alt="" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <div className="flex flex-1 flex-col p-6 sm:p-7">
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-[0.12em] text-[#C9990A]">
+                  <div className="flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-[0.12em] text-[#8A6700]">
                     <span>{formatDate(post.date)}</span>
                     <span className="h-1 w-1 rounded-full bg-[#C9990A]" />
                     <span>{post.category}</span>
                   </div>
-                  <h3 className="mt-4 text-xl font-black leading-tight text-[#0D2E6B] transition-colors group-hover:text-[#9A7300] sm:text-2xl">{post.title}</h3>
-                  <p className="mt-4 line-clamp-3 text-sm leading-7 text-[#64748B]">{post.excerpt}</p>
-                  <span className="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-black text-[#0D2E6B]">Read more <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" /></span>
+                  <h3 className="mt-4 text-xl font-black leading-tight text-[#1A1A1A] transition-colors group-hover:text-[#9A7300] sm:text-2xl">{post.title}</h3>
+                  <p className="mt-4 line-clamp-3 text-sm leading-7 text-[#666666]">{post.excerpt}</p>
+                  <span className="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-black text-[#1A1A1A]">Read more <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" /></span>
                 </div>
               </Link>
             ))}
@@ -242,27 +263,30 @@ export default function HomePage() {
       <section className="bg-white py-20 sm:py-24">
         <div className="mx-auto grid max-w-[1400px] gap-14 px-5 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:px-12">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">What&apos;s Next</p>
-            <h2 className="font-display mt-4 text-4xl font-bold leading-tight text-[#0D2E6B] sm:text-5xl">Upcoming Events</h2>
-            <div className="mt-6 h-1 w-20 bg-[#C9990A]" />
-            <p className="mt-7 max-w-md text-base leading-8 text-[#64748B]">Stay up to date with important dates, activities and programmes on the ANSECO school calendar.</p>
-            <Link href="/events" className="mt-9 inline-flex items-center gap-3 rounded-[12px] bg-[#0D2E6B] px-7 py-4 text-sm font-black text-white transition-colors hover:bg-[#C9990A]">Full School Calendar <ArrowRight size={17} /></Link>
+            <h2 className="font-display mt-4 text-4xl font-bold leading-tight text-[#1A1A1A] sm:text-5xl">Upcoming Events</h2>
+            <p className="mt-7 max-w-md text-base leading-8 text-[#666666]">Stay up to date with important dates, activities and programmes on the ANSECO school calendar.</p>
+            <Link href="/events" className={`mt-9 ${viewMoreLinkClass}`}>Full School Calendar</Link>
           </div>
 
           <div className="relative ml-2 border-l-2 border-[#0D2E6B]/15 pl-8 sm:ml-4 sm:pl-10">
             <div className="space-y-10">
-              {events.map((event) => {
+              {events.length ? events.map((event) => {
                 const date = new Date(`${event.startDate}T00:00:00Z`);
                 return (
                   <Link key={event.slug} href={`/events/${event.slug}`} className="group relative block">
                     <span className="absolute -left-[42px] top-1 h-5 w-5 rounded-full border-4 border-[#0D2E6B] bg-[#E4B52B] sm:-left-[50px]" />
-                    <p className="text-xs font-black uppercase tracking-[0.16em] text-[#0D2E6B]">{date.toLocaleString("en", { month: "short", timeZone: "UTC" })} {date.getUTCFullYear()}</p>
-                    <h3 className="mt-2 text-xl font-black leading-tight text-[#0D2E6B] transition-colors group-hover:text-[#C9990A] sm:text-2xl">{event.title}</h3>
-                    <p className="mt-3 max-w-3xl text-sm leading-7 text-[#64748B] sm:text-base">{event.excerpt}</p>
-                    <p className="mt-2 text-xs font-bold uppercase tracking-[0.12em] text-[#64748B]">{event.location}</p>
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1A1A1A]">{date.toLocaleString("en", { month: "short", timeZone: "UTC" })} {date.getUTCFullYear()}</p>
+                    <h3 className="mt-2 text-xl font-black leading-tight text-[#1A1A1A] transition-colors group-hover:text-[#8A6700] sm:text-2xl">{event.title}</h3>
+                    <p className="mt-3 max-w-3xl text-sm leading-7 text-[#666666] sm:text-base">{event.excerpt}</p>
+                    <p className="mt-2 text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">{event.location}</p>
                   </Link>
                 );
-              })}
+              }) : (
+                <div className="py-3">
+                  <p className="text-lg font-black text-[#1A1A1A]">No upcoming events have been published.</p>
+                  <p className="mt-3 max-w-xl text-sm leading-7 text-[#666666]">New dates will appear here after they have been confirmed by the school.</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -271,7 +295,6 @@ export default function HomePage() {
       <section className="bg-white py-20 sm:py-24">
         <div className="mx-auto grid max-w-[1400px] gap-8 px-5 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:px-12">
           <div className="relative overflow-hidden rounded-[12px] bg-[#0D2E6B] p-8 text-white sm:p-10 lg:p-12">
-            <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-[#E4B52B]">Admissions</p>
             <h2 className="font-display max-w-xl text-4xl font-bold leading-[1.05] sm:text-5xl">
               Start Your Journey at ANSECO
             </h2>
@@ -289,12 +312,12 @@ export default function HomePage() {
           <div className="border-y border-[#0D2E6B]/10">
             {admissionSteps.map((step) => (
               <div key={step.number} className="group grid gap-4 border-b border-[#0D2E6B]/10 py-6 last:border-b-0 sm:grid-cols-[72px_1fr] sm:items-start sm:gap-6">
-                <div className="font-display text-3xl font-bold leading-none text-[#C9990A] transition-colors group-hover:text-[#0D2E6B] sm:text-4xl">
+                <div className="font-display text-3xl font-bold leading-none text-[#8A6700] transition-colors group-hover:text-[#1A1A1A] sm:text-4xl">
                   {step.number}
                 </div>
                 <div>
-                  <h3 className="text-lg font-black text-[#0D2E6B] sm:text-xl">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-[#64748B] sm:text-base">{step.description}</p>
+                  <h3 className="text-lg font-black text-[#1A1A1A] sm:text-xl">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-[#666666] sm:text-base">{step.description}</p>
                 </div>
               </div>
             ))}

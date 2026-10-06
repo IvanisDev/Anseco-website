@@ -4,12 +4,24 @@ import { MapPin, Phone } from "lucide-react";
 import { AnsecoCrest } from "@/components/anseco-crest";
 import { siteConfig } from "@/config/site";
 
-const footerLinks = [
+const schoolLinks = [
   { label: "About ANSECO", href: "/about" },
-  { label: "Admissions", href: "/admissions" },
   { label: "Learning Areas", href: "/learning-areas" },
-  { label: "News & Events", href: "/news" },
   { label: "Campus Life", href: "/campus-life" },
+  { label: "Our History", href: "/about/our-history" }
+];
+
+const admissionsLinks = [
+  { label: "Admissions", href: "/admissions" },
+  { label: "Prospectus & Requirements", href: "/admissions/prospectus" },
+  { label: "FAQs", href: "/admissions/faqs" },
+  { label: "School Regulations", href: "/admissions/student-guidelines" }
+];
+
+const connectLinks = [
+  { label: "Media", href: "/news" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Alumni", href: "/alumni" },
   { label: "Contact", href: "/contact" }
 ];
 
@@ -17,7 +29,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t-4 border-[#C9990A] bg-[#061a43] text-white">
       <div className="mx-auto max-w-[1400px] px-5 pb-8 pt-14 sm:px-8 lg:px-12">
-        <div className="grid gap-12 border-b border-white/10 pb-12 lg:grid-cols-[1.2fr_0.7fr_1fr]">
+        <div className="grid gap-12 border-b border-white/10 pb-12 lg:grid-cols-[1.1fr_1.45fr_0.75fr]">
           <div className="max-w-xl">
             <div className="mb-5 flex items-center gap-4">
               <div className="flex h-16 w-16 shrink-0 items-center justify-center">
@@ -25,11 +37,11 @@ export function SiteFooter() {
               </div>
               <div>
                 <div className="text-xl font-black leading-tight">Anlo Senior High School</div>
-                <div className="mt-1 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">ANSECO</div>
+                <div className="mt-1 text-xs font-black uppercase tracking-[0.28em] text-[#E4B52B]">ANSECO</div>
               </div>
             </div>
             <p className="max-w-lg text-base leading-8 text-white/65">
-              Shaping generations of learners since {siteConfig.establishedYear} through academic work, discipline, community and service.
+              The Star of Anlo-Land — guided by Truth and Service.
             </p>
             <div className="mt-8 flex w-full max-w-[380px] items-center gap-4">
               <a
@@ -70,28 +82,46 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h2 className="mb-5 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Explore</h2>
-            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              {footerLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-sm font-semibold text-white/75 transition-colors hover:text-[#FACC15]">
-                    {link.label}
-                  </Link>
-                </li>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3">
+              {[
+                { title: "School", links: schoolLinks },
+                { title: "Admissions", links: admissionsLinks },
+                { title: "Connect", links: connectLinks }
+              ].map((group) => (
+                <div key={group.title}>
+                  <h2 className="mb-3 text-xs font-black uppercase leading-5 tracking-[0.16em] text-[#E4B52B]">{group.title}</h2>
+                  <ul>
+                    {group.links.map((link) => (
+                      <li key={link.href}>
+                        <Link href={link.href} className="inline-flex min-h-11 items-center text-sm font-semibold text-white/75 transition-colors hover:text-[#FACC15]">
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
           <div>
-            <h2 className="mb-5 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Contact</h2>
+            <h2 className="mb-5 text-xs font-black uppercase tracking-[0.28em] text-[#E4B52B]">Contact</h2>
             <div className="space-y-5">
               <div className="flex items-start gap-3 text-sm leading-7 text-white/65">
-                <MapPin size={17} className="mt-1 shrink-0 text-[#C9990A]" />
+                <MapPin size={17} className="mt-1 shrink-0 text-[#E4B52B]" />
                 <span>{siteConfig.addressLines.map((line) => <span key={line} className="block">{line}</span>)}</span>
               </div>
               <div className="flex items-start gap-3 text-sm text-white/65">
-                <Phone size={17} className="text-[#C9990A]" />
-                <span>{siteConfig.phones.map((phone) => <a key={phone.href} href={`tel:${phone.href}`} className="block transition-colors hover:text-white">{phone.label}</a>)}</span>
+                <Phone size={17} className="text-[#E4B52B]" />
+                <ul aria-label="School telephone numbers">
+                  {siteConfig.phones.map((phone) => (
+                    <li key={phone.href}>
+                      <a href={`tel:${phone.href}`} aria-label={`Call ANSECO at ${phone.label}`} className="inline-flex min-h-8 items-center transition-colors hover:text-white">
+                        {phone.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>

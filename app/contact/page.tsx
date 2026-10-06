@@ -37,8 +37,8 @@ export default function ContactPage() {
                   <MapPin size={23} aria-hidden="true" />
                 </div>
                 <div>
-                  <h2 className="font-display text-2xl font-bold text-[#0D2E6B]">Address</h2>
-                  <address className="mt-2 not-italic text-base leading-8 text-[#64748B]">
+                  <h2 className="font-display text-2xl font-bold text-[#1A1A1A]">Address</h2>
+                  <address className="mt-2 not-italic text-base leading-8 text-[#666666]">
                     {siteConfig.addressLines.map((line) => <span key={line} className="block">{line}</span>)}
                     <span className="block">Ghana</span>
                   </address>
@@ -50,20 +50,21 @@ export default function ContactPage() {
                   <Phone size={22} aria-hidden="true" />
                 </div>
                 <div>
-                  <h2 className="font-display text-2xl font-bold text-[#0D2E6B]">Phone</h2>
-                  <div className="mt-2 space-y-1">
-                  {siteConfig.phones.map((phone) => (
-                    <a key={phone.href} href={`tel:${phone.href}`} className="block text-base leading-8 text-[#64748B] transition-colors hover:text-[#C9990A]">
-                      {phone.label}
-                    </a>
-                  ))}
-                  </div>
+                  <h2 className="font-display text-2xl font-bold text-[#1A1A1A]">Phone</h2>
+                  <ul className="mt-2 space-y-1" aria-label="School telephone numbers">
+                    {siteConfig.phones.map((phone) => (
+                      <li key={phone.href}>
+                        <a href={`tel:${phone.href}`} aria-label={`Call ANSECO at ${phone.label}`} className="inline-flex min-h-11 items-center text-base text-[#666666] transition-colors hover:text-[#8A6700]">
+                          {phone.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
 
               <div className="pt-7">
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-[#C9990A]">School Enquiries</p>
-                <p className="mt-3 text-sm leading-7 text-[#64748B]">
+                <p className="mt-3 text-sm leading-7 text-[#666666]">
                   Call the school directly for official enquiries about admissions, academics, student welfare, and reporting.
                 </p>
               </div>

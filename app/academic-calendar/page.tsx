@@ -44,16 +44,15 @@ export default function AcademicCalendarPage() {
         <div className="mx-auto max-w-[1160px] px-5 sm:px-8 lg:px-12">
           <div className="mb-12 grid gap-6 border-b border-[#0D2E6B]/10 pb-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Published Dates</p>
-              <h2 className="font-display mt-3 text-4xl font-bold leading-tight text-[#0D2E6B] sm:text-5xl">
+              <h2 className="font-display mt-3 text-4xl font-bold leading-tight text-[#1A1A1A] sm:text-5xl">
                 2026 School Calendar
               </h2>
-              <p className="mt-4 max-w-2xl text-base leading-8 text-[#64748B]">
+              <p className="mt-4 max-w-2xl text-base leading-8 text-[#666666]">
                 Students, parents, and guardians should check this page regularly for confirmed dates and event updates.
               </p>
             </div>
-            <div className="flex items-center gap-3 text-sm font-black uppercase tracking-[0.14em] text-[#64748B]">
-              <CalendarDays size={20} className="text-[#C9990A]" />
+            <div className="flex items-center gap-3 text-sm font-black uppercase tracking-[0.14em] text-[#666666]">
+              <CalendarDays size={20} className="text-[#8A6700]" />
               {events.length} published dates
             </div>
           </div>
@@ -74,16 +73,16 @@ export default function AcademicCalendarPage() {
                       <span className="font-display mt-1 text-4xl font-bold leading-none">{date.getUTCDate()}</span>
                     </div>
                     <div className="flex min-w-0 flex-col p-6">
-                      <p className="text-xs font-bold text-[#64748B]">{formatEventDate(event.startDate, event.endDate)}</p>
-                      <h3 className="mt-3 text-xl font-black leading-tight text-[#0D2E6B] transition-colors group-hover:text-[#9A7300]">
+                      <p className="text-xs font-bold text-[#666666]">{formatEventDate(event.startDate, event.endDate)}</p>
+                      <h3 className="mt-3 text-xl font-black leading-tight text-[#1A1A1A] transition-colors group-hover:text-[#9A7300]">
                         {event.title}
                       </h3>
-                      <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-[#64748B]">
-                        <MapPin size={15} className="shrink-0 text-[#C9990A]" />
+                      <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-[#666666]">
+                        <MapPin size={15} className="shrink-0 text-[#8A6700]" />
                         {event.location}
                       </p>
-                      <p className="mt-4 text-sm leading-6 text-[#64748B]">{event.excerpt}</p>
-                      <span className="mt-auto inline-flex items-center gap-2 pt-6 text-xs font-black uppercase tracking-[0.12em] text-[#0D2E6B]">
+                      <p className="mt-4 text-sm leading-6 text-[#666666]">{event.excerpt}</p>
+                      <span className="mt-auto inline-flex items-center gap-2 pt-6 text-xs font-black uppercase tracking-[0.12em] text-[#1A1A1A]">
                         Event details <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                       </span>
                     </div>
@@ -95,8 +94,7 @@ export default function AcademicCalendarPage() {
 
           <div className="mt-12 flex flex-col gap-5 border-l-4 border-[#C9990A] bg-white p-7 shadow-[0_16px_38px_rgba(13,46,107,0.05)] sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#C9990A]">More School Dates</p>
-              <p className="mt-2 text-base leading-7 text-[#475569]">Visit Events for the latest programmes and activity updates.</p>
+              <p className="mt-2 text-base leading-7 text-[#4A4A4A]">Visit Events for the latest programmes and activity updates.</p>
             </div>
             <Link href="/events" className="inline-flex w-fit items-center gap-3 bg-[#0D2E6B] px-6 py-4 text-xs font-black uppercase tracking-[0.12em] text-white transition-colors hover:bg-[#C9990A]">
               View all events <ArrowRight size={16} />

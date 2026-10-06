@@ -35,7 +35,6 @@ export default function AboutPage() {
   return (
     <div className="bg-[#F8F7F3]">
       <section className="bg-[#0D2E6B] px-5 py-16 text-center text-white shadow-[inset_0_8px_22px_rgba(0,0,0,0.18)] sm:px-8 lg:px-12">
-        <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Who We Are</p>
         <h1 className="font-display mx-auto max-w-5xl text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
           About Anlo Senior High School
         </h1>
@@ -55,11 +54,10 @@ export default function AboutPage() {
           </div>
 
           <div>
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Leadership Message</p>
-            <h2 className="font-display mb-7 text-3xl font-bold leading-tight text-[#0D2E6B] sm:text-4xl">
+            <h2 className="font-display mb-7 text-3xl font-bold leading-tight text-[#1A1A1A] sm:text-4xl">
               Welcome Address by the Headmaster
             </h2>
-            <div className="space-y-5 text-base leading-8 text-[#334155]">
+            <div className="space-y-5 text-base leading-8 text-[#333333]">
               <p>
                 On behalf of the Board of Governors, Parents Association, Old Students, staff, and the entire
                 student body, I warmly welcome you to Anlo Senior High School (ANSECO), Anloga, &quot;The Star of
@@ -76,7 +74,7 @@ export default function AboutPage() {
                 self-discipline. ANSECO is open to all persons and positioned to admit students who have been
                 placed by CSSPS.
               </p>
-              <p className="font-semibold text-[#0D2E6B]">
+              <p className="font-semibold text-[#1A1A1A]">
                 Once again, you are warmly welcome to ANSECO: The Star of Anlo-Land.
               </p>
             </div>
@@ -86,11 +84,10 @@ export default function AboutPage() {
 
       <section className="bg-[#F8F7F3] px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-[960px] border-l-4 border-[#C9990A] bg-white p-8 shadow-[0_18px_45px_rgba(13,46,107,0.06)] sm:p-10">
-          <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">About ANSECO</p>
-          <h2 className="font-display text-3xl font-bold leading-tight text-[#0D2E6B] sm:text-4xl">
+          <h2 className="font-display text-3xl font-bold leading-tight text-[#1A1A1A] sm:text-4xl">
             The Star of Anlo-Land
           </h2>
-          <p className="mt-5 text-base leading-8 text-[#334155] sm:text-lg">
+          <p className="mt-5 text-base leading-8 text-[#333333] sm:text-lg">
             Anlo Senior High School, known as ANSECO, provides a supportive environment where learners are
             encouraged to discover their potential, pursue academic and professional excellence, and grow into
             responsible citizens. Guided by Truth and Service, the school welcomes students placed through the
@@ -102,23 +99,22 @@ export default function AboutPage() {
       <section id="values" className="bg-[#0D2E6B] px-5 py-20 text-white sm:px-8 lg:px-12">
         <div className="mx-auto max-w-[1160px]">
           <div className="mb-12 text-center">
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Our Foundation</p>
             <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl">Vision, Mission & Core Values</h2>
             <div className="mx-auto mt-7 w-fit border border-white/20 bg-white/[0.04] px-16 py-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/75">Motto</p>
-              <p className="font-display mt-2 text-3xl italic text-[#C9990A]">&quot;{siteConfig.motto}&quot;</p>
+              <p className="font-display mt-2 text-3xl italic text-[#E4B52B]">&quot;{siteConfig.motto}&quot;</p>
             </div>
           </div>
 
           <div className="mb-10 grid gap-5 lg:grid-cols-2">
             <div className="border border-white/10 bg-white/[0.045] p-7 text-center">
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Vision</p>
+              <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#E4B52B]">Vision</p>
               <p className="font-display mx-auto max-w-xl text-balance text-xl font-bold leading-8 text-white sm:text-2xl sm:leading-9">
                 A learning community that inspires all learners to discover and develop their potentials.
               </p>
             </div>
             <div className="border border-white/10 bg-white/[0.045] p-7 text-center">
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Mission</p>
+              <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#E4B52B]">Mission</p>
               <p className="font-display mx-auto max-w-xl text-balance text-xl font-bold leading-8 text-white sm:text-2xl sm:leading-9">
                 To provide the learner with a suitable learning environment to facilitate professional and academic excellence.
               </p>
@@ -126,7 +122,6 @@ export default function AboutPage() {
           </div>
 
           <div className="mb-8 max-w-3xl">
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Our Core Values</p>
             <h3 className="font-display text-3xl font-bold leading-tight">The STAR of Anlo-Land</h3>
             <p className="mt-4 text-base leading-8 text-white/65">
               At Anlo Senior High School (ANSECO), we proudly uphold the identity of &quot;The STAR of Anlo-Land.&quot; Our STAR represents the core values that guide our conduct, shape our character, and inspire excellence in all that we do.
@@ -138,7 +133,7 @@ export default function AboutPage() {
               return (
                 <div key={value.title} className="border border-white/10 bg-white/[0.045] p-6">
                   <div className="mb-6 flex items-center justify-between gap-4">
-                    <span className="font-display text-5xl font-bold text-[#C9990A]">{value.letter}</span>
+                    <span className="font-display text-5xl font-bold text-[#E4B52B]">{value.letter}</span>
                   </div>
                   <h3 className="mb-3 text-lg font-black">{value.title}</h3>
                   <p className="text-sm leading-6 text-white/75">{value.description}</p>
@@ -162,7 +157,6 @@ export default function AboutPage() {
             <div className="mb-10 flex h-16 w-16 items-center justify-center rounded-[12px] bg-[#C9990A]/25 text-[#E4B52B]">
               <Music2 size={30} strokeWidth={2.2} />
             </div>
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">School Spirit</p>
             <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl">School Anthem</h2>
             <p className="mt-6 text-base leading-8 text-white/65">
               The school anthem reflects the shared identity and spirit of Mother ANSECO and the values of Truth
@@ -173,15 +167,14 @@ export default function AboutPage() {
           <div className="border border-[#0D2E6B]/10 bg-[#F8F7F3] p-8 shadow-[0_20px_50px_rgba(13,46,107,0.06)]">
             <div className="mb-8 flex items-center justify-between gap-6 border-b border-[#0D2E6B]/10 pb-6">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Official Lyrics</p>
-                <h3 className="font-display mt-2 text-2xl font-bold text-[#0D2E6B]">The School Anthem</h3>
-                <p className="mt-2 text-sm font-bold uppercase tracking-[0.14em] text-[#64748B]">
-                  Written by Mr. P.K. Kpogo
+                <h3 className="font-display mt-2 text-2xl font-bold text-[#1A1A1A]">The School Anthem</h3>
+                <p className="mt-2 text-sm font-bold uppercase tracking-[0.14em] text-[#666666]">
+                  Written and composed by Mr. P.K. Kpogo
                 </p>
               </div>
               <span className="hidden h-px flex-1 bg-[#C9990A]/40 sm:block" />
             </div>
-            <p className="text-lg leading-9 text-[#334155]">
+            <p className="text-lg leading-9 text-[#333333]">
               Oh Lord God bless mother ANSECO<br />
               The source of knowledge and wisdom<br />
               The producer of intellects<br />
@@ -199,11 +192,10 @@ export default function AboutPage() {
       <section className="bg-[#F8F7F3] px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto flex min-h-[340px] max-w-[1160px] flex-col justify-center gap-8 border-l-4 border-[#C9990A] bg-white px-8 py-12 shadow-[0_18px_45px_rgba(13,46,107,0.06)] lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-start gap-5">
-            <BookOpenText className="mt-1 shrink-0 text-[#C9990A]" size={28} />
+            <BookOpenText className="mt-1 shrink-0 text-[#8A6700]" size={28} />
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C9990A]">Continue Exploring</p>
-              <h2 className="font-display mt-2 text-3xl font-bold text-[#0D2E6B]">Discover Our Story</h2>
-              <p className="mt-3 max-w-2xl text-base leading-7 text-[#64748B]">
+              <h2 className="font-display mt-2 text-3xl font-bold text-[#1A1A1A]">Discover Our Story</h2>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-[#666666]">
                 Learn about the people and events that shaped Anlo Senior High School from its early years to the
                 institution it is today.
               </p>
@@ -218,7 +210,7 @@ export default function AboutPage() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative flex min-h-24 items-center border border-[#0D2E6B]/20 py-5 pl-5 pr-12 text-[11px] font-black uppercase leading-5 tracking-[0.08em] text-[#0D2E6B] transition-colors hover:border-[#0D2E6B] hover:bg-[#0D2E6B] hover:text-white"
+                className="relative flex min-h-24 items-center border border-[#0D2E6B]/20 py-5 pl-5 pr-12 text-[11px] font-black uppercase leading-5 tracking-[0.08em] text-[#1A1A1A] transition-colors hover:border-[#0D2E6B] hover:bg-[#0D2E6B] hover:text-white"
               >
                 <span className="max-w-[calc(100%-2.5rem)]">{item.label}</span>
                 <ArrowRight className="absolute right-5 shrink-0" size={16} />

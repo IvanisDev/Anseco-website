@@ -69,9 +69,43 @@ export const studentGuidelines = [
   { title: "National Health Insurance Scheme (NHIS)", content: "Every student must maintain a valid NHIS card for admission, registration and continued enrolment. Parents and guardians must ensure membership remains active." }
 ];
 
-export const admissionFaqs = [
-  ["Is ANSECO a boarding or day school?", "ANSECO serves boarding and day students. Contact the school for current boarding availability."],
-  ["Where can I find the reporting requirements?", "The Prospectus & Requirements page contains the current document and personal-item lists."],
-  ["Can I apply if I was not placed at ANSECO?", "Admission is normally through the placement system. Contact the admissions office for current guidance."],
-  ["What learning areas does ANSECO offer?", "ANSECO offers Science, General Arts, Business, Agriculture, Home Economics, Visual and Performing Arts, Applied Technology, and Languages."]
-];
+export const admissionFaqGroups = [
+  {
+    title: "School Fees",
+    description: "Official guidance about bills, approved payment channels and fee confirmation.",
+    questions: [
+      ["Are ANSECO school fees published online?", "ANSECO does not currently publish a fixed fee amount on this website. Parents and guardians should use the current official bill or contact the school to confirm approved charges."],
+      ["How should school fees be paid?", "Follow the payment instructions issued directly by ANSECO. Confirm the approved account or payment channel with the school before sending money, and keep the official receipt or payment record."],
+      ["Are boarding and day-student fees the same?", "Charges and required items may differ for boarding and day students. Use the student's current official bill and prospectus, or contact the school for confirmation."]
+    ]
+  },
+  {
+    title: "General Information",
+    description: "Common questions about ANSECO, student attendance and contacting the school.",
+    questions: [
+      ["Is ANSECO a boarding or day school?", "ANSECO serves boarding and day students. Contact the school for current boarding availability."],
+      ["Where is ANSECO located?", "ANSECO is located at Avume, near Anloga in the Volta Region, along the Anloga-Keta Road."],
+      ["How can I contact the school?", "Use the telephone numbers and address published on the Contact page for official enquiries about admissions, academics and student welfare."]
+    ]
+  },
+  {
+    title: "New Student Enrolment",
+    description: "Placement, reporting, registration and preparation for newly admitted students.",
+    questions: [
+      ["Where can I find the reporting requirements?", "The Prospectus & Requirements page contains the current document and personal-item lists."],
+      ["What documents should a new student bring?", "Students should prepare the documents listed in the current prospectus, including their placement or admission printout and the required identification and health records."],
+      ["Can I apply if I was not placed at ANSECO?", "Admission is normally through the placement system. Contact the admissions office for current guidance."],
+      ["When should a newly placed student report?", "Students should report on the official date published by ANSECO and follow the instructions issued with the current admission and reopening information."]
+    ]
+  },
+  {
+    title: "Learning Areas",
+    description: "Available Learning Areas, subject combinations and choosing an academic pathway.",
+    questions: [
+      ["What Learning Areas does ANSECO offer?", "ANSECO offers Science, General Arts, Business, Agriculture, Home Economics, Visual and Performing Arts, Applied Technology, and Languages."],
+      ["Where can I see the subject combinations?", "The Learning Areas page lists the published elective combinations available under each Learning Area."],
+      ["How should a student choose a Learning Area?", "Students should consider their interests, strengths and future study or career goals, then review the available combinations and seek guidance from their JHS or ANSECO academic advisers."],
+      ["Can a student change their Learning Area after placement?", "A change is not guaranteed. The student and parent or guardian should contact ANSECO for guidance based on placement, available space and current academic requirements."]
+    ]
+  }
+] as const;

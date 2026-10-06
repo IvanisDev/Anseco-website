@@ -87,6 +87,50 @@
   font-family: Georgia, "Times New Roman", serif;
 }
 
+.nav-chevron {
+  position: relative;
+  display: inline-block;
+  width: 13px;
+  height: 10px;
+  flex: none;
+}
+
+.nav-chevron::before,
+.nav-chevron::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform 220ms ease;
+}
+
+.nav-chevron::before {
+  left: 0;
+  transform-origin: right center;
+  transform: rotate(40deg);
+}
+
+.nav-chevron::after {
+  right: 0;
+  transform-origin: left center;
+  transform: rotate(-40deg);
+}
+
+[aria-expanded="true"] > .nav-chevron::before,
+[aria-expanded="true"] > .nav-chevron::after {
+  transform: rotate(0deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-chevron::before,
+  .nav-chevron::after {
+    transition: none;
+  }
+}
+
 @layer components {
   main article[class*="border"],
   main a[class*="border"],

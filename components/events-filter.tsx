@@ -22,7 +22,7 @@ export function EventsFilter({ events }: { events: EventPost[] }) {
             type="button"
             aria-pressed={group === item}
             aria-controls="events-results"
-            className={`rounded-[12px] border px-5 py-3 text-xs font-black uppercase tracking-[0.12em] transition-colors ${group === item ? "border-[#0D2E6B] bg-[#0D2E6B] text-white" : "border-[#0D2E6B]/15 bg-white text-[#0D2E6B] hover:border-[#C9990A] hover:text-[#C9990A]"}`}
+            className={`min-h-11 rounded-[12px] border px-5 py-3 text-xs font-black uppercase tracking-[0.12em] transition-colors active:scale-[0.98] ${group === item ? "border-[#0D2E6B] bg-[#0D2E6B] text-white" : "border-[#0D2E6B]/15 bg-white text-[#1A1A1A] hover:border-[#C9990A] hover:text-[#8A6700]"}`}
             onClick={() => setGroup(item)}
           >
             {item[0].toUpperCase() + item.slice(1)}
@@ -45,7 +45,7 @@ export function EventsFilter({ events }: { events: EventPost[] }) {
           />
         ))}
       </div>
-      {visible.length === 0 ? <p className="border border-[#0D2E6B]/10 bg-white p-8 text-center text-[#64748B]">No events are available for this filter.</p> : null}
+      {visible.length === 0 ? <p className="border border-[#0D2E6B]/10 bg-white p-8 text-center text-[#666666]">No events are available for this filter.</p> : null}
     </div>
   );
 }

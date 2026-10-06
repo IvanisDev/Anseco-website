@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Check } from "lucide-react";
 import { ContentCard } from "@/components/content-card";
 import type { NewsPost } from "@/lib/content";
 
@@ -18,9 +19,10 @@ export function NewsFilter({ posts }: { posts: NewsPost[] }) {
             type="button"
             aria-pressed={category === item}
             aria-controls="news-results"
-            className={`rounded-[12px] border px-5 py-3 text-xs font-black uppercase tracking-[0.12em] transition-colors ${category === item ? "border-[#0D2E6B] bg-[#0D2E6B] text-white" : "border-[#0D2E6B]/15 bg-white text-[#0D2E6B] hover:border-[#C9990A] hover:text-[#C9990A]"}`}
+            className={`min-h-11 rounded-[12px] border px-5 py-3 text-xs font-black uppercase tracking-[0.12em] transition-colors active:scale-[0.98] ${category === item ? "border-[#0D2E6B] bg-[#0D2E6B] text-white" : "border-[#0D2E6B]/15 bg-white text-[#1A1A1A] hover:border-[#C9990A] hover:text-[#8A6700]"}`}
             onClick={() => setCategory(item)}
           >
+            {category === item ? <Check size={14} aria-hidden="true" className="mr-2 inline-block" /> : null}
             {item}
           </button>
         ))}
@@ -37,12 +39,12 @@ export function NewsFilter({ posts }: { posts: NewsPost[] }) {
             excerpt={post.excerpt}
             image={post.coverImage}
             meta={post.date}
-            badge={post.source || post.category}
+            badge={post.externalUrl ? "External Source ↗" : "Official ANSECO Notice"}
             external={Boolean(post.externalUrl)}
           />
         ))}
       </div>
-      {visible.length === 0 ? <p className="border border-[#0D2E6B]/10 bg-white p-8 text-center text-[#64748B]">No news items are available in this category.</p> : null}
+      {visible.length === 0 ? <p className="border border-[#0D2E6B]/10 bg-white p-8 text-center text-[#666666]">No news items are available in this category.</p> : null}
     </div>
   );
 }

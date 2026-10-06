@@ -97,12 +97,11 @@ function FacilitySection({ facility, imageFirst }: { facility: CampusFacility; i
   );
   const content = (
     <div className={`flex flex-col justify-center ${imageFirst ? "lg:pl-6" : "lg:pr-6"}`}>
-      <p className="text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Campus Life Resources</p>
-      <h2 className="font-display mt-3 text-4xl font-bold leading-tight text-[#0D2E6B] sm:text-5xl">{facility.title}</h2>
-      <div className="mt-7 space-y-5 text-base leading-8 text-[#475569]">
+      <h2 className="font-display mt-3 text-4xl font-bold leading-tight text-[#1A1A1A] sm:text-5xl">{facility.title}</h2>
+      <div className="mt-7 space-y-5 text-base leading-8 text-[#4A4A4A]">
         {facility.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </div>
-      <div className="mt-8 flex items-center gap-3 bg-white p-5 text-sm leading-7 text-[#475569]"><Icon size={21} className="shrink-0 text-[#0D2E6B]" />{facility.note}</div>
+      <div className="mt-8 flex items-center gap-3 bg-white p-5 text-sm leading-7 text-[#4A4A4A]"><Icon size={21} className="shrink-0 text-[#1A1A1A]" />{facility.note}</div>
     </div>
   );
 

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, BookOpenCheck, GraduationCap } from "lucide-react";
 import { LearningAreaAccordion } from "@/components/learning-area-accordion";
 import { LearningAreaCards } from "@/components/learning-area-cards";
 import { PageHeader } from "@/components/page-header";
@@ -19,7 +21,7 @@ const coreSubjects = [
 ];
 
 const departmentHeads = [
-  { name: "Mr. Margaret M. Dodor", department: "Science" },
+  { name: "Margaret M. Dodor", department: "Science" },
   { name: "Mr. Jonas Hatekah", department: "Mathematics" },
   { name: "Mr. Mathew Ganadzi", department: "General Arts" },
   { name: "Mr. Festus K. Sorkpor", department: "Languages" },
@@ -145,12 +147,11 @@ export default function LearningAreasPage() {
       <section id="learning-areas" className="scroll-mt-28 mx-auto max-w-[1260px] px-5 py-20 sm:px-8 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Overview</p>
-            <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B] sm:text-5xl">
+            <h2 className="font-display text-4xl font-bold leading-tight text-[#1A1A1A] sm:text-5xl">
               Eight Learning Areas
             </h2>
           </div>
-          <div className="space-y-5 text-base leading-8 text-[#334155]">
+          <div className="space-y-5 text-base leading-8 text-[#333333]">
             <p>
               Anlo Senior High School currently has eight (8) learning areas. These learning areas are chosen by students when filling their BECE registration forms at the JHS level.
             </p>
@@ -168,40 +169,19 @@ export default function LearningAreasPage() {
         </div>
       </section>
 
-      <section id="departments" className="scroll-mt-28 bg-white px-5 py-20 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-[1400px]">
-          <div className="mb-10 max-w-3xl">
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Academic Leadership</p>
-            <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B]">Heads of Departments</h2>
-            <p className="mt-5 text-base leading-8 text-[#334155]">
-              Department heads support teaching, learning and academic coordination across ANSECO&apos;s subject areas.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {departmentHeads.map((hod) => (
-              <div key={`${hod.name}-${hod.department}`} className="border border-[#0D2E6B]/10 bg-[#F8F7F3] p-5 shadow-[0_14px_32px_rgba(13,46,107,0.04)]">
-                <h3 className="text-base font-black uppercase tracking-[0.04em] text-[#0D2E6B]">{hod.name}</h3>
-                <p className="mt-3 text-xs font-black uppercase tracking-[0.14em] text-[#C9990A]">{hod.department}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="bg-white px-5 py-20 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-[1400px]">
           <div className="mb-8 max-w-3xl">
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Core Subjects</p>
-            <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B]">Subjects for SHS Form 1 and 2</h2>
-            <p className="mt-5 text-base leading-8 text-[#334155]">
+            <h2 className="font-display text-4xl font-bold leading-tight text-[#1A1A1A]">Subjects for SHS Form 1 and 2</h2>
+            <p className="mt-5 text-base leading-8 text-[#333333]">
               All students in SHS Form 1 and 2 are expected to study the following core subjects. The first four are examinable under the West African Senior High School Certificate Examinations conducted by WAEC and form a key benchmark for further education and work.
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {coreSubjects.map((subject) => (
-              <div key={subject} className="border border-[#0D2E6B]/10 bg-[#F8F7F3] px-5 py-4 text-base font-bold text-[#0D2E6B]">
-                {subject}
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {coreSubjects.map((subject, index) => (
+              <div key={subject} className="flex min-h-[180px] flex-col rounded-[12px] border border-[#0D2E6B]/10 bg-white p-6 shadow-[0_18px_45px_rgba(13,46,107,0.06)]">
+                <span className="mb-8 text-xs font-black uppercase tracking-[0.22em] text-[#9A7300]">{String(index + 1).padStart(2, "0")}</span>
+                <h3 className="flex flex-1 items-center justify-center text-center text-2xl font-black leading-tight text-[#1A1A1A]">{subject}</h3>
               </div>
             ))}
           </div>
@@ -210,14 +190,38 @@ export default function LearningAreasPage() {
 
       <section className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-12">
         <div className="mb-10 max-w-4xl">
-          <p className="mb-3 text-xs font-black uppercase tracking-[0.28em] text-[#C9990A]">Elective Subjects</p>
-          <h2 className="font-display text-4xl font-bold leading-tight text-[#0D2E6B]">Learning Area Combinations</h2>
-          <p className="mt-5 text-base leading-8 text-[#334155]">
+          <h2 className="font-display text-4xl font-bold leading-tight text-[#1A1A1A]">Learning Area Combinations</h2>
+          <p className="mt-5 text-base leading-8 text-[#333333]">
             Students are expected to choose elective subjects from the learning area for which they are admitted. The combinations below show the available options.
           </p>
         </div>
 
         <LearningAreaAccordion sections={[...electiveSections].sort((a, b) => electiveSectionOrder.indexOf(a.id) - electiveSectionOrder.indexOf(b.id))} />
+      </section>
+
+      <section className="bg-white px-5 py-20 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="mb-10 max-w-3xl">
+            <h2 className="font-display text-4xl font-bold leading-tight text-[#1A1A1A]">Continue Your Academic Journey</h2>
+            <p className="mt-5 text-base leading-8 text-[#333333]">Explore the learning spaces that support students or find practical WASSCE guidance for the final year.</p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            <Link href="/resources#educational-resources" className="group rounded-[12px] border border-[#0D2E6B]/10 bg-[#F8F7F3] p-7 transition-colors hover:border-[#C9990A]"><BookOpenCheck size={24} className="text-[#8A6700]" /><h3 className="mt-5 text-2xl font-black text-[#1A1A1A]">Facilities &amp; Resources</h3><p className="mt-3 text-sm leading-7 text-[#555555]">Discover the library, laboratories, classrooms and specialist learning spaces.</p><span className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-black text-[#1A1A1A]">Explore resources <ArrowRight size={16} /></span></Link>
+            <Link href="/final-year-students" className="group rounded-[12px] border border-[#0D2E6B]/10 bg-[#F8F7F3] p-7 transition-colors hover:border-[#C9990A]"><GraduationCap size={24} className="text-[#8A6700]" /><h3 className="mt-5 text-2xl font-black text-[#1A1A1A]">For Final-Year Students</h3><p className="mt-3 text-sm leading-7 text-[#555555]">Find WASSCE preparation, timetable links, examination conduct and next steps.</p><span className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-black text-[#1A1A1A]">View final-year guidance <ArrowRight size={16} /></span></Link>
+          </div>
+        </div>
+      </section>
+
+      <section id="departments" className="scroll-mt-28 px-5 py-20 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="mb-10 max-w-3xl">
+            <h2 className="font-display text-4xl font-bold leading-tight text-[#1A1A1A]">Academic Leadership</h2>
+            <p className="mt-5 text-base leading-8 text-[#333333]">Heads of Departments support teaching, learning and academic coordination across ANSECO&apos;s subject areas.</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {departmentHeads.map((hod) => <div key={`${hod.name}-${hod.department}`} className="rounded-[12px] border border-[#0D2E6B]/10 bg-white p-5 shadow-[0_14px_32px_rgba(13,46,107,0.04)]"><h3 className="text-base font-black uppercase tracking-[0.04em] text-[#1A1A1A]">{hod.name}</h3><p className="mt-3 text-xs font-black uppercase tracking-[0.14em] text-[#8A6700]">{hod.department}</p></div>)}
+          </div>
+        </div>
       </section>
 
     </div>

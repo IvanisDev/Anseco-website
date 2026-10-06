@@ -34,7 +34,7 @@ const navLinks: NavLink[] = [
       { label: "How to Apply", href: "/admissions/how-to-apply" },
       { label: "Prospectus & Requirements", href: "/admissions/prospectus" },
       { label: "School Regulations", href: "/admissions/student-guidelines" },
-      { label: "FQAs", href: "/admissions/faqs" }
+      { label: "FAQs", href: "/admissions/faqs" }
     ]
   },
   {
@@ -44,7 +44,8 @@ const navLinks: NavLink[] = [
       { label: "Learning Areas", href: "/learning-areas#learning-areas" },
       { label: "Facilities & Resources", href: "/resources#educational-resources" },
       { label: "Final-Year Students", href: "/final-year-students" },
-      { label: "Academic Calendar", href: "/academic-calendar" }
+      { label: "Academic Calendar", href: "/academic-calendar" },
+      { label: "FAQs", href: "/admissions/faqs", contributesToParentActive: false }
     ]
   },
   {
@@ -226,7 +227,7 @@ export function SiteHeader() {
             <AnsecoCrest className="h-12 w-12 shrink-0 sm:h-14 sm:w-14" />
             <div className="hidden min-[380px]:block">
               <div className="text-sm font-black uppercase leading-tight tracking-[0.12em]">ANLO SENIOR HIGH SCHOOL</div>
-              <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.28em] text-[#C9990A]">{siteConfig.motto}</div>
+              <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.28em] text-[#E4B52B]">{siteConfig.motto}</div>
             </div>
           </Link>
 
@@ -257,20 +258,22 @@ export function SiteHeader() {
                     onClick={(event) => handleNavLinkClick(event, link.href)}
                   >
                     {link.label}
-                    {link.children ? <ChevronDown size={13} /> : null}
+                    {link.children ? (
+                      <span className="nav-chevron" aria-hidden="true" />
+                    ) : null}
                   </Link>
                   {link.children && openDropdown === link.label ? (
-                    <div id={`desktop-menu-${link.label.toLowerCase().replaceAll(" ", "-")}`} className="absolute left-0 top-full z-50 min-w-[240px] border-t-4 border-[#C9990A] bg-white py-2 text-[#1A1A2E] shadow-[0_24px_60px_rgba(6,26,67,0.18)]">
+                    <div id={`desktop-menu-${link.label.toLowerCase().replaceAll(" ", "-")}`} className="absolute left-0 top-full z-50 w-max min-w-[160px] border-t-4 border-[#C9990A] bg-white py-1.5 text-[#1A1A1A] shadow-[0_24px_60px_rgba(6,26,67,0.18)]">
                       {link.children.map((child) => (
                         <div key={child.label} className="relative" onMouseEnter={() => child.children && setOpenSubDropdown(child.label)}>
-                          <Link href={child.href} aria-current={pathMatches(child.href, pathname) ? "page" : undefined} className={`flex items-center justify-between px-5 py-3 text-sm font-semibold transition-colors hover:bg-[#EDF1F9] hover:text-[#0D2E6B] ${navLinkIsActive(child, pathname) ? "bg-[#EDF1F9] text-[#0D2E6B]" : ""}`} onClick={(event) => handleNavLinkClick(event, child.href)}>
+                          <Link href={child.href} aria-current={pathMatches(child.href, pathname) ? "page" : undefined} className={`flex items-center justify-between whitespace-nowrap px-3.5 py-2.5 text-[13px] font-semibold transition-colors hover:bg-[#EDF1F9] hover:text-[#1A1A1A] ${navLinkIsActive(child, pathname) ? "bg-[#EDF1F9] text-[#1A1A1A]" : ""}`} onClick={(event) => handleNavLinkClick(event, child.href)}>
                             {child.label}
                             {child.children ? <ChevronRight size={13} className="text-gray-400" /> : null}
                           </Link>
                           {child.children && openSubDropdown === child.label ? (
-                            <div className="absolute left-full top-0 z-50 min-w-[190px] border-t-4 border-[#C9990A] bg-white py-2 shadow-xl">
+                            <div className="absolute left-full top-0 z-50 w-max min-w-[160px] border-t-4 border-[#C9990A] bg-white py-1.5 shadow-xl">
                               {child.children.map((sub) => (
-                                <Link key={sub.label} href={sub.href} aria-current={pathMatches(sub.href, pathname) ? "page" : undefined} className={`block px-5 py-3 text-sm font-semibold hover:bg-[#EDF1F9] hover:text-[#0D2E6B] ${pathMatches(sub.href, pathname) ? "bg-[#EDF1F9] text-[#0D2E6B]" : ""}`} onClick={(event) => handleNavLinkClick(event, sub.href)}>{sub.label}</Link>
+                                <Link key={sub.label} href={sub.href} aria-current={pathMatches(sub.href, pathname) ? "page" : undefined} className={`block whitespace-nowrap px-3.5 py-2.5 text-[13px] font-semibold hover:bg-[#EDF1F9] hover:text-[#1A1A1A] ${pathMatches(sub.href, pathname) ? "bg-[#EDF1F9] text-[#1A1A1A]" : ""}`} onClick={(event) => handleNavLinkClick(event, sub.href)}>{sub.label}</Link>
                               ))}
                             </div>
                           ) : null}
@@ -304,7 +307,7 @@ export function SiteHeader() {
                 <Search size={19} />
               </button>
               {searchOpen ? (
-                <div id="desktop-site-search" role="search" className="absolute right-0 top-14 z-50 w-80 animate-in fade-in-0 slide-in-from-top-2 rounded-[8px] bg-white p-3 text-[#1A1A2E] shadow-2xl duration-200">
+                <div id="desktop-site-search" role="search" className="absolute right-0 top-14 z-50 w-80 animate-in fade-in-0 slide-in-from-top-2 rounded-[8px] bg-white p-3 text-[#1A1A1A] shadow-2xl duration-200">
                   <label className="sr-only" htmlFor="site-search">Search ANSECO</label>
                   <div className="flex items-center gap-2 rounded-[8px] px-2 py-2">
                     <Search size={16} className="text-gray-400" />
@@ -326,7 +329,7 @@ export function SiteHeader() {
                       {searchResults.length > 0 ? (
                       searchResults.map((item) => (
                         <Link key={`${item.label}-${item.href}`} href={item.href} className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-[#EDF1F9]" onClick={closeNavigation}>
-                          <span className="block text-sm font-bold text-[#0D2E6B]">{item.label}</span>
+                          <span className="block text-sm font-bold text-[#1A1A1A]">{item.label}</span>
                           <span className="block text-xs leading-relaxed text-gray-500">{item.description}</span>
                         </Link>
                       ))
@@ -354,16 +357,37 @@ export function SiteHeader() {
               }
             }}
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            <Menu
+              size={22}
+              aria-hidden="true"
+              className={`absolute transition-all duration-300 ease-out motion-reduce:transition-none ${mobileOpen ? "rotate-90 scale-75 opacity-0" : "rotate-0 scale-100 opacity-100"}`}
+            />
+            <X
+              size={22}
+              aria-hidden="true"
+              className={`absolute transition-all duration-300 ease-out motion-reduce:transition-none ${mobileOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-75 opacity-0"}`}
+            />
           </button>
         </div>
       </div>
-      {mobileOpen ? (
-        <div id="mobile-navigation" className="fixed inset-x-0 top-20 z-[90] max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-white/10 bg-[#0D2E6B] pb-4 shadow-[0_24px_50px_rgba(6,26,67,0.35)] lg:hidden">
+      <button
+        type="button"
+        aria-label="Close navigation menu"
+        tabIndex={mobileOpen ? 0 : -1}
+        className={`fixed inset-x-0 bottom-0 top-20 z-[80] bg-[#061a43]/35 transition-opacity duration-300 motion-reduce:transition-none lg:hidden ${mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
+        onClick={closeNavigation}
+      />
+      <div
+        id="mobile-navigation"
+        aria-hidden={!mobileOpen}
+        inert={!mobileOpen}
+        // Keep the panel mounted so its closing transition can finish.
+        className={`fixed inset-x-0 top-20 z-[90] max-h-[calc(100dvh-5rem)] origin-top overflow-y-auto overscroll-contain border-t border-white/10 bg-[#0D2E6B] pb-4 shadow-[0_24px_50px_rgba(6,26,67,0.35)] transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none lg:hidden ${mobileOpen ? "pointer-events-auto translate-y-0 scale-y-100 opacity-100" : "pointer-events-none -translate-y-3 scale-y-[0.98] opacity-0"}`}
+      >
           <div className="px-6 py-4">
             <label className="sr-only" htmlFor="mobile-site-search">Search ANSECO</label>
             <div className="flex items-center gap-2 rounded-[8px] border border-white/15 bg-white/10 px-3 py-2">
-              <Search size={16} className="text-[#C9990A]" />
+              <Search size={16} className="text-[#E4B52B]" />
               <input
                 id="mobile-site-search"
                 value={searchQuery}
@@ -399,7 +423,7 @@ export function SiteHeader() {
                   onClick={() => setMobileExpanded(mobileExpanded === link.label ? null : link.label)}
                 >
                   {link.label}
-                  <ChevronDown size={14} className={mobileExpanded === link.label ? "rotate-180" : ""} />
+                  <ChevronDown size={14} className={`transition-transform duration-200 ${mobileExpanded === link.label ? "rotate-180" : ""}`} />
                 </button>
               ) : (
                 <Link href={link.href} aria-current={pathMatches(link.href, pathname) ? "page" : undefined} className={`block px-6 py-3 text-sm font-medium hover:bg-white/10 ${isActive ? "bg-[#C9990A] text-white" : "text-white/90"}`} onClick={(event) => {
@@ -414,10 +438,10 @@ export function SiteHeader() {
                       {child.children ? (
                         <button className="flex min-h-11 w-full items-center justify-between px-10 py-2.5 text-left text-xs text-white/75 hover:bg-white/10" aria-expanded={mobileSubExpanded === child.label} onClick={() => setMobileSubExpanded(mobileSubExpanded === child.label ? null : child.label)}>
                           {child.label}
-                          <ChevronDown size={12} className={mobileSubExpanded === child.label ? "rotate-180" : ""} />
+                          <ChevronDown size={12} className={`transition-transform duration-200 ${mobileSubExpanded === child.label ? "rotate-180" : ""}`} />
                         </button>
                       ) : (
-                        <Link href={child.href} aria-current={pathMatches(child.href, pathname) ? "page" : undefined} className={`block px-10 py-2.5 text-xs hover:bg-white/10 ${navLinkIsActive(child, pathname) ? "bg-white/15 font-bold text-white" : "text-white/70"}`} onClick={(event) => {
+                        <Link href={child.href} aria-current={pathMatches(child.href, pathname) ? "page" : undefined} className={`flex min-h-11 items-center px-10 py-2.5 text-xs hover:bg-white/10 ${navLinkIsActive(child, pathname) ? "bg-white/15 font-bold text-white" : "text-white/70"}`} onClick={(event) => {
                           handleNavLinkClick(event, child.href);
                           setMobileOpen(false);
                         }}>{child.label}</Link>
@@ -425,7 +449,7 @@ export function SiteHeader() {
                       {child.children && mobileSubExpanded === child.label ? (
                         <div className="bg-[#071530]">
                           {child.children.map((sub) => (
-                            <Link key={sub.label} href={sub.href} aria-current={pathMatches(sub.href, pathname) ? "page" : undefined} className={`block px-14 py-2 text-xs hover:bg-white/10 ${pathMatches(sub.href, pathname) ? "bg-white/15 font-bold text-white" : "text-white/75"}`} onClick={(event) => {
+                            <Link key={sub.label} href={sub.href} aria-current={pathMatches(sub.href, pathname) ? "page" : undefined} className={`flex min-h-11 items-center px-14 py-2 text-xs hover:bg-white/10 ${pathMatches(sub.href, pathname) ? "bg-white/15 font-bold text-white" : "text-white/75"}`} onClick={(event) => {
                               handleNavLinkClick(event, sub.href);
                               setMobileOpen(false);
                             }}>{sub.label}</Link>
@@ -439,8 +463,7 @@ export function SiteHeader() {
             </div>
             );
           })}
-        </div>
-      ) : null}
+      </div>
     </header>
   );
 }

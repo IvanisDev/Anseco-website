@@ -36,13 +36,13 @@ export function ContentCard({
           )}
         </div>
         <div className="flex flex-1 flex-col p-6">
-          <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-[#64748B]">
-            {badge ? <span className="bg-[#C9990A]/10 px-2.5 py-1 font-black uppercase tracking-[0.14em] text-[#C9990A]">{badge}</span> : null}
+          <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-[#666666]">
+            {badge ? <span className="bg-[#C9990A]/10 px-2.5 py-1 font-black uppercase tracking-[0.14em] text-[#8A6700]">{badge}</span> : null}
             <span>{meta.includes("-") ? formatDate(meta) : meta}</span>
           </div>
-          <h2 className="mt-5 text-xl font-black leading-tight text-[#0D2E6B] transition-colors group-hover:text-[#C9990A]">{title}</h2>
-          <p className="mt-3 line-clamp-3 text-sm leading-7 text-[#64748B]">{excerpt}</p>
-          <span className="mt-auto inline-flex items-center gap-2 pt-7 text-xs font-black uppercase tracking-[0.12em] text-[#0D2E6B]">
+          <h2 className="mt-5 text-xl font-black leading-tight text-[#1A1A1A] transition-colors group-hover:text-[#8A6700]">{title}</h2>
+          <p className="mt-3 line-clamp-3 text-sm leading-7 text-[#666666]">{excerpt}</p>
+          <span className="mt-auto inline-flex items-center gap-2 pt-7 text-xs font-black uppercase tracking-[0.12em] text-[#1A1A1A]">
             {external ? "Read at source" : "View details"}
             {external ? <ExternalLink size={14} /> : <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />}
           </span>

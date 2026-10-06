@@ -53,14 +53,14 @@ export function LearningAreaCards({ areas, compact = false }: { areas: LearningA
           <button
             key={area.name}
             type="button"
-            className={`group relative z-0 flex touch-manipulation cursor-pointer flex-col rounded-[12px] border border-[#0D2E6B]/10 bg-white text-left shadow-[0_18px_45px_rgba(13,46,107,0.06)] transition-all hover:-translate-y-1 hover:border-[#C9990A] hover:shadow-[0_26px_60px_rgba(13,46,107,0.12)] ${compact ? "min-h-[180px] p-6" : "min-h-[260px] p-7"}`}
+            className={`group relative z-0 flex touch-manipulation cursor-pointer flex-col rounded-[12px] border border-[#0D2E6B]/10 bg-white text-left shadow-[0_18px_45px_rgba(13,46,107,0.06)] transition-all hover:-translate-y-1 hover:border-[#C9990A] hover:shadow-[0_26px_60px_rgba(13,46,107,0.12)] active:scale-[0.98] ${compact ? "min-h-[180px] p-6" : "min-h-[260px] p-7"}`}
             onClick={() => setSelectedArea(area)}
             aria-haspopup="dialog"
           >
             <span className="mb-8 text-xs font-black uppercase tracking-[0.22em] text-[#9A7300]">{String(index + 1).padStart(2, "0")}</span>
-            <span className="mb-3 max-w-sm text-2xl font-black leading-tight text-[#0D2E6B] transition-colors group-hover:text-[#9A7300]">{area.name}</span>
+            <span className="mb-3 max-w-sm text-2xl font-black leading-tight text-[#1A1A1A] transition-colors group-hover:text-[#9A7300]">{area.name}</span>
             {!compact ? <span className="max-w-xl text-sm leading-7 text-gray-600">{area.description}</span> : null}
-            <span className={`mt-auto inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#0D2E6B] ${compact ? "pt-5" : "pt-8"}`}>
+            <span className={`mt-auto inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#1A1A1A] ${compact ? "pt-5" : "pt-8"}`}>
               View details <ArrowRight size={14} aria-hidden="true" />
             </span>
           </button>
@@ -85,7 +85,7 @@ export function LearningAreaCards({ areas, compact = false }: { areas: LearningA
             <button
               ref={closeButtonRef}
               type="button"
-              className="absolute right-4 top-4 flex h-11 w-11 touch-manipulation items-center justify-center rounded-[12px] border border-[#0D2E6B]/15 text-[#0D2E6B] transition-colors hover:bg-[#EDF1F9]"
+              className="absolute right-4 top-4 flex h-11 w-11 touch-manipulation items-center justify-center rounded-[12px] border border-[#0D2E6B]/15 text-[#1A1A1A] transition-colors hover:bg-[#EDF1F9]"
               aria-label={`Close ${selectedArea.name} details`}
               onClick={() => setSelectedArea(null)}
             >
@@ -93,20 +93,20 @@ export function LearningAreaCards({ areas, compact = false }: { areas: LearningA
             </button>
 
             <p className="pr-14 text-xs font-black uppercase tracking-[0.24em] text-[#9A7300]">Learning Area</p>
-            <h2 id="learning-area-dialog-title" className="font-display mt-3 pr-14 text-4xl font-bold leading-tight text-[#0D2E6B] sm:text-5xl">
+            <h2 id="learning-area-dialog-title" className="font-display mt-3 pr-14 text-4xl font-bold leading-tight text-[#1A1A1A] sm:text-5xl">
               {selectedArea.name}
             </h2>
-            <p id="learning-area-dialog-description" className="mt-5 max-w-2xl text-base leading-8 text-[#475569]">
+            <p id="learning-area-dialog-description" className="mt-5 max-w-2xl text-base leading-8 text-[#4A4A4A]">
               {selectedArea.description}
             </p>
 
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               <div className="rounded-[12px] bg-[#F8F7F3] p-6">
-                <div className="flex items-center gap-3 text-[#0D2E6B]">
+                <div className="flex items-center gap-3 text-[#1A1A1A]">
                   <BookOpen size={20} aria-hidden="true" />
                   <h3 className="text-sm font-black uppercase tracking-[0.12em]">Major Areas of Study</h3>
                 </div>
-                <ul className="mt-5 space-y-3 text-sm leading-6 text-[#475569]">
+                <ul className="mt-5 space-y-3 text-sm leading-6 text-[#4A4A4A]">
                   {selectedArea.majorAreas.map((major) => <li key={major} className="border-l-2 border-[#C9990A] pl-3">{major}</li>)}
                 </ul>
               </div>

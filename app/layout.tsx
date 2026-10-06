@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Suspense fallback={null}>
           <ScrollToTop />
         </Suspense>
-        <a className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border-2 focus:border-[#0D2E6B] focus:bg-white focus:px-5 focus:py-3 focus:font-bold focus:text-[#0D2E6B]" href="#main">
+        <a className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border-2 focus:border-[#0D2E6B] focus:bg-white focus:px-5 focus:py-3 focus:font-bold focus:text-[#1A1A1A]" href="#main">
           Skip to content
         </a>
         <SiteHeader />

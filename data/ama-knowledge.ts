@@ -47,6 +47,15 @@ export const amaKnowledge: AmaKnowledgeEntry[] = [
     answer: "I can help with admissions, Learning Areas, final-year and WASSCE guidance, campus life, events, school history, alumni services, transcripts, and general information about ANSECO."
   },
   {
+    id: "why-anseco",
+    patterns: [/why (choose )?anseco/i, /why should (i|my child|my ward).*(choose|attend|go to) anseco/i, /what makes anseco different/i, /is anseco (a )?good school/i, /what does anseco offer students/i],
+    aliases: ["why anseco", "why should i choose anseco", "why should my child attend anseco", "what makes anseco different"],
+    keywords: { why: 2, choose: 3, anseco: 2, different: 3, attend: 2, offer: 2 },
+    answer: "ANSECO combines a legacy rooted in Anlo-Land with eight Learning Areas, character formation through Service, Truth, Accountability and Reliability, a broad student-life experience, and a community connecting learners, families, staff and generations of old students.",
+    href: "/#why-anseco",
+    linkLabel: "Explore Why ANSECO"
+  },
+  {
     id: "school-identity",
     patterns: [/about anseco/i, /who is anseco/i, /tell me about (anseco|the school)/i, /school (motto|vision|mission|values)/i, /truth and service/i, /star values/i],
     answer: "Anlo Senior High School (ANSECO) is a public senior high school in Anloga, Volta Region. Guided by the motto 'Truth and Service,' the school is committed to academic development, character formation, discipline, and service.",
@@ -56,14 +65,14 @@ export const amaKnowledge: AmaKnowledgeEntry[] = [
   {
     id: "school-anthem",
     patterns: [/school anthem/i, /anseco anthem/i, /\banthem\b/i],
-    answer: "ANSECO's school anthem asks God to bless Mother ANSECO, celebrates the school as a source of knowledge and wisdom and the Star of Anlo-Land, and affirms the values of Truth and Service. The anthem is attributed to Mr. P.K. Kpogo on ANSECO's About page.",
+    answer: "ANSECO's school anthem asks God to bless Mother ANSECO, celebrates the school as a source of knowledge and wisdom and the Star of Anlo-Land, and affirms the values of Truth and Service. The anthem was written and composed by Mr. P.K. Kpogo.",
     href: "/about#school-anthem",
     linkLabel: "Read the School Anthem"
   },
   {
     id: "science-department-head",
     patterns: [/(head|hod).*(science)/i, /science.*(head|hod)/i, /who.*(lead|manage).*(science)/i],
-    answer: "The published Head of the Science Department at ANSECO is Mr. Margaret M. Dodor.",
+    answer: "The published Head of the Science Department at ANSECO is Margaret M. Dodor.",
     href: "/about/school-administration#heads-of-departments",
     linkLabel: "View Heads of Departments"
   },

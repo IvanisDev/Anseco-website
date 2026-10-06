@@ -15,7 +15,7 @@ export const academicProgrammes: AcademicProgramme[] = [
     name: "Science",
     aliases: ["science", "general science"],
     description: "Build strong foundations in physics, chemistry, biology, mathematics and computing.",
-    hod: "Mr. Margaret M. Dodor",
+    hod: "Margaret M. Dodor",
     combinations: [
       ["Additional Mathematics", "Physics", "Biology", "Chemistry", "Physical Education & Health Elective", "Economics"],
       ["Additional Mathematics", "Physics", "Biology", "Chemistry", "Agriculture", "Business Management"],

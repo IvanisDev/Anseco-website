@@ -277,11 +277,14 @@ export function AmaAssistant() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
+  const [mobileDialog, setMobileDialog] = useState(false);
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState<AmaMessage[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const panelRef = useRef<HTMLElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const triggerButtonRef = useRef<HTMLButtonElement>(null);
   const messageEndRef = useRef<HTMLDivElement>(null);
   const messageId = useRef(0);
   const responseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -299,11 +302,14 @@ export function AmaAssistant() {
       setOpen(false);
       setClosing(false);
       closeTimerRef.current = null;
+      triggerButtonRef.current?.focus();
     }, 180);
   }, []);
 
   function openAma() {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    const isMobile = window.matchMedia("(max-width: 639px)").matches;
+    setMobileDialog(isMobile);
     setClosing(false);
     setOpen(true);
   }
@@ -311,11 +317,26 @@ export function AmaAssistant() {
   useEffect(() => {
     if (!open) return;
     const isMobile = window.matchMedia("(max-width: 639px)").matches;
-    if (!isMobile) inputRef.current?.focus();
+    if (isMobile) closeButtonRef.current?.focus();
+    else inputRef.current?.focus();
     const previousOverflow = document.body.style.overflow;
     if (isMobile) document.body.style.overflow = "hidden";
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") closeAma();
+      if (!isMobile || event.key !== "Tab" || !panelRef.current) return;
+
+      const focusable = Array.from(
+        panelRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
     }
     function handlePointerDown(event: PointerEvent) {
       if (panelRef.current?.contains(event.target as Node)) return;
@@ -416,7 +437,12 @@ export function AmaAssistant() {
         if (!entry || seenIntents.has(entry.id)) return;
         seenIntents.add(entry.id);
         updateConversationContext(localConversationContext, entry);
-        parts.push({ answer: entry.answer, href: entry.href, linkLabel: entry.linkLabel });
+        const hideWhyAnsecoLink = entry.id === "why-anseco" && (userTypeRef.current === "current_student" || userTypeRef.current === "alumni");
+        parts.push({
+          answer: entry.answer,
+          href: hideWhyAnsecoLink ? undefined : entry.href,
+          linkLabel: hideWhyAnsecoLink ? undefined : entry.linkLabel
+        });
       });
 
       if (parts.length < 2) return undefined;
@@ -466,11 +492,12 @@ export function AmaAssistant() {
           ? { answer: "I can help with that. Which requirements are you looking for?", followUps: clarification }
           : retrieved;
     const hideAcademicLink = Boolean(academicAnswer) && (userTypeRef.current === "current_student" || userTypeRef.current === "alumni");
+    const hideWhyAnsecoLink = match?.id === "why-anseco" && (userTypeRef.current === "current_student" || userTypeRef.current === "alumni");
     const reply: AmaMessage = {
       id: ++messageId.current,
       role: "ama",
       text: answer?.answer || fallback,
-      result: !hideAcademicLink && answer?.href && answer.linkLabel ? { href: answer.href, linkLabel: answer.linkLabel } : answer ? undefined : { href: "/contact", linkLabel: "Contact ANSECO" },
+      result: !hideAcademicLink && !hideWhyAnsecoLink && answer?.href && answer.linkLabel ? { href: answer.href, linkLabel: answer.linkLabel } : answer ? undefined : { href: "/contact", linkLabel: "Contact ANSECO" },
       results: answer?.results,
       followUps: answer?.followUps
     };
@@ -495,7 +522,7 @@ export function AmaAssistant() {
         <section
           ref={panelRef}
           role="dialog"
-          aria-modal="false"
+          aria-modal={mobileDialog}
           aria-labelledby="ama-title"
           className={`flex h-full w-full origin-bottom-right flex-col overflow-hidden rounded-[12px] border border-[#0D2E6B]/15 bg-white shadow-none sm:h-[min(620px,calc(100dvh-2rem))] sm:w-[min(390px,calc(100vw-2rem))] sm:shadow-[0_28px_80px_rgba(6,26,67,0.3)] ${closing ? "animate-out fade-out-0 zoom-out-95 slide-out-to-bottom-2 duration-200" : "animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 duration-200"}`}
         >
@@ -504,23 +531,23 @@ export function AmaAssistant() {
               <p id="ama-title" className="text-lg font-black">Ama</p>
               <p className="text-xs font-semibold text-white/75">ANSECO Information Assistant</p>
             </div>
-            <button type="button" className="flex h-10 w-10 items-center justify-center rounded-[12px] text-white hover:bg-white/10" aria-label="Close Ama" onClick={closeAma}>
+            <button ref={closeButtonRef} type="button" className="flex h-11 w-11 items-center justify-center rounded-[12px] text-white hover:bg-white/10" aria-label="Close Ama" onClick={closeAma}>
               <X size={20} aria-hidden="true" />
             </button>
           </header>
 
           <div className="flex-1 overflow-y-auto bg-[#F8F7F3] p-4" aria-live="polite">
-            <div className="max-w-[90%] rounded-[12px] rounded-tl-none bg-white p-4 text-sm leading-6 text-[#334155] shadow-sm">
-              <p className="font-black text-[#0D2E6B]">Woezɔ! I&apos;m Ama.</p>
+            <div className="max-w-[90%] rounded-[12px] rounded-tl-none bg-white p-4 text-sm leading-6 text-[#333333] shadow-sm">
+              <p className="font-black text-[#1A1A1A]">Woezɔ! I&apos;m Ama.</p>
               <p className="mt-1">I can help you find approved information about admissions, Learning Areas, campus life, events, school history, alumni services, and contact details.</p>
             </div>
 
             {messages.length === 0 ? (
               <div className="mt-5">
-                <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-[#64748B]">Suggested questions</p>
+                <p className="mb-3 text-xs font-black uppercase tracking-[0.14em] text-[#666666]">Suggested questions</p>
                 <div className="flex flex-wrap gap-2">
                   {suggestions.map((suggestion) => (
-                    <button key={suggestion} type="button" disabled={isTyping} className="rounded-[12px] border border-[#0D2E6B]/15 bg-white px-3 py-2 text-left text-xs font-bold leading-5 text-[#0D2E6B] hover:border-[#C9990A] disabled:cursor-wait disabled:opacity-60" onClick={() => askAma(suggestion)}>
+                    <button key={suggestion} type="button" disabled={isTyping} className="min-h-11 rounded-[12px] border border-[#0D2E6B]/15 bg-white px-3 py-2 text-left text-xs font-bold leading-5 text-[#1A1A1A] hover:border-[#C9990A] disabled:cursor-wait disabled:opacity-60" onClick={() => askAma(suggestion)}>
                       {suggestion}
                     </button>
                   ))}
@@ -530,17 +557,17 @@ export function AmaAssistant() {
 
             <div className="mt-4 space-y-4">
               {messages.map((message) => (
-                <div key={message.id} className={message.role === "user" ? "ml-auto max-w-[88%] rounded-[12px] rounded-br-none bg-[#0D2E6B] p-4 text-sm leading-6 text-white" : "max-w-[90%] rounded-[12px] rounded-tl-none bg-white p-4 text-sm leading-6 text-[#334155] shadow-sm"}>
+                <div key={message.id} className={message.role === "user" ? "ml-auto max-w-[88%] rounded-[12px] rounded-br-none bg-[#0D2E6B] p-4 text-sm leading-6 text-white" : "max-w-[90%] rounded-[12px] rounded-tl-none bg-white p-4 text-sm leading-6 text-[#333333] shadow-sm"}>
                   <p className="whitespace-pre-line">{message.text}</p>
                   {message.role === "ama" && message.result ? (
-                    <Link href={message.result.href} className="mt-3 inline-flex items-center gap-2 font-black text-[#0D2E6B] underline decoration-[#C9990A] decoration-2 underline-offset-4" onClick={closeAma}>
+                    <Link href={message.result.href} className="mt-3 inline-flex items-center gap-2 font-black text-[#1A1A1A] underline decoration-[#C9990A] decoration-2 underline-offset-4" onClick={closeAma}>
                       {message.result.linkLabel} <span aria-hidden="true">→</span>
                     </Link>
                   ) : null}
                   {message.role === "ama" && message.results?.length ? (
                     <div className="mt-3 flex flex-col items-start gap-2">
                       {message.results.map((result) => (
-                        <Link key={`${result.href}-${result.linkLabel}`} href={result.href} className="inline-flex items-center gap-2 font-black text-[#0D2E6B] underline decoration-[#C9990A] decoration-2 underline-offset-4" onClick={closeAma}>
+                        <Link key={`${result.href}-${result.linkLabel}`} href={result.href} className="inline-flex items-center gap-2 font-black text-[#1A1A1A] underline decoration-[#C9990A] decoration-2 underline-offset-4" onClick={closeAma}>
                           {result.linkLabel} <span aria-hidden="true">→</span>
                         </Link>
                       ))}
@@ -549,7 +576,7 @@ export function AmaAssistant() {
                   {message.role === "ama" && message.followUps?.length ? (
                     <div className="mt-3 flex flex-wrap gap-2">
                       {message.followUps.map((followUp) => (
-                        <button key={followUp} type="button" disabled={isTyping} className="rounded-[12px] border border-[#0D2E6B]/15 bg-[#F8F7F3] px-3 py-2 text-left text-xs font-bold leading-5 text-[#0D2E6B] hover:border-[#C9990A] disabled:cursor-wait disabled:opacity-60" onClick={() => askAma(followUp)}>
+                        <button key={followUp} type="button" disabled={isTyping} className="min-h-11 rounded-[12px] border border-[#0D2E6B]/15 bg-[#F8F7F3] px-3 py-2 text-left text-xs font-bold leading-5 text-[#1A1A1A] hover:border-[#C9990A] disabled:cursor-wait disabled:opacity-60" onClick={() => askAma(followUp)}>
                           {followUp}
                         </button>
                       ))}
@@ -578,18 +605,18 @@ export function AmaAssistant() {
                 value={question}
                 onChange={(event) => setQuestion(event.target.value)}
                 disabled={isTyping}
-                className="min-w-0 flex-1 bg-transparent text-base text-[#1A1A2E] outline-none placeholder:text-[#64748B] disabled:cursor-wait sm:text-sm"
+                className="min-w-0 flex-1 bg-transparent text-base text-[#1A1A1A] outline-none placeholder:text-[#666666] disabled:cursor-wait sm:text-sm"
                 placeholder={isTyping ? "Ama is typing..." : "Ask Ama a question..."}
                 autoComplete="off"
               />
-              <button type="submit" disabled={isTyping || !question.trim()} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#C9990A] text-white disabled:cursor-not-allowed disabled:opacity-40" aria-label="Send question">
+              <button type="submit" disabled={isTyping || !question.trim()} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[12px] bg-[#C9990A] text-white disabled:cursor-not-allowed disabled:opacity-40" aria-label="Send question">
                 <ArrowUp size={18} aria-hidden="true" />
               </button>
             </div>
           </form>
         </section>
       ) : (
-        <button type="button" className="inline-flex h-14 w-14 origin-bottom-right touch-manipulation items-center justify-center rounded-full bg-[#0D2E6B] text-[#FACC15] shadow-none transition-transform animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 duration-200 hover:-translate-y-0.5 hover:bg-[#C9990A] sm:shadow-[0_18px_45px_rgba(6,26,67,0.28)]" aria-label="Open Ama, ANSECO Information Assistant" onClick={openAma}>
+        <button ref={triggerButtonRef} type="button" className="inline-flex h-14 w-14 origin-bottom-right touch-manipulation items-center justify-center rounded-full bg-[#0D2E6B] text-[#FACC15] shadow-none transition-transform animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 duration-200 hover:-translate-y-0.5 hover:bg-[#C9990A] active:scale-95 sm:shadow-[0_18px_45px_rgba(6,26,67,0.28)]" aria-label="Open Ama, ANSECO Information Assistant" onClick={openAma}>
           <MessageCircle size={25} aria-hidden="true" />
         </button>
       )}
