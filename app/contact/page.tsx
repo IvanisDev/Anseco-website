@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
-import { MapPin, Phone } from "lucide-react";
+import { ExternalLink, MapPin, Phone } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { siteConfig } from "@/config/site";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "Contact",
-  description: "Current address and telephone numbers for Anlo Senior High School."
-};
+  description: "Current address and telephone numbers for Anlo Senior High School.",
+  path: "/contact/"
+});
 
 export default function ContactPage() {
   return (
@@ -23,7 +24,7 @@ export default function ContactPage() {
             <section className="relative min-h-[440px] overflow-hidden rounded-[12px] bg-[#E8EDF6] shadow-[0_20px_50px_rgba(13,46,107,0.08)] lg:min-h-[500px]">
               <iframe
                 title="Map showing Anlo Senior High School in Anloga"
-                src="https://www.google.com/maps?q=Anlo+Senior+High+School,+Anloga,+Ghana&output=embed"
+                src={siteConfig.mapEmbedUrl}
                 className="absolute inset-0 h-full w-full border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -42,6 +43,9 @@ export default function ContactPage() {
                     {siteConfig.addressLines.map((line) => <span key={line} className="block">{line}</span>)}
                     <span className="block">Ghana</span>
                   </address>
+                  <a href={siteConfig.directionsUrl} target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 font-bold text-[#1A1A1A] underline decoration-[#C9990A] decoration-2 underline-offset-4">
+                    Open directions <ExternalLink size={15} aria-hidden="true" />
+                  </a>
                 </div>
               </div>
 

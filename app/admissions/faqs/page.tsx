@@ -1,9 +1,13 @@
-import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { admissionFaqGroups } from "@/lib/admissions-content";
 
-export const metadata: Metadata = { title: "Admissions FAQs", description: "Frequently asked questions about admission to ANSECO." };
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
+  title: "Admissions FAQs",
+  description: "Frequently asked questions about admission to ANSECO.",
+  path: "/admissions/faqs/"
+});
 
 export default function AdmissionsFaqsPage() {
   return (

@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "Our History",
-  description: "The history, milestones and former headmasters of Anlo Senior High School."
-};
+  description: "The history, milestones and former headmasters of Anlo Senior High School.",
+  path: "/about/our-history/"
+});
 
 const headmasters = [
   { name: "Mr. Isaiah Y. Fiagbe", period: "1959–1960" },
@@ -124,7 +125,7 @@ export default function OurHistoryPage() {
               <h2 className="font-display mt-2 text-3xl font-bold text-white">Key Milestones</h2>
             </div>
             <ol className="grid sm:grid-cols-2 lg:grid-cols-3">
-              {milestones.map((milestone, index) => (
+              {milestones.map((milestone) => (
                 <li
                   key={`${milestone.year}-${milestone.title}`}
                   className="relative border-b border-[#0D2E6B]/10 p-6 last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(3n)]:border-r-0 lg:[&:nth-last-child(-n+3)]:border-b-0"
@@ -132,7 +133,6 @@ export default function OurHistoryPage() {
                   <p className="font-display text-3xl font-bold text-[#8A6700]">{milestone.year}</p>
                   <h3 className="mt-5 text-lg font-black text-[#1A1A1A]">{milestone.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#666666]">{milestone.description}</p>
-                  <span className="mt-6 block text-xs font-black text-[#1A1A1A]/30">{String(index + 1).padStart(2, "0")}</span>
                 </li>
               ))}
             </ol>

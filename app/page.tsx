@@ -89,7 +89,7 @@ export default function HomePage() {
 
       <SchoolTicker />
 
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-white py-24 sm:py-28 lg:py-32">
         <div className="mx-auto grid max-w-[1400px] gap-10 px-5 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:px-12">
           <div className="lg:pt-3">
             <h2 className="font-display text-5xl font-bold leading-[0.98] text-[#1A1A1A] sm:text-6xl lg:text-7xl">
@@ -108,30 +108,26 @@ export default function HomePage() {
       </section>
 
       <section id="why-anseco" className="scroll-mt-24 bg-[#F8F7F3] py-20 sm:py-24">
-        <div className="mx-auto grid max-w-[1400px] gap-12 px-5 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16 lg:px-12">
+        <div className="mx-auto grid max-w-[1400px] gap-10 px-5 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:px-12">
           <div>
             <h2 className="font-display text-5xl font-bold leading-tight text-[#1A1A1A] sm:text-6xl">Why ANSECO?</h2>
-            <p className="mt-6 max-w-xl text-base leading-8 text-[#555555] sm:text-lg">
-              At ANSECO, education extends beyond the classroom. Students join a learning community shaped by Truth and Service, academic development, discipline, responsibility and generations of connection to Anlo-Land.
+            <p className="mt-5 max-w-xl text-base leading-8 text-[#4A4A4A] sm:text-lg">
+              Discover an environment built around academic development, character, discipline and service.
             </p>
-            <Link href="/campus-life" className={`mt-8 ${viewMoreLinkClass}`}>
-              Discover Student Life
+            <Link href="/admissions" className={`mt-8 ${viewMoreLinkClass}`}>
+              Explore Admissions
             </Link>
           </div>
 
-          <div className="border-y border-[#0D2E6B]/15">
+          <div className="grid gap-4 sm:grid-cols-3">
             {[
-              ["01", "A Legacy in Anlo-Land", `Founded in 1954 and reopened in ${siteConfig.establishedYear}, ANSECO has grown from nine students into a school community serving more than 2,000 learners while maintaining its identity as The Star of Anlo-Land.`],
-              ["02", "Learning with Purpose", "Students develop their interests and abilities across eight Learning Areas that create pathways toward further education, work and future careers."],
-              ["03", "Character & Responsibility", "Service, Truth, Accountability and Reliability shape the school's emphasis on discipline, self-discipline, responsible leadership and service."],
-              ["04", "A Community Beyond School", "Current learners, staff, parents and generations of old students remain connected through the shared identity and legacy of Mother ANSECO."]
-            ].map(([number, title, description]) => (
-              <article key={number} className="grid gap-4 border-b border-[#0D2E6B]/15 py-7 last:border-b-0 sm:grid-cols-[64px_1fr] sm:gap-6">
-                <span className="font-display text-3xl font-bold text-[#8A6700]">{number}</span>
-                <div>
-                  <h3 className="text-xl font-black text-[#1A1A1A]">{title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#666666]">{description}</p>
-                </div>
+              ["Academic Pathways", "Eight Learning Areas help students connect their abilities with further study and future careers."],
+              ["Character Formation", "Truth and Service guide a school culture that values discipline, responsibility and leadership."],
+              ["A Lasting Community", "Students join a school community connected to generations of families and old students."]
+            ].map(([title, description]) => (
+              <article key={title} className="flex min-h-64 flex-col justify-center border border-[#0D2E6B]/10 bg-white p-7">
+                <h3 className="text-lg font-black text-[#1A1A1A]">{title}</h3>
+                <p className="mt-3 text-sm leading-7 text-[#666666]">{description}</p>
               </article>
             ))}
           </div>
@@ -215,7 +211,7 @@ export default function HomePage() {
 
               <div className="grid sm:grid-cols-2">
                 {achievements.map((achievement) => (
-                  <article key={achievement.label} className="flex min-h-[210px] min-w-0 flex-col justify-center overflow-hidden border-white/10 bg-[#0D2E6B] p-6 sm:border-b sm:border-r sm:p-7">
+                  <article key={achievement.label} className="flex min-h-[210px] min-w-0 flex-col justify-center overflow-hidden bg-[#0D2E6B] p-6 sm:p-7">
                     <div className={`font-display whitespace-nowrap font-bold leading-none text-[#FACC15] ${achievement.value.length > 4 ? "text-4xl sm:text-5xl" : "text-5xl sm:text-6xl"}`}>{achievement.value}</div>
                     <div className="mt-5">
                       <h3 className="text-base font-black uppercase tracking-[0.08em] text-white">{achievement.label}</h3>
@@ -309,9 +305,9 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="border-y border-[#0D2E6B]/10">
+          <div className="border-y border-[#0D2E6B]/5">
             {admissionSteps.map((step) => (
-              <div key={step.number} className="group grid gap-4 border-b border-[#0D2E6B]/10 py-6 last:border-b-0 sm:grid-cols-[72px_1fr] sm:items-start sm:gap-6">
+              <div key={step.number} className="group grid gap-4 border-b border-[#0D2E6B]/5 py-6 last:border-b-0 sm:grid-cols-[72px_1fr] sm:items-start sm:gap-6">
                 <div className="font-display text-3xl font-bold leading-none text-[#8A6700] transition-colors group-hover:text-[#1A1A1A] sm:text-4xl">
                   {step.number}
                 </div>

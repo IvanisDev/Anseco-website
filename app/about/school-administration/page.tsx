@@ -1,53 +1,12 @@
-import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
-import { seniorPrefects } from "@/data/school-leadership";
+import { boardingLeadership, departmentHeads, houseLeadership, managementTeam, seniorPrefects, studentWelfareLeadership } from "@/data/school-leadership";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "School Administration",
-  description: "Meet the school management, academic leaders, house parents and student leaders of Anlo Senior High School."
-};
-
-const managementTeam = [
-  { name: "Mr. Newman H.K. Dziedzoave", role: "Headmaster" },
-  { name: "Madam Joyce Afi Avorkliyah", role: "Asst. Head. Administration" },
-  { name: "Mr. Felix Amegbor", role: "Asst. Head. Academic" },
-  { name: "Mr. Ebenezer W.K. Kusife", role: "School Accountant" },
-  { name: "Madam Margaret Apasu", role: "Domestic Bursar" }
-];
-
-const boardingLeadership = [
-  { name: "Mr. Emmanuel M.C. Agbakpe", role: "Snr. Housemaster" },
-  { name: "Madam Sophia K. Komabu", role: "Snr. Housemistress" },
-  { name: "Mr. Divine Diboa", role: "Asst. Head. Domestic" }
-];
-
-const departmentHeads = [
-  { name: "Margaret M. Dodor", role: "Science" },
-  { name: "Mr. Jonas Hatekah", role: "Mathematics" },
-  { name: "Mr. Mathew Ganadzi", role: "General Arts" },
-  { name: "Mr. Festus K. Sorkpor", role: "Languages" },
-  { name: "Madam Esther A. Gabla", role: "Agriculture" },
-  { name: "Mr. Saviour Wordzro", role: "Visual and Performing Arts" },
-  { name: "Madam Rejoice Vormawor", role: "Home Economics" },
-  { name: "Mr. Edwin Atitsogbui", role: "Business" },
-  { name: "Mr. Philip Mifetu", role: "Information and Comm. Technology" },
-  { name: "Mr. Felix Q. Ladeka", role: "Physical Education and Health" }
-];
-
-const otherPersonalities = [
-  { name: "Mr. Selorm Davour", role: "School Chaplain" },
-  { name: "Mr. Johann Tetteh", role: "Guidance and Counselling Coordinator" },
-  { name: "Mr. Ernest Fiador", role: "SRC Patron" },
-  { name: "Madam Juliana Kakaney", role: "Asst. SRC Patroness" },
-  { name: "Mr. Thomas K. Yevu", role: "Dean of Discipline" }
-];
-
-const houseParents = [
-  { house: "Adeladza House", colour: "Red", hex: "#DC2626", parents: ["Mr. Courage K. Dovlo", "Madam Patience A. Dovor"] },
-  { house: "Doe House", colour: "Green", hex: "#15803D", parents: ["Mr. Elikplim Segbafah", "Madam Rosemond Abban"] },
-  { house: "Fiagbe House", colour: "Blue", hex: "#1D4ED8", parents: ["Mr. Godsway Fiagbe", "Madam Melody Mavis Abadah"] },
-  { house: "Sorkpor House", colour: "Yellow", hex: "#FACC15", parents: ["Mr. Seth Workey", "Madam Bernice Aku Agbavor"] }
-];
+  description: "Meet the school management, academic leaders, house parents and student leaders of Anlo Senior High School.",
+  path: "/about/school-administration/"
+});
 
 export default function SchoolAdministrationPage() {
   return (
@@ -72,17 +31,17 @@ export default function SchoolAdministrationPage() {
         <PersonGrid people={managementTeam} featured />
 
         <AdministrationHeading id="heads-of-departments" title="Academic Leadership" description="Heads of Departments" />
-        <PersonGrid people={departmentHeads} />
+        <PersonGrid people={departmentHeads.map(({ name, department }) => ({ name, role: department }))} />
 
         <AdministrationHeading title="Student Welfare & Support" description="Chaplaincy, guidance, student representation and discipline" />
-        <PersonGrid people={otherPersonalities} />
+        <PersonGrid people={studentWelfareLeadership} />
 
         <AdministrationHeading title="Boarding Leadership" />
         <PersonGrid people={boardingLeadership} />
 
         <AdministrationHeading title="House Leadership" description="Four houses and their House Parents" />
         <div className="grid gap-5 sm:grid-cols-2">
-          {houseParents.map((house) => (
+          {houseLeadership.map((house) => (
             <div key={house.house} className="overflow-hidden border border-[#0D2E6B]/10 bg-white shadow-[0_15px_36px_rgba(13,46,107,0.06)]">
               <div className="p-6">
                 <span className={`inline-block px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] ${house.colour === "Yellow" ? "text-[#1A1A1A]" : "text-white"}`} style={{ backgroundColor: house.hex }}>{house.colour}</span>

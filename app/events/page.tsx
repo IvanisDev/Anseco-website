@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import { EventsFilter } from "@/components/events-filter";
 import { PageHeader } from "@/components/page-header";
 import { getEvents } from "@/lib/content";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "Events",
-  description: "Upcoming and past ANSECO school events."
-};
+  description: "Upcoming and past ANSECO school events.",
+  path: "/events/"
+});
 
 export default function EventsPage() {
   const events = getEvents();

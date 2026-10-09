@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Images } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { getGalleryAlbums } from "@/lib/content";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "Gallery",
-  description: "Photo albums documenting ANSECO academics, campus life, events, alumni and history."
-};
+  description: "Photo albums documenting ANSECO academics, campus life, events, alumni and history.",
+  path: "/gallery/"
+});
 
 export default function GalleryPage() {
   const albums = getGalleryAlbums();

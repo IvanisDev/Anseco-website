@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/page-header";
 import { getGalleryAlbum, getGalleryAlbums } from "@/lib/content";
+import { pageMetadata } from "@/lib/metadata";
 
 export function generateStaticParams() {
   return getGalleryAlbums().map((album) => ({ slug: album.slug }));
@@ -13,10 +14,12 @@ type SlugParams = Promise<{ slug: string }>;
 export async function generateMetadata({ params }: { params: SlugParams }): Promise<Metadata> {
   const { slug } = await params;
   const album = getGalleryAlbum(slug);
-  return {
-    title: album?.title || "Gallery album",
-    description: album?.description
-  };
+  return pageMetadata({
+    title: album ? `${album.title} Gallery` : "Gallery album",
+    description: album?.description || "ANSECO photo gallery.",
+    path: `/gallery/${slug}/`,
+    image: album?.coverImage
+  });
 }
 
 export default async function GalleryAlbumPage({ params }: { params: SlugParams }) {

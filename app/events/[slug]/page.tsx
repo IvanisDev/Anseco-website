@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Badge } from "@/components/ui/badge";
 import { getEvent, getEvents } from "@/lib/content";
+import { pageMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
 
 export function generateStaticParams() {
@@ -15,15 +16,12 @@ type SlugParams = Promise<{ slug: string }>;
 export async function generateMetadata({ params }: { params: SlugParams }): Promise<Metadata> {
   const { slug } = await params;
   const event = getEvent(slug);
-  return {
+  return pageMetadata({
     title: event?.title || "Event",
-    description: event?.excerpt,
-    openGraph: {
-      title: event?.title,
-      description: event?.excerpt,
-      images: event?.coverImage ? [event.coverImage] : undefined
-    }
-  };
+    description: event?.excerpt || "ANSECO school event information.",
+    path: `/events/${slug}/`,
+    image: event?.coverImage
+  });
 }
 
 export default async function EventPage({ params }: { params: SlugParams }) {
@@ -41,7 +39,7 @@ export default async function EventPage({ params }: { params: SlugParams }) {
           {event.endDate ? ` - ${formatDate(event.endDate)}` : null}
         </p>
         <div className="relative mt-8 aspect-[16/8] overflow-hidden border">
-          <Image src={event.coverImage} alt="" fill sizes="100vw" className="object-cover" priority />
+          <Image src={event.coverImage} alt={`Illustration for ${event.title}`} fill sizes="100vw" className="object-cover" priority />
         </div>
       </header>
       <div className="container pb-12">

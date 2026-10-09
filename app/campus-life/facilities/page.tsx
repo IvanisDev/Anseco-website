@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import type { LucideIcon } from "lucide-react";
 import { HeartPulse, Landmark, Trophy, Utensils } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "Campus Facilities",
-  description: "Campus-life facilities supporting student welfare, activities and recreation at ANSECO."
-};
+  description: "Campus-life facilities supporting student welfare, activities and recreation at ANSECO.",
+  path: "/campus-life/facilities/"
+});
 
 type CampusFacility = {
   title: string;

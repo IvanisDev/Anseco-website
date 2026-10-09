@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Check } from "lucide-react";
 import { ContentCard } from "@/components/content-card";
 import { isFutureOrToday } from "@/lib/utils";
 import type { EventPost } from "@/lib/content";
@@ -25,6 +26,7 @@ export function EventsFilter({ events }: { events: EventPost[] }) {
             className={`min-h-11 rounded-[12px] border px-5 py-3 text-xs font-black uppercase tracking-[0.12em] transition-colors active:scale-[0.98] ${group === item ? "border-[#0D2E6B] bg-[#0D2E6B] text-white" : "border-[#0D2E6B]/15 bg-white text-[#1A1A1A] hover:border-[#C9990A] hover:text-[#8A6700]"}`}
             onClick={() => setGroup(item)}
           >
+            {group === item ? <Check size={14} aria-hidden="true" className="mr-2 inline-block" /> : null}
             {item[0].toUpperCase() + item.slice(1)}
           </button>
         ))}

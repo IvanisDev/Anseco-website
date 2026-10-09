@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import { CheckCircle, FileText, MapPin, Phone } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { siteConfig } from "@/config/site";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "Request a Transcript",
-  description: "How former ANSECO students can request an academic transcript from the school."
-};
+  description: "How former ANSECO students can request an academic transcript from the school.",
+  path: "/alumni/transcript-records/"
+});
 
 const requestDetails = [
   "Full name used while attending ANSECO",

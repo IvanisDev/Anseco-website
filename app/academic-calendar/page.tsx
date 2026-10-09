@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { getEvents } from "@/lib/content";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "Academic Calendar",
-  description: "Published academic dates, school programmes and calendar updates from Anlo Senior High School."
-};
+  description: "Published academic dates, school programmes and calendar updates from Anlo Senior High School.",
+  path: "/academic-calendar/"
+});
 
 const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",

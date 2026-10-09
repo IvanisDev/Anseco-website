@@ -1,3 +1,5 @@
+import { SITE_ORIGIN } from "@/lib/site";
+
 export const siteConfig = {
   schoolName: "ANSECO",
   fullName: "Anlo Senior High School",
@@ -10,7 +12,9 @@ export const siteConfig = {
   ],
   address: "Anlo SHS, P.O. Box AW10, Anloga, Volta Region",
   addressLines: ["Anlo SHS", "P.O. Box AW10", "Anloga, Volta Region"],
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://anseco.edu.gh"
+  mapEmbedUrl: "https://www.google.com/maps?q=Anlo+Senior+High+School,+Anloga,+Ghana&output=embed",
+  directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=Anlo+Senior+High+School,+Anloga,+Ghana",
+  url: SITE_ORIGIN
 };
 
 export type SiteConfig = typeof siteConfig;

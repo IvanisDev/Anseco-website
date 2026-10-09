@@ -1,11 +1,15 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ExternalLink, MessageCircle, Phone } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { siteConfig } from "@/config/site";
 
-export const metadata: Metadata = { title: "Admissions", description: "Admissions overview and guidance for prospective ANSECO students and families." };
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
+  title: "Admissions",
+  description: "Admissions overview and guidance for prospective ANSECO students and families.",
+  path: "/admissions/"
+});
 
 const admissionPages = [
   { title: "How to Apply", href: "/admissions/how-to-apply", description: "Follow the placement, reporting and registration process step by step." },
@@ -44,25 +48,32 @@ export default function AdmissionsPage() {
           </div>
         </section>
         <section className="py-20">
-          <div className="mx-auto max-w-6xl px-5 sm:px-8 lg:px-12">
-            <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
-              <div>
-                <h2 className="font-display text-4xl font-bold leading-tight text-[#1A1A1A]">Why ANSECO?</h2>
-                <p className="mt-5 text-base leading-8 text-[#4A4A4A]">Discover an environment built around academic development, character, discipline and service.</p>
-                <Link href="/#why-anseco" className="mt-7 inline-flex items-center gap-2 border-b-2 border-[#C9990A] pb-1 text-xs font-black uppercase tracking-[0.12em] text-[#1A1A1A] hover:text-[#8A6700]">Explore Why ANSECO <ArrowRight size={14} /></Link>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-3">
-                {[
-                  ["Academic Pathways", "Eight Learning Areas help students connect their abilities with further study and future careers."],
-                  ["Character Formation", "Truth and Service guide a school culture that values discipline, responsibility and leadership."],
-                  ["A Lasting Community", "Students join a school community connected to generations of families and old students."]
-                ].map(([title, description]) => (
-                  <div key={title} className="border border-[#0D2E6B]/10 bg-white p-6">
-                    <h3 className="text-lg font-black text-[#1A1A1A]">{title}</h3>
+          <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16 lg:px-12">
+            <div>
+              <h2 className="font-display text-4xl font-bold leading-tight text-[#1A1A1A] sm:text-5xl">Why ANSECO?</h2>
+              <p className="mt-6 max-w-xl text-base leading-8 text-[#555555] sm:text-lg">
+                At ANSECO, education extends beyond the classroom. Students join a learning community shaped by Truth and Service, academic development, discipline, responsibility and generations of connection to Anlo-Land.
+              </p>
+              <Link href="/campus-life" className="mt-8 inline-flex min-h-12 items-center justify-center rounded-full border-2 border-[#0D2E6B] px-7 py-3 text-sm font-black text-[#1A1A1A] transition-colors hover:bg-[#0D2E6B] hover:text-white">
+                Discover Student Life
+              </Link>
+            </div>
+
+            <div className="border-y border-[#0D2E6B]/5">
+              {[
+                ["01", "A Legacy in Anlo-Land", `Founded in 1954 and reopened in ${siteConfig.establishedYear}, ANSECO has grown from nine students into a school community serving more than 2,000 learners while maintaining its identity as The Star of Anlo-Land.`],
+                ["02", "Learning with Purpose", "Students develop their interests and abilities across eight Learning Areas that create pathways toward further education, work and future careers."],
+                ["03", "Character & Responsibility", "Service, Truth, Accountability and Reliability shape the school's emphasis on discipline, self-discipline, responsible leadership and service."],
+                ["04", "A Community Beyond School", "Current learners, staff, parents and generations of old students remain connected through the shared identity and legacy of Mother ANSECO."]
+              ].map(([number, title, description]) => (
+                <article key={number} className="grid gap-4 border-b border-[#0D2E6B]/5 py-7 last:border-b-0 sm:grid-cols-[64px_1fr] sm:gap-6">
+                  <span className="font-display text-3xl font-bold text-[#8A6700]">{number}</span>
+                  <div>
+                    <h3 className="text-xl font-black text-[#1A1A1A]">{title}</h3>
                     <p className="mt-3 text-sm leading-7 text-[#666666]">{description}</p>
                   </div>
-                ))}
-              </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>

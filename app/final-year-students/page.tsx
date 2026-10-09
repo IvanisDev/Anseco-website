@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import type { ReactNode } from "react";
-import { ArrowRight, BookOpenCheck, CalendarDays, ExternalLink, FileCheck2, GraduationCap, ShieldCheck } from "lucide-react";
+import { ArrowRight, BookOpenCheck, ExternalLink, FileCheck2 } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "Final-Year Students & WASSCE",
-  description: "WASSCE information, preparation guidance and next steps for final-year students at Anlo Senior High School."
-};
+  description: "WASSCE information, preparation guidance and next steps for final-year students at Anlo Senior High School.",
+  path: "/final-year-students/"
+});
 
 const preparationSteps = [
   { title: "Confirm your subjects", description: "Check that your registered core and elective subjects are correct and report any concern through the school." },
@@ -46,7 +46,7 @@ export default function FinalYearStudentsPage() {
         description="Information and resources to help ANSECO final-year students prepare for WASSCE and complete senior high school with confidence."
       />
 
-      <main>
+      <div>
         <section id="wassce-information" className="scroll-mt-28 bg-white py-20 sm:py-24">
           <div className="mx-auto grid max-w-[1400px] gap-8 px-5 sm:px-8 lg:grid-cols-2 lg:px-12">
             <div>
@@ -56,10 +56,10 @@ export default function FinalYearStudentsPage() {
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
-              <AcademicLink href="/academic-calendar" icon={<CalendarDays size={22} />} title="ANSECO Calendar" description="Check published school dates and programmes." />
-              <AcademicLink href="https://waecgh.org/home/wassce-school/" external icon={<ExternalLink size={22} />} title="Official WAEC Information" description="Read WAEC guidance for school candidates." />
+              <AcademicLink href="/academic-calendar" title="ANSECO Calendar" description="Check published school dates and programmes." />
+              <AcademicLink href="https://waecgh.org/home/wassce-school/" external title="Official WAEC Information" description="Read WAEC guidance for school candidates." />
               <div className="sm:col-span-2">
-                <AcademicLink href="https://waecgh.org/timetable/" external icon={<CalendarDays size={22} />} title="Official WASSCE Timetables" description="View the latest examination timetables published by WAEC Ghana." />
+                <AcademicLink href="https://waecgh.org/timetable/" external title="Official WASSCE Timetables" description="View the latest examination timetables published by WAEC Ghana." />
               </div>
             </div>
           </div>
@@ -72,10 +72,9 @@ export default function FinalYearStudentsPage() {
               <p className="mt-5 text-base leading-8 text-[#666666]">Follow school directions first, then use this checklist to organize your personal preparation.</p>
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {preparationSteps.map((step, index) => (
-                <article key={step.title} className="flex min-h-64 flex-col rounded-[12px] border border-[#0D2E6B]/10 bg-white p-7 shadow-[0_14px_34px_rgba(13,46,107,0.05)]">
-                  <span className="text-xs font-black text-[#8A6700]">{String(index + 1).padStart(2, "0")}</span>
-                  <h3 className="mt-8 text-xl font-black text-[#1A1A1A]">{step.title}</h3>
+              {preparationSteps.map((step) => (
+                <article key={step.title} className="flex min-h-52 flex-col justify-center rounded-[12px] border border-[#0D2E6B]/10 bg-white p-7 shadow-[0_14px_34px_rgba(13,46,107,0.05)]">
+                  <h3 className="text-xl font-black text-[#1A1A1A]">{step.title}</h3>
                   <p className="mt-4 text-sm leading-7 text-[#666666]">{step.description}</p>
                 </article>
               ))}
@@ -111,11 +110,11 @@ export default function FinalYearStudentsPage() {
               <p className="mt-7 text-sm leading-7 text-[#666666]">If a current document has not been published on this website, students should ask their class teacher, Head of Department or the school administration.</p>
             </div>
 
-            <div className="space-y-5">
-              <AcademicLink href="/admissions/student-guidelines#student-conduct-discipline" icon={<ShieldCheck size={22} />} title="Examination Conduct" description="Review the school rules on examination misconduct, discipline and approved sanctions." />
-              <AcademicLink href="https://waecgh.org/home/rules-and-regulations/" external icon={<ExternalLink size={22} />} title="WAEC Rules & Regulations" description="Read the official examination rules and regulations published by WAEC Ghana." />
-              <AcademicLink href="/resources#educational-resources" icon={<BookOpenCheck size={22} />} title="Educational Resources" description="Explore ANSECO's library, laboratories and learning facilities." />
-              <AcademicLink href="/contact" icon={<GraduationCap size={22} />} title="Ask the School" description="Contact ANSECO when a final-year notice or requirement needs clarification." />
+            <div className="grid gap-5 sm:grid-cols-2">
+              <AcademicLink href="/admissions/student-guidelines#student-conduct-discipline" title="Examination Conduct" description="Review the school rules on examination misconduct, discipline and approved sanctions." />
+              <AcademicLink href="https://waecgh.org/home/rules-and-regulations/" external title="WAEC Rules & Regulations" description="Read the official examination rules and regulations published by WAEC Ghana." />
+              <AcademicLink href="/resources#educational-resources" title="Educational Resources" description="Explore ANSECO's library, laboratories and learning facilities." />
+              <AcademicLink href="/contact" title="Ask the School" description="Contact ANSECO when a final-year notice or requirement needs clarification." />
             </div>
           </div>
         </section>
@@ -134,13 +133,13 @@ export default function FinalYearStudentsPage() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </div>
   );
 }
 
-function AcademicLink({ href, icon, title, description, external = false }: { href: string; icon: ReactNode; title: string; description: string; external?: boolean }) {
+function AcademicLink({ href, title, description, external = false }: { href: string; title: string; description: string; external?: boolean }) {
   const className = "group flex min-h-48 flex-col rounded-[12px] border border-[#0D2E6B]/10 bg-white p-6 shadow-[0_14px_34px_rgba(13,46,107,0.05)] transition-colors hover:border-[#C9990A]";
-  const content = <><span className="text-[#8A6700]">{icon}</span><h3 className="mt-7 text-xl font-black text-[#1A1A1A]">{title}</h3><p className="mt-3 text-sm leading-7 text-[#666666]">{description}</p><span className="mt-auto inline-flex items-center gap-2 pt-5 text-xs font-black uppercase tracking-[0.1em] text-[#1A1A1A]">Open <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" /></span></>;
+  const content = <><h3 className="text-xl font-black text-[#1A1A1A]">{title}</h3><p className="mt-3 text-sm leading-7 text-[#666666]">{description}</p><span className="mt-auto inline-flex items-center gap-2 pt-5 text-xs font-black uppercase tracking-[0.1em] text-[#1A1A1A]">Open <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" /></span></>;
   return external ? <a href={href} target="_blank" rel="noreferrer" className={className}>{content}</a> : <Link href={href} className={className}>{content}</Link>;
 }

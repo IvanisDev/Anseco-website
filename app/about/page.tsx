@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpenText, Music2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "About ANSECO",
-  description: `Meet ${siteConfig.fullName} through its leadership, motto, vision, mission and values.`
-};
+  description: `Meet ${siteConfig.fullName} through its leadership, motto, vision, mission and values.`,
+  path: "/about/"
+});
 
 const values = [
   {
@@ -154,9 +155,6 @@ export default function AboutPage() {
       <section id="school-anthem" className="bg-white px-5 py-20 sm:px-8 lg:px-12">
         <div className="mx-auto grid max-w-[1160px] gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
           <div className="bg-[#0D2E6B] p-8 text-white shadow-[0_20px_50px_rgba(13,46,107,0.12)]">
-            <div className="mb-10 flex h-16 w-16 items-center justify-center rounded-[12px] bg-[#C9990A]/25 text-[#E4B52B]">
-              <Music2 size={30} strokeWidth={2.2} />
-            </div>
             <h2 className="font-display text-3xl font-bold leading-tight sm:text-4xl">School Anthem</h2>
             <p className="mt-6 text-base leading-8 text-white/65">
               The school anthem reflects the shared identity and spirit of Mother ANSECO and the values of Truth
@@ -191,15 +189,12 @@ export default function AboutPage() {
 
       <section className="bg-[#F8F7F3] px-5 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto flex min-h-[340px] max-w-[1160px] flex-col justify-center gap-8 border-l-4 border-[#C9990A] bg-white px-8 py-12 shadow-[0_18px_45px_rgba(13,46,107,0.06)] lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-start gap-5">
-            <BookOpenText className="mt-1 shrink-0 text-[#8A6700]" size={28} />
-            <div>
-              <h2 className="font-display mt-2 text-3xl font-bold text-[#1A1A1A]">Discover Our Story</h2>
-              <p className="mt-3 max-w-2xl text-base leading-7 text-[#666666]">
-                Learn about the people and events that shaped Anlo Senior High School from its early years to the
-                institution it is today.
-              </p>
-            </div>
+          <div>
+            <h2 className="font-display mt-2 text-3xl font-bold text-[#1A1A1A]">Discover Our Story</h2>
+            <p className="mt-3 max-w-2xl text-base leading-7 text-[#666666]">
+              Learn about the people and events that shaped Anlo Senior High School from its early years to the
+              institution it is today.
+            </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:w-[620px]">
             {[

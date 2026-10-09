@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { AmaAssistant } from "@/components/ama-assistant";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/config/site";
+import { DEFAULT_SOCIAL_IMAGE } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.fullName}`
   },
   description: `${siteConfig.fullName} in ${siteConfig.location}. Admissions, learning areas, news, events and alumni information.`,
+  alternates: { canonical: "/" },
   icons: {
     icon: [
       { url: "/favicon.ico?v=2", sizes: "any" },
@@ -28,8 +29,14 @@ export const metadata: Metadata = {
     description: `${siteConfig.fullName} official school website.`,
     url: siteConfig.url,
     siteName: siteConfig.schoolName,
-    images: ["/images/campus.svg"],
+    images: [{ url: DEFAULT_SOCIAL_IMAGE, alt: "ANSECO campus and school grounds" }],
     type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.fullName,
+    description: `${siteConfig.fullName} official school website.`,
+    images: [DEFAULT_SOCIAL_IMAGE]
   }
 };
 
@@ -37,9 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <Suspense fallback={null}>
-          <ScrollToTop />
-        </Suspense>
+        <ScrollToTop />
         <a className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border-2 focus:border-[#0D2E6B] focus:bg-white focus:px-5 focus:py-3 focus:font-bold focus:text-[#1A1A1A]" href="#main">
           Skip to content
         </a>

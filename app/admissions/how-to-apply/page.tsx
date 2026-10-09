@@ -1,10 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { admissionSteps } from "@/lib/admissions-content";
 
-export const metadata: Metadata = { title: "How to Apply", description: "Application and reporting steps for students and parents or guardians joining Anlo Senior High School through CSSPS." };
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
+  title: "How to Apply",
+  description: "Application and reporting steps for students and parents or guardians joining Anlo Senior High School through CSSPS.",
+  path: "/admissions/how-to-apply/"
+});
 
 export default function HowToApplyPage() {
   return (

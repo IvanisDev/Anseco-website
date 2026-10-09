@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { BookOpen, Building2, ChevronRight, FlaskConical, Monitor, Palette } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "Facilities & Resources",
-  description: "Educational and campus-life facilities available to ANSECO students."
-};
+  description: "Educational and campus-life facilities available to ANSECO students.",
+  path: "/resources/"
+});
 
 const educationalFacilities = [
   { title: "Science Laboratory", icon: FlaskConical, image: "/images/exams.svg", label: "Science and Practical Learning", description: "Practical spaces support scientific observation, investigation and curriculum-based laboratory work.", note: "Students use laboratory facilities during approved practical lessons under staff supervision." },

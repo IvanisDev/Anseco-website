@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import { NewsFilter } from "@/components/news-filter";
 import { PageHeader } from "@/components/page-header";
 import { getAllNewsPosts } from "@/lib/content";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "News",
-  description: "School notices, announcements and updates from ANSECO."
-};
+  description: "School notices, announcements and updates from ANSECO.",
+  path: "/news/"
+});
 
 export default function NewsPage() {
   const posts = getAllNewsPosts();

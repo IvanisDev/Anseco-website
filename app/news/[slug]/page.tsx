@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Badge } from "@/components/ui/badge";
 import { getNewsPost, getNewsPosts } from "@/lib/content";
+import { pageMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
 
 export function generateStaticParams() {
@@ -15,15 +16,12 @@ type SlugParams = Promise<{ slug: string }>;
 export async function generateMetadata({ params }: { params: SlugParams }): Promise<Metadata> {
   const { slug } = await params;
   const post = getNewsPost(slug);
-  return {
+  return pageMetadata({
     title: post?.title || "News",
-    description: post?.excerpt,
-    openGraph: {
-      title: post?.title,
-      description: post?.excerpt,
-      images: post?.coverImage ? [post.coverImage] : undefined
-    }
-  };
+    description: post?.excerpt || "News and updates from ANSECO.",
+    path: `/news/${slug}/`,
+    image: post?.coverImage
+  });
 }
 
 export default async function NewsPostPage({ params }: { params: SlugParams }) {
@@ -38,7 +36,7 @@ export default async function NewsPostPage({ params }: { params: SlugParams }) {
         <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">{post.title}</h1>
         <p className="mt-4 text-muted-foreground">{formatDate(post.date)}</p>
         <div className="relative mt-8 aspect-[16/8] overflow-hidden border">
-          <Image src={post.coverImage} alt="" fill sizes="100vw" className="object-cover" priority />
+          <Image src={post.coverImage} alt={`Illustration for ${post.title}`} fill sizes="100vw" className="object-cover" priority />
         </div>
       </header>
       <div className="container pb-12">

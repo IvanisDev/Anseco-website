@@ -1,9 +1,13 @@
-import type { Metadata } from "next";
 import { UserRound } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { diasporaLeaders, globalLeaders } from "@/data/alumni";
 
-export const metadata: Metadata = { title: "Alumni Leadership", description: "Confirmed ANSSOSA Global and Diaspora executives." };
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
+  title: "Alumni Leadership",
+  description: "Confirmed ANSSOSA Global and Diaspora executives.",
+  path: "/alumni/leadership/"
+});
 
 export default function AlumniLeadershipPage() {
   return <div className="bg-[#F8F7F3]"><PageHeader eyebrow="Alumni" title="Alumni Leadership" description="Confirmed ANSSOSA Global and Diaspora executives are presented as distinct leadership structures." /><div className="mx-auto max-w-[1400px] space-y-16 px-5 py-20 sm:px-8 lg:px-12"><LeadershipGroup title="ANSSOSA Global Executives" leaders={globalLeaders} /><LeadershipGroup title="ANSSOSA Diaspora Executives" leaders={diasporaLeaders} /></div></div>;

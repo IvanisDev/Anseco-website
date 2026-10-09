@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import { AlertTriangle, Scale } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { reportingNotices, studentGuidelines } from "@/lib/admissions-content";
 import { conductCategories } from "@/lib/conduct-content";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "School Regulations",
-  description: "School regulations, student conduct and disciplinary guidelines for ANSECO."
-};
+  description: "School regulations, student conduct and disciplinary guidelines for ANSECO.",
+  path: "/admissions/student-guidelines/"
+});
 
 export default function StudentGuidelinesPage() {
   return (

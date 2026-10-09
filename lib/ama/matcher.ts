@@ -75,7 +75,10 @@ function scoreEntry(question: string, entry: AmaKnowledgeEntry) {
 export type IntentMatch = {
   entry?: AmaKnowledgeEntry;
   confidence: "high" | "moderate" | "low";
-  clarification?: string[];
+  clarification?: {
+    prompt: string;
+    options: string[];
+  };
 };
 
 export function matchAmaIntent(question: string, entries: AmaKnowledgeEntry[]): IntentMatch {
@@ -84,7 +87,30 @@ export function matchAmaIntent(question: string, entries: AmaKnowledgeEntry[]): 
   if (/^(i need |show me |what are |tell me about )?(the )?requirements?$/.test(normalized)) {
     return {
       confidence: "moderate",
-      clarification: ["Admission requirements", "Boarding requirements", "Day student requirements", "Transcript requirements"]
+      clarification: {
+        prompt: "Which requirements do you mean?",
+        options: ["Admission requirements", "Items to bring", "Boarding requirements", "Day student requirements"]
+      }
+    };
+  }
+
+  if (/^(dates?|school dates?|calendar)$/.test(normalized)) {
+    return {
+      confidence: "moderate",
+      clarification: {
+        prompt: "Which dates are you looking for?",
+        options: ["Reopening dates", "PTA meetings", "Examinations", "Term calendar"]
+      }
+    };
+  }
+
+  if (/^(contact|contact details|school contact)$/.test(normalized)) {
+    return {
+      confidence: "moderate",
+      clarification: {
+        prompt: "What contact information do you need?",
+        options: ["Phone numbers", "Postal address", "Directions"]
+      }
     };
   }
 

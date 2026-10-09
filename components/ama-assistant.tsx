@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { ArrowUp, MessageCircle, X } from "lucide-react";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { amaKnowledge } from "@/data/ama-knowledge";
+import { siteConfig } from "@/config/site";
 import { resolveAcademicQuestion, type AcademicContext } from "@/lib/ama/academics";
 import { resolveContextualIntent, updateConversationContext, type AmaConversationContext } from "@/lib/ama/context";
 import { matchAmaIntent } from "@/lib/ama/matcher";
@@ -29,7 +30,9 @@ type AmaAnswer = {
 type AmaUserType = "current_student" | "prospective_jhs_student" | "visitor" | "alumni";
 type AcademicAnswer = NonNullable<ReturnType<typeof resolveAcademicQuestion>>;
 
-const audienceChoices = ["Current ANSECO Student", "JHS Student Considering ANSECO", "Visitor", "Alumni"];
+const skipAudienceChoice = "Skip for now";
+const audienceChoices = ["Current ANSECO Student", "JHS Student Considering ANSECO", "Visitor", "Alumni", skipAudienceChoice];
+const responseDelay = 1200;
 
 function userTypeFromChoice(value: string): AmaUserType | undefined {
   if (value === audienceChoices[0]) return "current_student";
@@ -277,7 +280,6 @@ export function AmaAssistant() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
-  const [mobileDialog, setMobileDialog] = useState(false);
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState<AmaMessage[]>([]);
   const [isTyping, setIsTyping] = useState(false);
@@ -293,6 +295,7 @@ export function AmaAssistant() {
   const academicContextRef = useRef<AcademicContext | undefined>(undefined);
   const conversationContextRef = useRef<AmaConversationContext>({});
   const userTypeRef = useRef<AmaUserType | undefined>(undefined);
+  const roleGateSkippedRef = useRef(false);
   const pendingQuestionRef = useRef<string | undefined>(undefined);
 
   const closeAma = useCallback(() => {
@@ -308,8 +311,6 @@ export function AmaAssistant() {
 
   function openAma() {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    const isMobile = window.matchMedia("(max-width: 639px)").matches;
-    setMobileDialog(isMobile);
     setClosing(false);
     setOpen(true);
   }
@@ -323,7 +324,7 @@ export function AmaAssistant() {
     if (isMobile) document.body.style.overflow = "hidden";
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") closeAma();
-      if (!isMobile || event.key !== "Tab" || !panelRef.current) return;
+      if (event.key !== "Tab" || !panelRef.current) return;
 
       const focusable = Array.from(
         panelRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')
@@ -360,6 +361,7 @@ export function AmaAssistant() {
     if (storedUserType === "current_student" || storedUserType === "prospective_jhs_student" || storedUserType === "visitor" || storedUserType === "alumni") {
       userTypeRef.current = storedUserType;
     }
+    roleGateSkippedRef.current = window.sessionStorage.getItem("ama-role-skipped") === "true";
   }, []);
 
   useEffect(() => {
@@ -377,14 +379,15 @@ export function AmaAssistant() {
     const trimmed = value.trim();
     if (!trimmed || isTyping) return;
     const selectedUserType = userTypeFromChoice(trimmed);
+    const skippedAudience = trimmed === skipAudienceChoice;
 
-    if (!userTypeRef.current && !selectedUserType) {
+    if (!userTypeRef.current && !roleGateSkippedRef.current && !selectedUserType && !skippedAudience) {
       pendingQuestionRef.current = trimmed;
       setMessages((current) => [...current, { id: ++messageId.current, role: "user", text: trimmed }]);
       setQuestion("");
       setIsTyping(true);
       await new Promise<void>((resolve) => {
-        responseTimerRef.current = setTimeout(resolve, 5000);
+        responseTimerRef.current = setTimeout(resolve, responseDelay);
       });
       responseTimerRef.current = null;
       setMessages((current) => [...current, {
@@ -398,6 +401,14 @@ export function AmaAssistant() {
     }
 
     let questionToResolve = trimmed;
+    if (skippedAudience) {
+      roleGateSkippedRef.current = true;
+      window.sessionStorage.setItem("ama-role-skipped", "true");
+      if (pendingQuestionRef.current) {
+        questionToResolve = pendingQuestionRef.current;
+        pendingQuestionRef.current = undefined;
+      }
+    }
     if (selectedUserType) {
       userTypeRef.current = selectedUserType;
       window.sessionStorage.setItem("ama-user-type", selectedUserType);
@@ -466,7 +477,7 @@ export function AmaAssistant() {
     const match = academicAnswer ? undefined : contextualMatch || intent.entry;
     const clarification = academicAnswer ? undefined : intent.clarification;
     updateConversationContext(conversationContextRef.current, match);
-    const fallback = "I do not have verified information about that yet. Please contact ANSECO for an approved answer. Do not share student names, grades, admission numbers, or other personal records here.";
+    const fallback = `I don't have verified information about that yet. I can help with admissions, school dates, Learning Areas, campus life, school history, and contact details. You can also call the school office on ${siteConfig.phones.map((phone) => phone.label).join(" or ")}. Please don't share student names, grades, or admission numbers here.`;
     const userId = ++messageId.current;
     setMessages((current) => [...current, { id: userId, role: "user", text: trimmed }]);
     setQuestion("");
@@ -474,7 +485,7 @@ export function AmaAssistant() {
 
     if (!compoundAnswer && !academicAnswer && !match && !clarification && !siteIndexPromiseRef.current) siteIndexPromiseRef.current = buildSiteIndex();
     const typingDelay = new Promise<void>((resolve) => {
-      responseTimerRef.current = setTimeout(resolve, 5000);
+      responseTimerRef.current = setTimeout(resolve, responseDelay);
     });
     const [siteIndex] = await Promise.all([
       compoundAnswer || academicAnswer || match || clarification ? Promise.resolve([] as SiteKnowledgeChunk[]) : siteIndexPromiseRef.current!,
@@ -489,7 +500,7 @@ export function AmaAssistant() {
       : match
         ? { answer: match.answer, href: match.href, linkLabel: match.linkLabel, followUps: match.followUps }
         : clarification
-          ? { answer: "I can help with that. Which requirements are you looking for?", followUps: clarification }
+          ? { answer: clarification.prompt, followUps: clarification.options }
           : retrieved;
     const hideAcademicLink = Boolean(academicAnswer) && (userTypeRef.current === "current_student" || userTypeRef.current === "alumni");
     const hideWhyAnsecoLink = match?.id === "why-anseco" && (userTypeRef.current === "current_student" || userTypeRef.current === "alumni");
@@ -522,7 +533,7 @@ export function AmaAssistant() {
         <section
           ref={panelRef}
           role="dialog"
-          aria-modal={mobileDialog}
+          aria-modal="true"
           aria-labelledby="ama-title"
           className={`flex h-full w-full origin-bottom-right flex-col overflow-hidden rounded-[12px] border border-[#0D2E6B]/15 bg-white shadow-none sm:h-[min(620px,calc(100dvh-2rem))] sm:w-[min(390px,calc(100vw-2rem))] sm:shadow-[0_28px_80px_rgba(6,26,67,0.3)] ${closing ? "animate-out fade-out-0 zoom-out-95 slide-out-to-bottom-2 duration-200" : "animate-in fade-in-0 zoom-in-95 slide-in-from-bottom-2 duration-200"}`}
         >
@@ -540,6 +551,7 @@ export function AmaAssistant() {
             <div className="max-w-[90%] rounded-[12px] rounded-tl-none bg-white p-4 text-sm leading-6 text-[#333333] shadow-sm">
               <p className="font-black text-[#1A1A1A]">Woezɔ! I&apos;m Ama.</p>
               <p className="mt-1">I can help you find approved information about admissions, Learning Areas, campus life, events, school history, alumni services, and contact details.</p>
+              <p className="mt-2 text-xs text-[#666666]">Ama answers questions about ANSECO only. Please don&apos;t share names, grades, or admission numbers.</p>
             </div>
 
             {messages.length === 0 ? (

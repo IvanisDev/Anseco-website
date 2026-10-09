@@ -1,15 +1,17 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, BookOpenCheck, GraduationCap } from "lucide-react";
 import { LearningAreaAccordion } from "@/components/learning-area-accordion";
 import { LearningAreaCards } from "@/components/learning-area-cards";
 import { PageHeader } from "@/components/page-header";
 import { learningAreaSummaries } from "@/data/learning-area-summaries";
+import { departmentHeads } from "@/data/school-leadership";
 
-export const metadata: Metadata = {
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata({
   title: "Learning Areas",
-  description: "Explore academic learning areas, core subjects and elective combinations at Anlo Senior High School."
-};
+  description: "Explore academic learning areas, core subjects and elective combinations at Anlo Senior High School.",
+  path: "/learning-areas/"
+});
 
 const coreSubjects = [
   "English Language",
@@ -18,19 +20,6 @@ const coreSubjects = [
   "Social Studies",
   "ICT",
   "Physical Education and Health"
-];
-
-const departmentHeads = [
-  { name: "Margaret M. Dodor", department: "Science" },
-  { name: "Mr. Jonas Hatekah", department: "Mathematics" },
-  { name: "Mr. Mathew Ganadzi", department: "General Arts" },
-  { name: "Mr. Festus K. Sorkpor", department: "Languages" },
-  { name: "Madam Esther A. Gabla", department: "Agriculture" },
-  { name: "Mr. Saviour Wordzro", department: "Visual and Performing Arts" },
-  { name: "Madam Rejoice Vormawor", department: "Home Economics" },
-  { name: "Mr. Edwin Atitsogbui", department: "Business" },
-  { name: "Mr. Philip Mifetu", department: "Information and Comm. Technology" },
-  { name: "Mr. Felix Q. Ladeka", department: "Physical Education and Health" }
 ];
 
 const electiveSections = [

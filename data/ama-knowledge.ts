@@ -1,3 +1,5 @@
+import { siteConfig } from "@/config/site";
+
 export type AmaKnowledgeEntry = {
   id: string;
   patterns: RegExp[];
@@ -61,6 +63,17 @@ export const amaKnowledge: AmaKnowledgeEntry[] = [
     answer: "Anlo Senior High School (ANSECO) is a public senior high school in Anloga, Volta Region. Guided by the motto 'Truth and Service,' the school is committed to academic development, character formation, discipline, and service.",
     href: "/about",
     linkLabel: "About ANSECO"
+  },
+  {
+    id: "out-of-scope",
+    patterns: [
+      /national anthem/i,
+      /\b(write|do|complete|solve)\b.*\b(essay|homework|assignment)\b/i,
+      /\b(essay|homework|assignment)\b.*\b(for me|answer|solution)\b/i,
+      /\bwho (will|is going to) win\b/i,
+      /^what is \d+\s*(divided by|times|multiplied by|plus|minus)\s*\d+/i
+    ],
+    answer: "That's outside what I cover. I only answer questions about ANSECO using information published on the school website, so I can't do homework, assignments, or general-knowledge questions. If your question is school-related, ask me about admissions, dates, Learning Areas, or contact details."
   },
   {
     id: "school-anthem",
@@ -220,6 +233,16 @@ export const amaKnowledge: AmaKnowledgeEntry[] = [
     linkLabel: "Explore Day Student Life"
   },
   {
+    id: "reporting-process",
+    patterns: [/how.*report to (anseco|the school)/i, /reporting process/i, /where.*report.*(anseco|school)/i, /new student.*report/i],
+    aliases: ["how do i report to the school", "where should a new student report", "student reporting process"],
+    keywords: { report: 3, reporting: 4, registration: 2, student: 1 },
+    answer: "After confirming the student's CSSPS placement, review the current ANSECO prospectus and reporting requirements. Report to ANSECO on the school's official reporting date with the required documents, then follow the registration instructions provided at the school.",
+    href: "/admissions/how-to-apply",
+    linkLabel: "View Reporting Steps",
+    followUps: ["What documents do I need?", "Boarding requirements", "Day student requirements"]
+  },
+  {
     id: "apply",
     patterns: [/how.*apply/i, /application/i, /admission process/i, /join anseco/i, /cssps/i, /placement/i],
     aliases: ["how do i apply", "how can my child get admission", "how do i get admitted", "how can i join anseco"],
@@ -329,6 +352,15 @@ export const amaKnowledge: AmaKnowledgeEntry[] = [
     linkLabel: "Explore Our History"
   },
   {
+    id: "pta",
+    patterns: [/\bpta\b/i, /parent teacher association/i],
+    aliases: ["tell me about the pta", "when is the next pta meeting"],
+    keywords: { pta: 5, parent: 2, teacher: 2, meeting: 2 },
+    answer: "ANSECO publishes confirmed PTA meeting information through its Events and News pages. Ama will not guess a future meeting date; please open the published event record for the latest available details.",
+    href: "/events/pta-meeting",
+    linkLabel: "View PTA Meeting Information"
+  },
+  {
     id: "events",
     patterns: [/event/i, /calendar/i, /what.*happening/i, /upcoming/i, /next.*event/i],
     aliases: ["what is happening at anseco", "what are the upcoming events", "next school event"],
@@ -356,7 +388,7 @@ export const amaKnowledge: AmaKnowledgeEntry[] = [
     patterns: [/contact/i, /phone/i, /telephone/i, /address/i, /location/i, /where.*anseco/i, /where.*school/i],
     aliases: ["how do i contact anseco", "what is the school phone number", "where is anseco located"],
     keywords: { contact: 4, phone: 4, telephone: 4, number: 1, address: 4, location: 3, located: 3 },
-    answer: "ANSECO is located in Anloga, Volta Region. The postal address is Anlo SHS, P.O. Box AW10, Anloga. You can call 0249362800 or 0244660594.",
+    answer: `ANSECO is located in ${siteConfig.location}. The postal address is ${siteConfig.address}. You can call ${siteConfig.phones.map((phone) => phone.label).join(" or ")}.`,
     href: "/contact",
     linkLabel: "Contact ANSECO"
   }

@@ -24,8 +24,4 @@ export const houses = [
   { name: "Fiagbe House", colour: "Blue", hex: "#1D4ED8" },
   { name: "Sorkpor House", colour: "Yellow", hex: "#FACC15" }
 ];
-export const houseParents = [
-  { name: "Mr. Emmanuel M.C. Agbakpe", role: "Snr. Housemaster" },
-  { name: "Madam Sophia K. Komabu", role: "Snr. Housemistress" }
-];
 export const boardingFeatures = ["Separate dormitories", "Meals provided", "Evening prep", "Weekend activities", "House system", "Campus security"];

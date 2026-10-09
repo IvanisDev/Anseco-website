@@ -54,7 +54,7 @@ The project uses `output: "export"` in `next.config.mjs`, so the static export i
 The site URL has a safe fallback in `config/site.ts`.
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://anseco.edu.gh
+NEXT_PUBLIC_SITE_URL=https://anseco-website.netlify.app
 ```
 
 ## Staff content updates
